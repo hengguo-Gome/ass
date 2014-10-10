@@ -14,6 +14,12 @@ public class ShUser {
     private String password;
 
     private String fromtype;
+    
+    private String webcode;
+    
+    private String companyCode;
+    
+    
 
     public String getName() {
         return name;
@@ -39,11 +45,29 @@ public class ShUser {
         this.password = password;
     }
 
-    public String getFromtype() {
-        return fromtype;
-    }
+	public String getFromtype() {
+		return fromtype;
+	}
 
-    public void setFromtype(String fromtype) {
-        this.fromtype = fromtype;
-    }
+	public void setFromtype(String fromtype) {
+		this.fromtype = fromtype;
+	}
+
+	public String getWebcode() {
+		return webcode;
+	}
+
+	public void setWebcode(String webcode) {
+		this.webcode = webcode;
+	}
+
+	public String getCompanyCode() {
+		return companyCode;
+	}
+
+	public void setCompanyCode(String companyCode) {
+		this.companyCode = companyCode;
+	}
+
+    
 }

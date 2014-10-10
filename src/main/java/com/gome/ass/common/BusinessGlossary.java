@@ -6,6 +6,13 @@ package com.gome.ass.common;
  * @Copyright(c) gome inc Gome Co.,LTD
  */
 public interface BusinessGlossary {
+public static final String MQ_MESSAGE_TYPE_HUIZHI = "NOTE_REPLY";
+	
+	public static final String MQ_MESSAGE_STATUS_READY = "READY";
+	
+	public static final String MQ_MESSAGE_STATUS_SUCCESS = "SUCCESS";
+	
+	public static final String MQ_MESSAGE_STATUS_FAIL = "FAIL";
 	
 	/**
 	 * 苹果消息推送默认声音
@@ -15,6 +22,28 @@ public interface BusinessGlossary {
 	 * 苹果消息推送默认标识
 	 */
 	public static final Integer APPLE_NOTIFICATION_BADGE = 1;
+	
+	//百度推送设备类型
+	/**
+	 * web
+	 */
+	public static final Integer BAIDU_NOTIFICATION_DEVICE_TYPE_WEB = 1;
+	/**
+	 * pc
+	 */
+	public static final Integer BAIDU_NOTIFICATION_DEVICE_TYPE_PC = 2;
+	/**
+	 * android
+	 */
+	public static final Integer BAIDU_NOTIFICATION_DEVICE_TYPE_ANDROID = 3;
+	/**
+	 * ios
+	 */
+	public static final Integer BAIDU_NOTIFICATION_DEVICE_TYPE_IOS = 4;
+	/**
+	 * wp
+	 */
+	public static final Integer BAIDU_NOTIFICATION_DEVICE_TYPE_WP = 5;
 	
 	String CRM_INTERFACE_WORKER = "CRM078";
 	String CRM_INTERFACE_WEBBASIC = "CRM076";
@@ -58,4 +87,18 @@ public interface BusinessGlossary {
 	public static final String SH_INSTALL_INFO = "shazxx_";
 	public static final String SH_INSTALL_STATUS = "shanzt_";
 	public static final String SH_WORKERS_INSTALLS = "shsjan_";
+	
+	//发送消息设备类型
+	/**
+	 * 安卓设备
+	 */
+	public static final String DEVICE_TYPE_ANDROID = "android";
+	/**
+	 * IOS设备
+	 */
+	public static final String DEVICE_TYPE_IOS = "ios";
+	
+	public static final Integer USER_GOME = 0;
+	public static final Integer USER_THIRD_PART = 1;
+	public static final Integer USER_ADMIN = 2;
 }

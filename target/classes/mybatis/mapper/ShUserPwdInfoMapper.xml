@@ -3,7 +3,7 @@
 <mapper namespace="com.gome.ass.dao.users.ShUserPwdInfoDao">
   <resultMap id="BaseResultMap" type="com.gome.ass.entity.ShUserPwdInfo">
     <id column="user_id" property="userId" jdbcType="VARCHAR" />
-    <id column="user_type" property="userType" jdbcType="CHAR" />
+    <id column="user_type" property="userType" jdbcType="INTEGER" />
     <result column="password" property="password" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List">
@@ -13,27 +13,27 @@
     select
     <include refid="Base_Column_List" />
     from sh_user_pwd_info
-    where user_id = #{account,jdbcType=VARCHAR} AND user_type = #{fromType, jdbcType=CHAR}
+    where user_id = #{account,jdbcType=VARCHAR} AND user_type = #{fromType, jdbcType=INTEGER}
   </select>
   <select id="selectByObject" parameterType="com.gome.ass.entity.ShUserPwdInfo" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from sh_user_pwd_info
-    where user_id = #{userId,jdbcType=VARCHAR} AND user_type = #{userType, jdbcType=CHAR}
+    where user_id = #{userId,jdbcType=VARCHAR} AND user_type = #{userType, jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.util.Map">
     delete from sh_user_pwd_info
     where user_id =
-    #{userId,jdbcType=VARCHAR} AND user_type = #{userType, jdbcType=CHAR}
+    #{userId,jdbcType=VARCHAR} AND user_type = #{userType, jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.gome.ass.entity.ShUserPwdInfo">
     insert into sh_user_pwd_info (user_id, password, user_type)
-    values (#{userId,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{userType,jdbcType=CHAR}
+    values (#{userId,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{userType,jdbcType=INTEGER}
     )
   </insert>
   <insert id="insertByMap" parameterType="java.util.Map">
     insert into sh_user_pwd_info (user_id, password, user_type)
-    values (#{userId,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{userType,jdbcType=CHAR}
+    values (#{userId,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{userType,jdbcType=INTEGER}
     )
   </insert>
   <insert id="insertSelective" parameterType="java.util.Map">
@@ -57,7 +57,7 @@
         #{password,jdbcType=VARCHAR},
       </if>
       <if test="userType != null">
-        #{userType,jdbcType=VARCHAR},
+        #{userType,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -65,13 +65,13 @@
     update sh_user_pwd_info
     set password =
     #{password,jdbcType=VARCHAR},
-    user_type = #{userType,jdbcType=VARCHAR}
-    where user_id = #{userId,jdbcType=VARCHAR} AND user_type = #{userType, jdbcType=CHAR}
+    user_type = #{userType,jdbcType=INTEGER}
+    where user_id = #{userId,jdbcType=VARCHAR} AND user_type = #{userType, jdbcType=INTEGER}
   </update>
   <update id="updateByObject" parameterType="com.gome.ass.entity.ShUserPwdInfo">
     update sh_user_pwd_info
     set password =
     #{password,jdbcType=VARCHAR}
-    where user_id = #{userId,jdbcType=VARCHAR} AND user_type = #{userType, jdbcType=CHAR}
+    where user_id = #{userId,jdbcType=VARCHAR} AND user_type = #{userType, jdbcType=INTEGER}
   </update>
 </mapper>

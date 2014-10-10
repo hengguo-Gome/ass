@@ -23,8 +23,9 @@
 					<ul>
                         <li>
                             <select id="fromType" name="fromType" style="width:300px;height:40px;" editable="false" class="easyui-combobox" >
-                                <option value="emp" selected>国美用户</option>
-                                <option value="jl">第三方网点账户</option>
+                                <option value="0" selected>国美用户</option>
+                                <option value="1">第三方网点账户</option>
+                                <option value="2">系统自建用户</option>
                             </select>
                         </li>
 						<li><input id="account" name="account" type="text" class="inputbox inputTxtByName" placeholder="用户名" /></li>

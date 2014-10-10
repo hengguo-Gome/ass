@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
+import com.gome.ass.common.Constrants;
 import com.gome.ass.dao.wsdl.EmpDao;
 import com.gome.ass.entity.EmpAccount;
 import com.gome.ass.entity.EmpPosition;
@@ -125,17 +126,9 @@ public class EmpServiceImpl implements EmpService {
                     ShUserPwdInfo shUserPwdInfo = new ShUserPwdInfo();
                     shUserPwdInfo.setUserId(account.getApAccount());
                     shUserPwdInfo.setPassword(account.getAdAccountpwd());
-                    shUserPwdInfo.setUserType("emp");
-                    try{
-                        shUserPwdInfoService.insert(shUserPwdInfo);
-                    } catch(DataAccessException  e){
-                         if(e.getCause() instanceof MySQLIntegrityConstraintViolationException){
-                             //ignored 推送已经存在用户数据时不更新密码
-                         }else {
-                             log.error(e.getMessage(), e);
-                             e.printStackTrace();
-                         }
-                     }
+                    shUserPwdInfo.setUserType(Constrants.GOME_USER);
+                    shUserPwdInfoService.insert(shUserPwdInfo);
+                    
 				}else{
 					account.setNeedmodify(tempAcc.getNeedmodify());
 					account.setApAccountpwd(tempAcc.getApAccountpwd());

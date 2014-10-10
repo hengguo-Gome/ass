@@ -67,5 +67,25 @@
 		<property name="destination" ref="wlLegInfoTopic" />
 		<property name="messageListener" ref="wlLegInfoListener" />
 	</bean>
+	
+	<!-- 管理员群发消息队列 -->
+	<bean id="tmsGroupMessageQueue" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="tmsGroupMessageQueue" />
+	</bean>
+
+	<bean id="messageGroupPushMQSender" class="com.gome.ass.jms.ShMessageGroupPushMQSender">
+		<property name="jmsTemplate" ref="jmsTemplate"></property>
+		<property name="queue" ref="tmsGroupMessageQueue"></property>
+	</bean>
+
+	<bean id="messageGroupPushMQListener" class="com.gome.ass.jms.ShMessageGroupPushMQListener">
+	</bean>
+
+	<bean id="messageGroupPushMQConsumer"
+		class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="pooledJmsConnectionFactory" />
+		<property name="destination" ref="tmsGroupMessageQueue" />
+		<property name="messageListener" ref="messageGroupPushMQListener" />
+	</bean>
 
 </beans>
