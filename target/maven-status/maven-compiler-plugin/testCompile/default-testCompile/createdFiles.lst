@@ -1,0 +1,8 @@
+com\gome\ass\service\test\PersonServiceTest.class
+com\gome\ass\service\test\AppOrderTest.class
+com\gome\ass\service\test\PIHttpClientTest.class
+com\gome\ass\service\common\AbstractTransactionalSpringContextTestCase.class
+com\gome\ass\service\test\CrmMessageClientTest.class
+com\gome\ass\service\test\HttpClientTest.class
+com\gome\ass\service\test\AppUserClientTest.class
+com\gome\ass\service\wsdl\TestJLWebservice.class

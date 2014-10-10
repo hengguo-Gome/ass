@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns1:MT_CRM_Req xmlns:ns1="http://gome.com/DIS/MOBILE/Inbound">
+	<HEADER>
+		<INTERFACE_ID>$dataRecord.interfaceType</INTERFACE_ID>
+		<MESSAGE_ID>$dataRecord.messageId</MESSAGE_ID>
+		<SENDER>$dataRecord.sender</SENDER>
+		<RECEIVER>$dataRecord.receiver</RECEIVER>
+		<DTSEND>$dataRecord.dateSend</DTSEND>
+	</HEADER>
+	<XML_DATA>
+		<CRM263>
+			<!-- 金力第三方账号 -->
+			<CZY01>$jlAccount.id</CZY01>
+			<RYXX01>$jlAccount.accountNumber</RYXX01>
+			<RYXM>$jlAccount.accountName</RYXM>
+			<CZYMM>$jlAccount.accountPassword</CZYMM>
+			<GSXX01>$jlAccount.companyCode</GSXX01>
+			<BM01>$jlAccount.accountDept</BM01>
+			<AZWD01>$jlAccount.websiteCode</AZWD01>
+			<WDMC>$jlAccount.websiteName</WDMC>
+			<QSRQ>$jlAccount.startDate</QSRQ>
+			<ZZRQ>$jlAccount.endDate</ZZRQ>
+			<ZT>$jlAccount.status</ZT>
+			<CCRQ>$jlAccount.initPassword</CCRQ>
+			<ZXBJ>$jlAccount.accountStatus</ZXBJ>
+		</CRM263>
+		<CRM197>
+			<!-- 顾客资料、预约时间修改传售后APP(CRM197) -->
+			<DJHM>$crmInstallBillVO.jlOrderNum</DJHM>
+			<DJLX>$crmInstallBillVO.jlOrderType</DJLX>
+			<LXDH>$crmInstallBillVO.clientPhone</LXDH>
+			<LXDZ>$crmInstallBillVO.clientAddr</LXDZ>
+			<KHMC>$crmInstallBillVO.clientName</KHMC>
+			<SJHM>$crmInstallBillVO.clientOtherContact</SJHM>
+			<GHRQ>$crmInstallBillVO.purchaseDate</GHRQ>
+			<YYSJ>$crmInstallBillVO.appointDate</YYSJ>
+			<HWZTSJ>$crmInstallBillVO.goodsStatusDate</HWZTSJ>
+			<AZLX>$crmInstallBillVO.installType</AZLX>
+			<YYSJ_S>$crmInstallBillVO.appointStartDate</YYSJ_S>
+			<YYSJ_E>$crmInstallBillVO.appointEndDate</YYSJ_E>
+		</CRM197>
+	</XML_DATA>
+	<DETAIL>
+      <INTERFACE_O></INTERFACE_O>
+      <MESSAGE_O>$receipt.messageId</MESSAGE_O>
+      <RESULT>$receipt.result</RESULT>
+   </DETAIL>
+</ns1:MT_CRM_Req>

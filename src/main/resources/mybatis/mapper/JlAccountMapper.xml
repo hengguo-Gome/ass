@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gome.ass.dao.system.JlAccountDao">
+	<resultMap id="BaseResultMap" type="com.gome.ass.entity.JlAccount" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="account_number" property="accountNumber" jdbcType="VARCHAR" />
+    <result column="account_name" property="accountName" jdbcType="VARCHAR" />
+    <result column="account_password" property="accountPassword" jdbcType="VARCHAR" />
+    <result column="company_code" property="companyCode" jdbcType="VARCHAR" />
+    <result column="account_dept" property="accountDept" jdbcType="VARCHAR" />
+    <result column="website_code" property="websiteCode" jdbcType="VARCHAR" />
+    <result column="website_name" property="websiteName" jdbcType="VARCHAR" />
+    <result column="start_date" property="startDate" jdbcType="DATE" />
+    <result column="end_date" property="endDate" jdbcType="DATE" />
+    <result column="status" property="status" jdbcType="DECIMAL" />
+    <result column="init_password" property="initPassword" jdbcType="DATE" />
+    <result column="account_status" property="accountStatus" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List">
+		id, account_number, account_name, account_password, company_code, account_dept, website_code, 
+        website_name, start_date, end_date, status, init_password, account_status
+  </sql>
+  <delete id="deleteBatch" parameterType="java.util.List">
+        delete from jl_account
+        where id in
+        <foreach item="item" collection="list" open="(" separator=","
+            close=")">
+            #{item}
+        </foreach>
+  </delete>
+
+  <insert id="insertBatch" parameterType="java.util.List">
+        INSERT INTO jl_account (
+        <include refid="Base_Column_List" />
+        )
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id},#{item.accountNumber},#{item.accountName},#{item.accountPassword},#{item.companyCode},
+                #{item.accountDept},#{item.websiteCode},#{item.websiteName},#{item.startDate},#{item.endDate},#{item.status},#{item.initPassword},#{item.accountStatus})
+        </foreach>
+  </insert>
+  
+  <select id="selectById" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT 
+        <include refid="Base_Column_List"/>
+    FROM
+        jl_account
+    WHERE id = #{id};
+  </select>
+  
+  <update id="updateById" parameterType="JlAccount">
+    update jl_account
+    <set >
+      <if test="id != null" >
+        id = #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="accountNumber != null" >
+        account_number = #{accountNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="accountName != null" >
+        account_name = #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="accountPassword != null" >
+        account_password = #{accountPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="companyCode != null" >
+        company_code = #{companyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="accountDept != null" >
+        account_dept = #{accountDept,jdbcType=VARCHAR},
+      </if>
+      <if test="websiteCode != null" >
+        website_code = #{websiteCode,jdbcType=VARCHAR},
+      </if>
+      <if test="websiteName != null" >
+        website_name = #{websiteName,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null" >
+        start_date = #{startDate,jdbcType=DATE},
+      </if>
+      <if test="endDate != null" >
+        end_date = #{endDate,jdbcType=DATE},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="initPassword != null" >
+        init_password = #{initPassword,jdbcType=DATE},
+      </if>
+      <if test="accountStatus != null" >
+        account_status = #{accountStatus,jdbcType=DECIMAL},
+      </if>
+    </set>
+  </update>
+</mapper>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gome.ass.dao.system.ShDataRecordDao">
+
+  <resultMap id="BaseResultMap" type="com.gome.ass.entity.ShDataRecord">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="interface_type" jdbcType="VARCHAR" property="interfaceType" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="direction" jdbcType="VARCHAR" property="direction" />
+    <result column="result_content" jdbcType="CHAR" property="resultContent" />
+    <result column="sender" jdbcType="VARCHAR" property="sender" />
+    <result column="receiver" jdbcType="VARCHAR" property="receiver" />
+    <result column="message_id" jdbcType="VARCHAR" property="messageId" />
+    <result column="date_send" jdbcType="TIMESTAMP" property="dateSend" />
+    <result column="xmlContent" jdbcType="LONGVARCHAR" property="xmlContent"/>
+  </resultMap>
+  
+  
+  <sql id="Base_Column_List">
+    id,xml_content,interface_type, create_time, direction, result_content, sender, receiver, message_id, 
+    date_send
+  </sql>
+  
+  
+  <insert id="insertShDataRecord" parameterType="com.gome.ass.entity.ShDataRecord">
+    insert into sh_data_record (id, interface_type, create_time, 
+      direction, result_content, sender, 
+      receiver, message_id, date_send, 
+      xml_content)
+    values (
+      #{id,jdbcType=VARCHAR}, #{interfaceType,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{direction,jdbcType=VARCHAR}, #{resultContent,jdbcType=CHAR}, #{sender,jdbcType=VARCHAR}, 
+      #{receiver,jdbcType=VARCHAR}, #{messageId,jdbcType=VARCHAR}, #{dateSend,jdbcType=TIMESTAMP}, 
+      #{xmlContent,jdbcType=LONGVARCHAR})
+  </insert>
+  
+  <update id="update" parameterType="com.gome.ass.entity.ShDataRecord">
+    update data_record
+    <set>
+      <if test="interfaceType != null">
+        interface_type = #{interfaceType,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="direction != null">
+        direction = #{direction,jdbcType=VARCHAR},
+      </if>
+      <if test="resultContent != null">
+        result_content = #{resultContent,jdbcType=CHAR},
+      </if>
+      <if test="sender != null">
+        sender = #{sender,jdbcType=VARCHAR},
+      </if>
+      <if test="receiver != null">
+        receiver = #{receiver,jdbcType=VARCHAR},
+      </if>
+      <if test="messageId != null">
+        message_id = #{messageId,jdbcType=VARCHAR},
+      </if>
+      <if test="dateSend != null">
+        date_send = #{dateSend,jdbcType=TIMESTAMP},
+      </if>
+      <if test="xmlContent != null">
+        xml_content = #{xmlContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="findMessageLogPageList" parameterType="com.gome.common.page.Page" resultType="hashmap">
+    SELECT
+        sh_data_record.id,
+        sh_data_record.xml_content,
+        c2.code_value AS interface_type,
+        sh_data_record.create_time,
+        c1.code_value AS result_content,
+        sh_data_record.sender,
+        sh_data_record.receiver
+    FROM
+        sh_data_record
+    INNER JOIN sh_code_setting c1 ON sh_data_record.result_content = c1.code_key
+    INNER JOIN sh_code_setting c2 ON sh_data_record.interface_type = c2.code_key
+    INNER JOIN sh_code s1 ON c1.code_id = s1.code_id
+    INNER JOIN sh_code s2 ON c2.code_id = s2.code_id
+    WHERE
+        s1.code_id = 'result_content'
+    AND 
+      s2.code_id = 'interface_type'
+        <if test="param.interfaceType != null and '' != param.interfaceType">
+            AND interface_type = #{param.interfaceType}
+        </if>
+        <if test="param.resultContent != null and '' != param.resultContent">
+            AND result_content = #{param.resultContent}
+        </if>
+        <if test="param.sender != null and '' != param.sender">
+            AND sender = #{param.sender}
+        </if>
+        <if test="param.receiver != null and '' != param.receiver">
+            AND receiver = #{param.receiver}
+        </if>
+    ORDER BY create_time DESC
+  </select>
+  
+  <update id="updateShDataRecordFail" parameterType="string">
+  		update sh_data_record set result_content='0' where id=#{id}
+  </update>
+  
+</mapper>

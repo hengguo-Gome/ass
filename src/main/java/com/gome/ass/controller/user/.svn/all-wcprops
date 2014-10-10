@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/gome/!svn/ver/7048/trunk/mbl-server/ass/src/main/java/com/gome/ass/controller/user
+END
+CrmWorkerController.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/gome/!svn/ver/6919/trunk/mbl-server/ass/src/main/java/com/gome/ass/controller/user/CrmWorkerController.java
+END
+ShSystemAdminController.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/gome/!svn/ver/7048/trunk/mbl-server/ass/src/main/java/com/gome/ass/controller/user/ShSystemAdminController.java
+END
+ShUserLoginController.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/gome/!svn/ver/7048/trunk/mbl-server/ass/src/main/java/com/gome/ass/controller/user/ShUserLoginController.java
+END

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gome.ass.dao.system.ShCodeDao">
+	<resultMap id="shCodeResult" type="com.gome.ass.entity.ShCode">
+		<result property="codeId" column="code_id" jdbcType="VARCHAR"/>
+		<result property="codeName" column="code_name" jdbcType="VARCHAR"/>
+		<result property="codeKey" column="code_key" jdbcType="VARCHAR"/>
+		<result property="codeValue" column="code_value" jdbcType="VARCHAR"/>
+	</resultMap>
+	<select id="getAll" resultMap="shCodeResult">
+		SELECT * FROM v_code
+	</select>
+	
+	<select id="getCodeByKey" resultMap="shCodeResult" parameterType="string">
+		SELECT * FROM v_code where code_id=#{codeKey}
+	</select>
+	
+	<select id="getShCodePageList" parameterType="com.gome.common.page.Page" resultType="hashmap">
+		SELECT code_id codeId, code_name codeName FROM sh_code where editable = 1
+	</select>
+	
+	<select id="getShCodeSettingByCodeId" parameterType="string" resultType="hashmap">
+		SELECT code_id codeId, code_key codeKey, code_value codeValue from sh_code_setting where code_id=#{codeId} order by code_key
+	</select>
+	
+	<insert id="insertSetting" parameterType="com.gome.ass.entity.ShCode">
+		insert into sh_code_setting values(#{codeId},#{codeKey},#{codeValue})
+	</insert>
+</mapper>

@@ -1,0 +1,131 @@
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/gome/!svn/ver/7111/trunk/mbl-server/ass/src/main/resources/mybatis/mapper
+END
+CRMInstallBillMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/gome/!svn/ver/7111/trunk/mbl-server/ass/src/main/resources/mybatis/mapper/CRMInstallBillMapper.xml
+END
+CRMWebBasicdataMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/gome/!svn/ver/6794/trunk/mbl-server/ass/src/main/resources/mybatis/mapper/CRMWebBasicdataMapper.xml
+END
+CRMWorkerMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/gome/!svn/ver/6942/trunk/mbl-server/ass/src/main/resources/mybatis/mapper/CRMWorkerMapper.xml
+END
+ShMessageMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/gome/!svn/ver/6505/trunk/mbl-server/ass/src/main/resources/mybatis/mapper/ShMessageMapper.xml
+END
+EmpMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/gome/!svn/ver/6670/trunk/mbl-server/ass/src/main/resources/mybatis/mapper/EmpMapper.xml
+END
+JlAccountMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/gome/!svn/ver/6874/trunk/mbl-server/ass/src/main/resources/mybatis/mapper/JlAccountMapper.xml
+END
+ShMenuMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/gome/!svn/ver/6505/trunk/mbl-server/ass/src/main/resources/mybatis/mapper/ShMenuMapper.xml
+END
+ShUserPwdInfoMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/gome/!svn/ver/7113/trunk/mbl-server/ass/src/main/resources/mybatis/mapper/ShUserPwdInfoMapper.xml
+END
+UserRoleMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/gome/!svn/ver/6111/trunk/mbl-server/ass/src/main/resources/mybatis/mapper/UserRoleMapper.xml
+END
+UserInfoMsgMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/gome/!svn/ver/6111/trunk/mbl-server/ass/src/main/resources/mybatis/mapper/UserInfoMsgMapper.xml
+END
+RoleMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/gome/!svn/ver/6111/trunk/mbl-server/ass/src/main/resources/mybatis/mapper/RoleMapper.xml
+END
+CrmServiceMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/gome/!svn/ver/6868/trunk/mbl-server/ass/src/main/resources/mybatis/mapper/CrmServiceMapper.xml
+END
+ShDeviceManageMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/gome/!svn/ver/7079/trunk/mbl-server/ass/src/main/resources/mybatis/mapper/ShDeviceManageMapper.xml
+END
+ShDataRecordMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/gome/!svn/ver/7048/trunk/mbl-server/ass/src/main/resources/mybatis/mapper/ShDataRecordMapper.xml
+END
+ShCodeMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/gome/!svn/ver/6513/trunk/mbl-server/ass/src/main/resources/mybatis/mapper/ShCodeMapper.xml
+END
+CrmAccessoriesMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/gome/!svn/ver/6833/trunk/mbl-server/ass/src/main/resources/mybatis/mapper/CrmAccessoriesMapper.xml
+END
+PersonMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/gome/!svn/ver/6284/trunk/mbl-server/ass/src/main/resources/mybatis/mapper/PersonMapper.xml
+END
+CrmCompanyMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/gome/!svn/ver/6764/trunk/mbl-server/ass/src/main/resources/mybatis/mapper/CrmCompanyMapper.xml
+END
+RoleResourceMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/gome/!svn/ver/6111/trunk/mbl-server/ass/src/main/resources/mybatis/mapper/RoleResourceMapper.xml
+END
+ShUserMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/gome/!svn/ver/7048/trunk/mbl-server/ass/src/main/resources/mybatis/mapper/ShUserMapper.xml
+END
+UserTagMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/gome/!svn/ver/6111/trunk/mbl-server/ass/src/main/resources/mybatis/mapper/UserTagMapper.xml
+END

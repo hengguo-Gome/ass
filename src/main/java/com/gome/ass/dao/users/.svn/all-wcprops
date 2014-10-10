@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/gome/!svn/ver/7088/trunk/mbl-server/ass/src/main/java/com/gome/ass/dao/users
+END
+CrmWorkerDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/gome/!svn/ver/7088/trunk/mbl-server/ass/src/main/java/com/gome/ass/dao/users/CrmWorkerDao.java
+END
+ShUserPwdInfoDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/gome/!svn/ver/7113/trunk/mbl-server/ass/src/main/java/com/gome/ass/dao/users/ShUserPwdInfoDao.java
+END
+ShUserDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/gome/!svn/ver/7015/trunk/mbl-server/ass/src/main/java/com/gome/ass/dao/users/ShUserDao.java
+END

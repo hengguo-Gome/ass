@@ -1,0 +1,60 @@
+package com.gome.ass.jms;
+
+import java.util.Map;
+
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.Queue;
+import javax.jms.Session;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.core.MessageCreator;
+
+import com.gome.ass.util.JsonUtil;
+
+public class ShPasswordNoteMQSender {
+
+	private static final Logger logger = LoggerFactory.getLogger(ShPasswordNoteMQSender.class);
+	private JmsTemplate jmsTemplate;
+	private Queue queue;
+	
+	
+	public JmsTemplate getJmsTemplate() {
+		return jmsTemplate;
+	}
+
+	public void setJmsTemplate(JmsTemplate jmsTemplate) {
+		this.jmsTemplate = jmsTemplate;
+	}
+
+	public Queue getQueue() {
+		return queue;
+	}
+
+	public void setQueue(Queue queue) {
+		this.queue = queue;
+	}
+
+
+	/**
+	 * 发送消息
+	 * @param message
+	 */
+	public void send(final Map<String,Object> map){
+		this.jmsTemplate.send(queue, new MessageCreator() {
+			@Override
+			public Message createMessage(Session session) throws JMSException {
+				String message = null;
+				try {
+					message = JsonUtil.javaObjectToJsonString(map);
+				} catch (Exception e) {
+					logger.error(e.getMessage(),e);
+				}
+				return session.createTextMessage(message);
+			}
+		});
+		logger.info("--------------发送短信密码到MQ成功------------");
+	}
+}

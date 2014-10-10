@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<title>售后移动端下载</title>
+</head>
+<body>
+移动端下载地址：<br>
+<font color="red">如您用微信扫描，请点击右上角处，选择"在浏览器中打开"，IOS用户为"在safari中打开"。</font>
+<p>
+Android（安卓） 用户：<br/>
+<!-- <a href="http://g.corp.gome.com.cn/mtms/m/appInfo/apk/gomelogistics_V1.0.6.apk">Android版下载</a> -->
+<a href="http://119.254.77.19/ass/appInfo/apk/gomelogistics_V1.0.7.apk">Android版下载</a>
+</p>
+<p>
+IOS（苹果） 用户：<br/>
+<a href="itms-services://?action=download-manifest&url=https://119.254.77.19/ass/appInfo/ios/gomelogistics.plist">IOS版下载</a>
+<br>
+如果您无法安装IOS版，请安装证书：<br>
+<a href="http://119.254.77.19/ass/appInfo/ios/gome-ca.crt">安装IOS证书</a>
+</p>
+</body>
+</html>

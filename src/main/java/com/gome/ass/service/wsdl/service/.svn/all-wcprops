@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/gome/!svn/ver/6891/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/wsdl/service
+END
+CENJKServiceLocator.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/gome/!svn/ver/6746/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/wsdl/service/CENJKServiceLocator.java
+END
+EmpService.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/gome/!svn/ver/6670/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/wsdl/service/EmpService.java
+END
+CENJK.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/gome/!svn/ver/6746/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/wsdl/service/CENJK.java
+END
+CENJKSoapBindingImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/gome/!svn/ver/6746/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/wsdl/service/CENJKSoapBindingImpl.java
+END
+CENJKSoapBindingStub.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/gome/!svn/ver/6746/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/wsdl/service/CENJKSoapBindingStub.java
+END
+CENJKService.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/gome/!svn/ver/6746/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/wsdl/service/CENJKService.java
+END
+AppSyncServiceStub.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/gome/!svn/ver/6670/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/wsdl/service/AppSyncServiceStub.java
+END

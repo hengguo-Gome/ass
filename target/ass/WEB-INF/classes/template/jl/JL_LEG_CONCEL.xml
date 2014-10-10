@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns1:MT_CRM_Req xmlns:ns1="http://gome.com/DIS/MOBILE/Inbound">
+	<HEADER>
+		<INTERFACE_ID></INTERFACE_ID>
+		<MESSAGE_ID>$!{MessageID}</MESSAGE_ID>
+		<SENDER>MDIS</SENDER>
+		<RECEIVER></RECEIVER>
+		<DTSEND></DTSEND>
+	</HEADER>
+	<XML_DATA>
+		<CRM272>
+			<HEADER>
+				<AZD01>$!{crmIntsallBill.jlOrderNum}</AZD01>
+				<DJZT>$!{crmInstallBill.billStatus}</DJZT>
+			</HEADER>
+		</CRM272>
+	</XML_DATA>
+</ns1:MT_CRM_Req>

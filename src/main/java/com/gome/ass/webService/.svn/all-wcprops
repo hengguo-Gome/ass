@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/gome/!svn/ver/6522/trunk/mbl-server/ass/src/main/java/com/gome/ass/webService
+END
+MongateCsGetSmsExEx.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/gome/!svn/ver/6522/trunk/mbl-server/ass/src/main/java/com/gome/ass/webService/MongateCsGetSmsExEx.java
+END
+MongateQueryBalanceResponse.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/gome/!svn/ver/6522/trunk/mbl-server/ass/src/main/java/com/gome/ass/webService/MongateQueryBalanceResponse.java
+END
+MongateCsGetStatusReportExExResponse.java
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/gome/!svn/ver/6522/trunk/mbl-server/ass/src/main/java/com/gome/ass/webService/MongateCsGetStatusReportExExResponse.java
+END
+MongateQueryBalance.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/gome/!svn/ver/6522/trunk/mbl-server/ass/src/main/java/com/gome/ass/webService/MongateQueryBalance.java
+END
+MongateCsGetStatusReportExEx.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/gome/!svn/ver/6522/trunk/mbl-server/ass/src/main/java/com/gome/ass/webService/MongateCsGetStatusReportExEx.java
+END
+ObjectFactory.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/gome/!svn/ver/6522/trunk/mbl-server/ass/src/main/java/com/gome/ass/webService/ObjectFactory.java
+END
+MongateCsSpSendSmsNewResponse.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/gome/!svn/ver/6522/trunk/mbl-server/ass/src/main/java/com/gome/ass/webService/MongateCsSpSendSmsNewResponse.java
+END
+MongateCsSpSendSmsNew.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/gome/!svn/ver/6522/trunk/mbl-server/ass/src/main/java/com/gome/ass/webService/MongateCsSpSendSmsNew.java
+END
+WmgwSoap.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/gome/!svn/ver/6522/trunk/mbl-server/ass/src/main/java/com/gome/ass/webService/WmgwSoap.java
+END
+ArrayOfString.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/gome/!svn/ver/6522/trunk/mbl-server/ass/src/main/java/com/gome/ass/webService/ArrayOfString.java
+END
+MongateCsGetSmsExExResponse.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/gome/!svn/ver/6522/trunk/mbl-server/ass/src/main/java/com/gome/ass/webService/MongateCsGetSmsExExResponse.java
+END

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns1:MT_CRM_Req xmlns:ns1="http://gome.com/DIS/MOBILE/Inbound">
+  <HEADER>
+    <INTERFACE_ID>CRM272</INTERFACE_ID>
+    <MESSAGE_ID>96280f1f5c98a1bdfe49d8b9b2f08cb8</MESSAGE_ID>
+    <SENDER>DIS</SENDER>
+    <RECEIVER>MDIS</RECEIVER>
+    <DTSEND>20141009141251247</DTSEND>
+  </HEADER>
+  <XML_DATA>
+    <CRM272>
+      <HEADER>
+        <AZD01>52777</AZD01>
+        <KHMC>123</KHMC>
+        <LXDZ>石家庄市长安区测试路</LXDZ>
+        <LXDH>13637373333</LXDH>
+        <QTDH />
+        <SPBM>000000000100189698</SPBM>
+        <SPMC />
+        <YYSJ>2014-10-08 08:00:00.0</YYSJ>
+        <AZWD01>0003003404</AZWD01>
+        <WDMC>北京东方售后维修公司</WDMC>
+        <GSXX01>S401</GSXX01>
+        <GSMC>石家庄国美电器售后服务有限公司</GSMC>
+        <THDH>1451049001</THDH>
+        <WB_GSXX01>4001</WB_GSXX01>
+        <WB_GSMC>河北国美电器有限公司</WB_GSMC>
+        <DJZT>2</DJZT>
+        <AZFS>1</AZFS>
+        <PGSJ>2014-10-08 16:37:34.0</PGSJ>
+        <AZLX>1</AZLX>
+        <YYSJD>08-10</YYSJD>
+        <BZ />
+      </HEADER>
+      <ITEMS>
+        <ITEM>
+          <GRDM>0500002522</GRDM>
+          <GRMC>刘帅</GRMC>
+          <LXFS>15010887034</LXFS>
+        </ITEM>
+        <ITEM>
+          <GRDM>0500002524</GRDM>
+          <GRMC>刘建保</GRMC>
+          <LXFS>13439058816</LXFS>
+        </ITEM>
+      </ITEMS>
+    </CRM272>
+  </XML_DATA>
+</ns1:MT_CRM_Req>

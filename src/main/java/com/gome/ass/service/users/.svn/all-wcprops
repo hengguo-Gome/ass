@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/gome/!svn/ver/7088/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/users
+END
+ShUserPwdInfoService.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/gome/!svn/ver/7113/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/users/ShUserPwdInfoService.java
+END
+ShAppUserInfoDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/gome/!svn/ver/7015/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/users/ShAppUserInfoDao.java
+END
+ShUserService.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/gome/!svn/ver/7015/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/users/ShUserService.java
+END
+CrmWorkerService.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/gome/!svn/ver/7088/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/users/CrmWorkerService.java
+END

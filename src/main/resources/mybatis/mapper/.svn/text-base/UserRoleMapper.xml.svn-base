@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Mapper.UserRoleMapper">
+
+  <resultMap id="BaseResultMap" type="com.gome.ass.entity.UserRole">
+    <id column="user_id" jdbcType="VARCHAR" property="userId" />
+    <id column="role_id" jdbcType="VARCHAR" property="roleId" />
+  </resultMap>
+  
+  
+  <sql id="Base_Column_List">
+    user_id, role_id
+  </sql>
+  
+  <delete id="deleteByPrimaryKey" parameterType="com.gome.ass.entity.UserRole">
+    delete from user_role
+    where user_id = #{userId,jdbcType=VARCHAR}
+      and role_id = #{roleId,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.gome.ass.entity.UserRole">
+    insert into user_role (user_id, role_id)
+    values (#{userId,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR})
+  </insert>
+  
+  
+  
+</mapper>

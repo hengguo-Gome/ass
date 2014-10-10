@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/gome/!svn/ver/7090/trunk/mbl-server/ass/src/main/java/com/gome/common/util
+END
+AsynchronousSendMsgUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/gome/!svn/ver/7090/trunk/mbl-server/ass/src/main/java/com/gome/common/util/AsynchronousSendMsgUtils.java
+END
+SpringUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/gome/!svn/ver/6830/trunk/mbl-server/ass/src/main/java/com/gome/common/util/SpringUtil.java
+END
+HttpClientUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/gome/!svn/ver/6969/trunk/mbl-server/ass/src/main/java/com/gome/common/util/HttpClientUtils.java
+END
+VarConfig.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/gome/!svn/ver/6670/trunk/mbl-server/ass/src/main/java/com/gome/common/util/VarConfig.java
+END
+FDate.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/gome/!svn/ver/6670/trunk/mbl-server/ass/src/main/java/com/gome/common/util/FDate.java
+END
+SysUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/gome/!svn/ver/6670/trunk/mbl-server/ass/src/main/java/com/gome/common/util/SysUtils.java
+END
+SysConstant.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/gome/!svn/ver/6670/trunk/mbl-server/ass/src/main/java/com/gome/common/util/SysConstant.java
+END

@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/gome/!svn/ver/7111/trunk/mbl-server/ass/src/main/resources/spring
+END
+schedule.xml
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/gome/!svn/ver/6670/trunk/mbl-server/ass/src/main/resources/spring/schedule.xml
+END
+spring-appContext.xml
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/gome/!svn/ver/7111/trunk/mbl-server/ass/src/main/resources/spring/spring-appContext.xml
+END
+mq-message.xml
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/gome/!svn/ver/7090/trunk/mbl-server/ass/src/main/resources/spring/mq-message.xml
+END
+spring-servlet.xml
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/gome/!svn/ver/7015/trunk/mbl-server/ass/src/main/resources/spring/spring-servlet.xml
+END

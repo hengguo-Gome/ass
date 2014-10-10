@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/gome/!svn/ver/7096/trunk/mbl-server/ass/src/main/resources/template/jl
+END
+JL_TimeWindow.xml
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/gome/!svn/ver/6941/trunk/mbl-server/ass/src/main/resources/template/jl/JL_TimeWindow.xml
+END
+JL_LEG_RECEIPT.xml
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/gome/!svn/ver/7004/trunk/mbl-server/ass/src/main/resources/template/jl/JL_LEG_RECEIPT.xml
+END
+CRM272.xml
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/gome/!svn/ver/7096/trunk/mbl-server/ass/src/main/resources/template/jl/CRM272.xml
+END
+CRM273.xml
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/gome/!svn/ver/7017/trunk/mbl-server/ass/src/main/resources/template/jl/CRM273.xml
+END
+JL_OrderDelay.xml
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/gome/!svn/ver/6941/trunk/mbl-server/ass/src/main/resources/template/jl/JL_OrderDelay.xml
+END
+JL_RECEIVE.xml
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/gome/!svn/ver/7019/trunk/mbl-server/ass/src/main/resources/template/jl/JL_RECEIVE.xml
+END
+JL_LEG_CONCEL.xml
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/gome/!svn/ver/7049/trunk/mbl-server/ass/src/main/resources/template/jl/JL_LEG_CONCEL.xml
+END

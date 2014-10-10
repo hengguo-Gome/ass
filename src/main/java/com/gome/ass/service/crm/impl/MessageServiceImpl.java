@@ -1,0 +1,461 @@
+package com.gome.ass.service.crm.impl;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.apache.velocity.exception.ParseErrorException;
+import org.apache.velocity.exception.ResourceNotFoundException;
+import org.jdom.Document;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.aop.framework.AopContext;
+import org.springframework.dao.DataAccessException;
+import org.springframework.stereotype.Service;
+
+import com.gome.ass.common.BusinessGlossary;
+import com.gome.ass.common.Constrants;
+import com.gome.ass.entity.CrmAccessories;
+import com.gome.ass.entity.CrmCompany;
+import com.gome.ass.entity.CrmInstallBill;
+import com.gome.ass.entity.CrmService;
+import com.gome.ass.entity.CrmWebBasicdata;
+import com.gome.ass.entity.CrmWorker;
+import com.gome.ass.entity.JlAccount;
+import com.gome.ass.entity.ShDataRecord;
+import com.gome.ass.entity.ShUserPwdInfo;
+import com.gome.ass.entity.vo.CrmInstallBillVO;
+import com.gome.ass.jms.InstallBillInfoPushMQSender;
+import com.gome.ass.service.crm.MessageService;
+import com.gome.ass.service.jms.MqMessageService;
+import com.gome.ass.service.logistics.CrmCompanyService;
+import com.gome.ass.service.logistics.CrmInstallBillService;
+import com.gome.ass.service.system.CrmWebBasicdataService;
+import com.gome.ass.service.system.JlAccountService;
+import com.gome.ass.service.system.ShDataRecordService;
+import com.gome.ass.service.users.CrmWorkerService;
+import com.gome.ass.service.users.ShUserPwdInfoService;
+import com.gome.ass.util.BaiduUtil;
+import com.gome.ass.util.BeanTool;
+import com.gome.ass.util.UUIDUtil;
+import com.gome.ass.util.XmlUtil;
+import com.gome.common.util.AsynchronousSendMsgUtils;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
+@Service("messageService")
+public class MessageServiceImpl implements MessageService {
+
+    private static final Logger log = LoggerFactory.getLogger(MessageServiceImpl.class);
+
+    @Resource
+    private CrmWorkerService crmWorkerService;
+    @Resource
+    private CrmWebBasicdataService crmWebBasicdataService;
+    @Resource
+    private CrmInstallBillService crmInstallBillService;
+    @Resource
+    private CrmCompanyService crmCompanyService;
+    @Resource
+    private ShDataRecordService shDataRecordService;
+    @Resource
+    private JlAccountService jlAccountService;
+    @Resource
+    private ShUserPwdInfoService shUserPwdInfoService;
+    @Resource
+    private MqMessageService mqMessageService;
+
+    private Map<String, List<Map<String, String>>> processAndSavePacket(Document doc,String templateName) throws Exception {
+        ShDataRecord dr = new ShDataRecord();
+        dr.setCreateTime(new Date());
+        dr.setId(UUIDUtil.getUUID());
+        dr.setXmlContent(XmlUtil.getInstance().doc2String(doc));
+        dr.setDirection(BusinessGlossary.DATA_INTERACTION_IN);
+        try {
+            Map<String, List<Map<String, String>>> xmlData = XmlUtil.getInstance().xmlToMap(templateName, doc);
+            Map<String, String> recordMap = xmlData.get("dataRecord").get(0);
+            BeanTool.map2Bean(recordMap, dr);
+            dr.setResultContent("1");
+            return xmlData;
+        } catch (Exception e) {
+            dr.setResultContent("0");
+            throw e;
+        } finally {
+            shDataRecordService.insertShDataRecord(dr);
+        }
+    }
+
+    /**
+     * 处理crm推送数据信息
+     * 
+     * @author liuchao43
+     * @date 2014年9月16日下午2:42:01
+     * @Copyright(c) gome inc Gome Co.,LTD
+     */
+    @Override
+    public String processCrmMessage(Document doc) {
+        Map<String, String> recordMap = null;
+        String result = "S";
+        try {
+            Map<String, List<Map<String, String>>> xmlData = this.processAndSavePacket(doc,"crm/CRM_RECEIVE.xml");
+            recordMap = xmlData.get("dataRecord").get(0);
+            if(recordMap.get("interfaceType").toUpperCase().equals("CRM270")){
+            	 ((MessageServiceImpl) AopContext.currentProxy()).insertCrmInstallBill( XmlUtil.getInstance().divisionXmlToMap("crm/CRM270.xml", "CRM270", doc));
+            }else {
+            	 ((MessageServiceImpl) AopContext.currentProxy()).insertCrmData(xmlData);
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            result = "F";
+        }
+        recordMap.put("result", result);
+        recordMap.put("uuId", UUIDUtil.getUUID());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+        recordMap.put("time", sdf.format(new Date()));
+        try {
+        	AsynchronousSendMsgUtils.receiptCrmLegMessage(recordMap);
+            return XmlUtil.getInstance().genXmlByTemplate("crm/CRM_SEND.xml", recordMap);
+        } catch (ResourceNotFoundException e) {
+            e.printStackTrace();
+        } catch (ParseErrorException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public void insertCrmInstallBill(List<Map<String, List<Map<String, String>>>> datas) throws Exception {
+    	try{
+        	for(Map<String, List<Map<String, String>>> xmlData:datas){
+      		  // 保存安装单
+              List<Map<String, String>> crmInstallBills = xmlData.get("crmInstallBill");
+              if (crmInstallBills != null && crmInstallBills.size() != 0) {
+            	  CrmInstallBill installBill = new CrmInstallBill();
+                  installBill.setBillId(UUIDUtil.getUUID());
+                  BeanTool.map2Bean(crmInstallBills.get(0), installBill);
+                 
+
+                  //更新安装单经纬度
+                  crmInstallBillService.updateLatAndLon(installBill);
+                  crmInstallBillService.insertOrUpdate(installBill);
+                  
+                  //将安装单信息发送到MQ
+                  mqMessageService.sendInstallBillToMq(installBill, BusinessGlossary.SYSTEM_NAME_CRM);
+                  
+                  //将安装单信息发送给手机端
+                  AsynchronousSendMsgUtils.sendMessageToMobile(installBill);
+                  //保存服务
+                  List<Map<String, String>> crmServiceMaps = xmlData.get("crmService");
+                  if(crmServiceMaps!=null&&!crmServiceMaps.isEmpty()){
+                	  List<CrmService> crmServices = new ArrayList<CrmService>();
+                	  	for(Map<String,String> crmServiceMap:crmServiceMaps){
+	                	  	CrmService crmService = new CrmService();
+	                	  	crmService.setId(UUIDUtil.getUUID());
+	                	  	crmService.setInstallBillId(installBill.getJlOrderNum());
+	                	  	BeanTool.map2Bean(crmServiceMap, crmService);
+	                	  	crmServices.add(crmService);
+                	  	}
+                	  	crmInstallBillService.delServiceByJlorderCode(installBill.getJlOrderNum());
+                	  	crmInstallBillService.insertServiceBatch(crmServices);
+                  }
+                  //保存配件
+                  List<Map<String, String>> crmAccessoriesMaps = xmlData.get("crmAccessories");
+                  if(crmAccessoriesMaps!=null&&!crmAccessoriesMaps.isEmpty()){
+                	  List<CrmAccessories> crmAccessorieses = new ArrayList<CrmAccessories>();
+                	  	for(Map<String,String> crmAccessoriesMap:crmAccessoriesMaps){
+                	  		CrmAccessories crmAccessories = new CrmAccessories();
+                	  		crmAccessories.setId(UUIDUtil.getUUID());
+                	  		crmAccessories.setInstallBillId(installBill.getJlOrderNum());
+	                	  	BeanTool.map2Bean(crmAccessoriesMap, crmAccessories);
+	                	  	crmAccessorieses.add(crmAccessories);
+                	  	}
+                		crmInstallBillService.delAccessoriesByJlorderCode(installBill.getJlOrderNum());
+                	  	crmInstallBillService.insertAccessoriesBatch(crmAccessorieses);
+                  }
+                  
+                  //订单回执失败，设置报文状态
+                  List<Map<String, String>> receipts = xmlData.get("receipt");
+                  if(receipts!=null&&!receipts.isEmpty()){
+                	  	this.dealLegReceipt(receipts.get(0));
+                  }
+              }
+      	}
+    	}catch(Exception e){
+    		throw e;
+    	}
+    	
+
+    }
+    public void insertCrmData(Map<String, List<Map<String, String>>> xmlData) throws Exception {
+        try {
+            // 保存crm工人信息
+            List<Map<String, String>> crmWorkers = xmlData.get("crmWorker");
+            if (crmWorkers != null && crmWorkers.size() != 0) {
+                List<String> workerCodes = new ArrayList<String>();
+                List<CrmWorker> workers = new ArrayList<CrmWorker>();
+                for (Map<String, String> crmWorker : crmWorkers) {
+                    CrmWorker worker = new CrmWorker();
+                    worker.setWorkerId(UUIDUtil.getUUID());
+                    BeanTool.map2Bean(crmWorker, worker);
+                    workerCodes.add(crmWorker.get("workerCode"));
+                    workers.add(worker);
+                }
+                crmWorkerService.deleteBatch(workerCodes);
+                crmWorkerService.insertBatch(workers);
+            }
+
+            // 保存crm网点信息
+            List<Map<String, String>> crmWebBasicdatas = xmlData.get("crmWebBasicdata");
+            if (crmWebBasicdatas != null && crmWebBasicdatas.size() != 0) {
+                List<String> codes = new ArrayList<String>();
+                List<CrmWebBasicdata> basicdatas = new ArrayList<CrmWebBasicdata>();
+                for (Map<String, String> crmWebBasicdataMap : crmWebBasicdatas) {
+                    CrmWebBasicdata crmWebBasicdata = new CrmWebBasicdata();
+                    crmWebBasicdata.setDataId(UUIDUtil.getUUID());
+                    BeanTool.map2Bean(crmWebBasicdataMap, crmWebBasicdata);
+                    codes.add(crmWebBasicdataMap.get("code"));
+                    basicdatas.add(crmWebBasicdata);
+                }
+                crmWebBasicdataService.deleteBatch(codes);
+                crmWebBasicdataService.insertBatch(basicdatas);
+            }
+            // 公司数据
+            List<Map<String, String>> crmCompanys = xmlData.get("crmCompany");
+            if (crmCompanys != null && crmCompanys.size() != 0) {
+                List<CrmCompany> companies = new ArrayList<CrmCompany>();
+                List<String> codes = new ArrayList<String>();
+                for (Map<String, String> crmCompanyMap : crmCompanys) {
+                    CrmCompany crmCompamy = new CrmCompany();
+                    crmCompamy.setId(UUIDUtil.getUUID());
+                    BeanTool.map2Bean(crmCompanyMap, crmCompamy);
+                    companies.add(crmCompamy);
+                    codes.add(crmCompanyMap.get("companyCode"));
+                }
+                this.crmCompanyService.deleteBatch(codes);
+                this.crmCompanyService.insertBatch(companies);
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    /**
+     * 处理金力推送数据信息
+     * 
+     * @author liuchao43
+     * @date 2014年9月16日下午2:42:01
+     * @Copyright(c) gome inc Gome Co.,LTD
+     */
+    @Override
+    public String processJLMessage(Document document) {
+    	
+        Map<String, String> recordMap = null;
+        String result = "S";
+        try {
+            Map<String, List<Map<String, String>>> xmlData = this.processAndSavePacket(document,"jl/JL_RECEIVE.xml");
+            recordMap = xmlData.get("dataRecord").get(0);
+            if(recordMap.get("interfaceType").toUpperCase().equals("CRM273")){//jl 订单数据
+            	 ((MessageServiceImpl) AopContext.currentProxy()).insertJLInstallBill( XmlUtil.getInstance().divisionXmlToMap("jl/CRM273.xml", "CRM273", document));
+            }else if(recordMap.get("interfaceType").toUpperCase().equals("CRM272")){//jl派工数据
+            	 ((MessageServiceImpl) AopContext.currentProxy()).insertJLDispatchingData( XmlUtil.getInstance().divisionXmlToMap("jl/CRM272.xml", "CRM272", document));
+            }else{
+            	 ((MessageServiceImpl) AopContext.currentProxy()).insertJLData(document, xmlData);
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            result = "F";
+        }
+        recordMap.put("result", result);
+        recordMap.put("uuId", UUIDUtil.getUUID());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+        recordMap.put("time", sdf.format(new Date()));
+        try {
+        	//AsynchronousSendMsgUtils.receiptCrmLegMessage(recordMap);
+            return null;
+        } catch (ResourceNotFoundException e) {
+            e.printStackTrace();
+        } catch (ParseErrorException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+        
+    }
+    
+  public void insertJLData(Document doc, Map<String, List<Map<String, String>>> xmlData) throws Exception {
+	 try{
+		 // JLAccount 数据
+         List<Map<String, String>> jlAccounts = xmlData.get("jlAccount");
+         if (jlAccounts != null && jlAccounts.size() != 0) {
+             List<String> codes = new ArrayList<String>();
+             List<JlAccount> accounts = new ArrayList<JlAccount>();
+             for (Map<String, String> jlAccountMap : jlAccounts) {
+                 JlAccount jlAccount = new JlAccount();
+                 BeanTool.map2Bean(jlAccountMap, jlAccount);
+                 codes.add(jlAccountMap.get("id"));
+                 accounts.add(jlAccount);
+             }
+             jlAccountService.deleteBatch(codes);
+             jlAccountService.insertBatch(accounts);
+             for(JlAccount jlAccount : accounts){
+                 try{
+                     ShUserPwdInfo shUserPwdInfo = new ShUserPwdInfo();
+                     shUserPwdInfo.setUserId(jlAccount.getId());
+                     shUserPwdInfo.setPassword(jlAccount.getAccountPassword());
+                     shUserPwdInfo.setUserType(Constrants.THIRD_NETWORK_USER);
+                     shUserPwdInfoService.insert(shUserPwdInfo);
+                 }catch(DataAccessException  e){
+                     if(e.getCause() instanceof MySQLIntegrityConstraintViolationException){
+                         //ignored 推送已经存在用户数据时不更新密码
+                     }else {
+                         log.error(e.getMessage(), e);
+                         e.printStackTrace();
+                     }
+                 }
+             }
+             
+         }
+         // JL修改预约时间和客户资料 数据
+         List<Map<String, String>> crmInstallBillVOs = xmlData.get("crmInstallBillVO");
+         if (crmInstallBillVOs != null && crmInstallBillVOs.size() != 0) {
+             //移除map里单据类型为2的单据
+             List<Map<String, String>> temp = new ArrayList<Map<String, String>>();
+             for (Map<String, String> map : crmInstallBillVOs) {
+                if("2".equals(map.get("jlOrderType"))){
+                    temp.add(map);
+                }
+             }
+             crmInstallBillVOs.removeAll(temp);
+             for (Map<String, String> crmInstallBillVOsMap : crmInstallBillVOs) {
+                 CrmInstallBillVO crmInstallBillVO = new CrmInstallBillVO();
+                 BeanTool.map2Bean(crmInstallBillVOsMap, crmInstallBillVO);
+                 CrmInstallBill crmInstallBill = CrmInstallBillVO.voToPoMapping(crmInstallBillVO);
+                 //更新安装单经纬度
+               crmInstallBillService.updateLatAndLon(crmInstallBill);
+                 crmInstallBillService.updateByPrimaryKeySelective(crmInstallBill);
+                 
+                 
+               //将安装单信息发送到MQ
+                 mqMessageService.sendInstallBillToMq(crmInstallBill, BusinessGlossary.SYSTEM_NAME_JL);
+             }
+         }
+         //订单回执失败，设置报文状态
+         List<Map<String, String>> receipts = xmlData.get("receipt");
+         if(receipts!=null&&!receipts.isEmpty()){
+       	  	this.dealLegReceipt(receipts.get(0));
+         }
+	 }catch(Exception e){
+		 throw e;
+	 }
+ }
+  
+  public void insertJLDispatchingData(List<Map<String, List<Map<String, String>>>> xmlDatas){
+  	for(Map<String, List<Map<String, String>>> xmlData:xmlDatas){
+  			List<Map<String, String>> crmIntsallBillVOs = xmlData.get("crmInstallBillVO");
+  	        if (crmIntsallBillVOs != null && crmIntsallBillVOs.size() != 0) {
+	        		Map<String, String> crmIntsallBillVOMap = crmIntsallBillVOs.get(0);
+	        		CrmInstallBillVO crmInstallBillVO = new CrmInstallBillVO();
+	        		try {
+						BeanTool.map2Bean(crmIntsallBillVOMap, crmInstallBillVO);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+	        		CrmInstallBill crmInstallBill = CrmInstallBillVO.convertJLInstallBill(crmInstallBillVO);
+	        		
+	        		
+	        		crmInstallBill.setBillId(UUIDUtil.getUUID());
+	                List<Map<String, String>> workers = xmlData.get("workers");
+	                if(workers.size()>0){
+	                    crmInstallBill.setOrderWorkerBig(workers.get(0).get("workerCode"));
+	                }
+	                if(workers.size()>1){
+	                    crmInstallBill.setOrderWorkerLitter(workers.get(1).get("workerCode"));
+	                }
+	                  //更新安装单经纬度
+	                crmInstallBillService.updateLatAndLon(crmInstallBill);
+	                crmInstallBillService.insertOrUpdate(crmInstallBill);
+	                
+	                  //将安装单信息发送给手机端
+	                  AsynchronousSendMsgUtils.sendMessageToMobile(crmInstallBill);
+	                  
+	                //将安装单信息发送到MQ
+	                  mqMessageService.sendInstallBillToMq(crmInstallBill, BusinessGlossary.SYSTEM_NAME_JL);
+  	        }
+  	}
+ 
+  }
+  
+
+ 
+ public void insertJLInstallBill(List<Map<String, List<Map<String, String>>>> xmlDatas) throws Exception {
+	 try{
+		 for(Map<String, List<Map<String, String>>> xmlData:xmlDatas){
+			 // 安装单 数据
+			 List<Map<String, String>> crmIntsallBills = xmlData.get("crmIntsallBill");
+			 if (crmIntsallBills != null && crmIntsallBills.size() != 0) {
+				 List<String> codes = new ArrayList<String>();
+				 List<CrmInstallBill> bills = new ArrayList<CrmInstallBill>();
+				 Map<String, String> crmIntsallBillMap = crmIntsallBills.get(0);
+					 CrmInstallBill crmInstallBill = new CrmInstallBill();
+					 crmInstallBill.setBillId(UUIDUtil.getUUID());
+					 BeanTool.map2Bean(crmIntsallBillMap, crmInstallBill);
+					 codes.add(crmIntsallBillMap.get("jlOrderNum"));//jl_order_num
+					 bills.add(crmInstallBill);
+					 
+	                  //更新安装单经纬度
+	                crmInstallBillService.updateLatAndLon(crmInstallBill);
+					 crmInstallBillService.insertOrUpdate(crmInstallBill);
+					 
+	                  //将安装单信息发送给手机端
+	                 AsynchronousSendMsgUtils.sendMessageToMobile(crmInstallBill);
+					 
+	                  
+	                //将安装单信息发送到MQ
+	                  mqMessageService.sendInstallBillToMq(crmInstallBill, BusinessGlossary.SYSTEM_NAME_JL);
+	                  
+	                  
+					  //保存服务
+	                 List<Map<String, String>> crmServiceMaps = xmlData.get("crmService");
+	                 if(crmServiceMaps!=null&&!crmServiceMaps.isEmpty()){
+	               	  List<CrmService> crmServices = new ArrayList<CrmService>();
+	               	  	for(Map<String,String> crmServiceMap:crmServiceMaps){
+		                	  	CrmService crmService = new CrmService();
+		                	  	crmService.setId(UUIDUtil.getUUID());
+		                	  	crmService.setInstallBillId(crmInstallBill.getJlOrderNum());
+		                	  	BeanTool.map2Bean(crmServiceMap, crmService);
+		                	  	crmServices.add(crmService);
+	               	  	}
+	               	  	crmInstallBillService.delServiceByJlorderCode(crmInstallBill.getJlOrderNum());
+	               	  	crmInstallBillService.insertServiceBatch(crmServices);
+	                 }
+	                 //保存配件
+	                 List<Map<String, String>> crmAccessoriesMaps = xmlData.get("crmAccessories");
+	                 if(crmAccessoriesMaps!=null&&!crmAccessoriesMaps.isEmpty()){
+	               	  List<CrmAccessories> crmAccessorieses = new ArrayList<CrmAccessories>();
+	               	  	for(Map<String,String> crmAccessoriesMap:crmAccessoriesMaps){
+	               	  		CrmAccessories crmAccessories = new CrmAccessories();
+	               	  		crmAccessories.setId(UUIDUtil.getUUID());
+	               	  		crmAccessories.setInstallBillId(crmInstallBill.getJlOrderNum());
+		                	  	BeanTool.map2Bean(crmAccessoriesMap, crmAccessories);
+		                	  	crmAccessorieses.add(crmAccessories);
+	               	  	}
+	               		crmInstallBillService.delAccessoriesByJlorderCode(crmInstallBill.getJlOrderNum());
+	               	  	crmInstallBillService.insertAccessoriesBatch(crmAccessorieses);
+	                 }
+			 }
+		 }
+	 }catch(Exception e){
+		 throw e;
+	 }
+ }
+ 
+ public void dealLegReceipt(Map<String,String> receiptMap){
+	 if("F".equals(receiptMap.get("result"))){
+		 this.shDataRecordService.updateShDataRecordFail(receiptMap.get("messageId"));
+	 }
+ }
+}

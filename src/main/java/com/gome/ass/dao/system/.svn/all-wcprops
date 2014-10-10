@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/gome/!svn/ver/7013/trunk/mbl-server/ass/src/main/java/com/gome/ass/dao/system
+END
+CrmWebBasicdataDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/gome/!svn/ver/6794/trunk/mbl-server/ass/src/main/java/com/gome/ass/dao/system/CrmWebBasicdataDao.java
+END
+ShCodeDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/gome/!svn/ver/6513/trunk/mbl-server/ass/src/main/java/com/gome/ass/dao/system/ShCodeDao.java
+END
+ShMenuDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/gome/!svn/ver/6505/trunk/mbl-server/ass/src/main/java/com/gome/ass/dao/system/ShMenuDao.java
+END
+JlAccountDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/gome/!svn/ver/6874/trunk/mbl-server/ass/src/main/java/com/gome/ass/dao/system/JlAccountDao.java
+END
+JlOrderDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/gome/!svn/ver/6771/trunk/mbl-server/ass/src/main/java/com/gome/ass/dao/system/JlOrderDao.java
+END
+ShDataRecordDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/gome/!svn/ver/7013/trunk/mbl-server/ass/src/main/java/com/gome/ass/dao/system/ShDataRecordDao.java
+END

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns1:MT_CRM_Req xmlns:ns1="http://gome.com/DIS/CRM/Inbound">
+  <HEADER>
+    <INTERFACE_ID>CRM078</INTERFACE_ID>
+    <MESSAGE_ID>540D94CE72EA1633E10000000A800A78</MESSAGE_ID>
+    <SENDER>CRM</SENDER>
+    <RECEIVER>DIS</RECEIVER>
+    <DTSEND>20140909065005358</DTSEND>
+  </HEADER>
+  <XML_DATA>
+    <CRM078>
+      <AZWD01>S161</AZWD01>
+      <RYXX01>wbsjg_001</RYXX01>
+      <RYXM>小芳</RYXM>
+      <CSRQ>19730103</CSRQ>
+      <CSD />
+      <XB>男</XB>
+      <LXDH>15810976335</LXDH>
+      <JTZZ>济南经六路</JTZZ>
+      <RYLX>0</RYLX>
+      <ZXBJ>0</ZXBJ>
+      <UPDATE_FLAG />
+    </CRM078>
+    <CRM078>
+      <AZWD01>S165</AZWD01>
+      <RYXX01>undefined_001</RYXX01>
+      <RYXM>小朱</RYXM>
+      <CSRQ>19730103</CSRQ>
+      <CSD />
+      <XB>男</XB>
+      <LXDH>18311069179</LXDH>
+      <JTZZ>济南经六路</JTZZ>
+      <RYLX>0</RYLX>
+      <ZXBJ>1</ZXBJ>
+      <UPDATE_FLAG />
+    </CRM078>
+    <CRM263>
+      <CZY01>111111</CZY01>
+      <RYXX01>111111</RYXX01>
+      <RYXM>a</RYXM>
+      <CZYMM>1</CZYMM>
+      <GSXX01>1</GSXX01>
+      <BM01>1</BM01>
+      <AZWD01>1</AZWD01>
+      <WDMC>1</WDMC>
+      <QSRQ>2014-01-01</QSRQ>
+      <ZZRQ>2014-11-01</ZZRQ>
+      <ZT>0</ZT>
+      <CCRQ>2014-01-01</CCRQ>
+      <ZXBJ>0</ZXBJ>
+    </CRM263>
+    <CRM263>
+      <CZY01>222222</CZY01>
+      <RYXX01>222222</RYXX01>
+      <RYXM>b</RYXM>
+      <CZYMM>2</CZYMM>
+      <GSXX01>2</GSXX01>
+      <BM01>2</BM01>
+      <AZWD01>2</AZWD01>
+      <WDMC>2</WDMC>
+      <QSRQ>2014-01-01</QSRQ>
+      <ZZRQ>2014-11-01</ZZRQ>
+      <ZT>0</ZT>
+      <CCRQ>2014-01-01</CCRQ>
+      <ZXBJ>0</ZXBJ>
+    </CRM263>
+  </XML_DATA>
+</ns1:MT_CRM_Req>

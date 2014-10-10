@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/gome/!svn/ver/7111/trunk/mbl-server/ass/src/main/java/com/gome/ass/jms
+END
+ShPasswordNoteMQSender.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/gome/!svn/ver/7079/trunk/mbl-server/ass/src/main/java/com/gome/ass/jms/ShPasswordNoteMQSender.java
+END
+WlLegInfoListener.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/gome/!svn/ver/7090/trunk/mbl-server/ass/src/main/java/com/gome/ass/jms/WlLegInfoListener.java
+END
+ShMessagePushMQSender.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/gome/!svn/ver/7079/trunk/mbl-server/ass/src/main/java/com/gome/ass/jms/ShMessagePushMQSender.java
+END
+InstallBillInfoPushMQSender.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/gome/!svn/ver/7111/trunk/mbl-server/ass/src/main/java/com/gome/ass/jms/InstallBillInfoPushMQSender.java
+END
+MessagePush.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/gome/!svn/ver/7079/trunk/mbl-server/ass/src/main/java/com/gome/ass/jms/MessagePush.java
+END
