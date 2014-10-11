@@ -143,10 +143,10 @@ public class MessageServiceImpl implements MessageService {
                   crmInstallBillService.insertOrUpdate(installBill);
                   
                   //将安装单信息发送到MQ
-                  mqMessageService.sendInstallBillToMq(installBill, BusinessGlossary.SYSTEM_NAME_CRM);
+                  AsynchronousSendMsgUtils.sendInstallBillToMq(installBill, BusinessGlossary.SYSTEM_NAME_CRM);
                   
                   //将安装单信息发送给手机端
-                  AsynchronousSendMsgUtils.sendMessageToMobile(installBill);
+                  AsynchronousSendMsgUtils.sendMessageToMobile(installBill,null);
                   //保存服务
                   List<Map<String, String>> crmServiceMaps = xmlData.get("crmService");
                   if(crmServiceMaps!=null&&!crmServiceMaps.isEmpty()){
@@ -340,7 +340,10 @@ public class MessageServiceImpl implements MessageService {
                  
                  
                //将安装单信息发送到MQ
-                 mqMessageService.sendInstallBillToMq(crmInstallBill, BusinessGlossary.SYSTEM_NAME_JL);
+                 AsynchronousSendMsgUtils.sendInstallBillToMq(crmInstallBill, BusinessGlossary.SYSTEM_NAME_JL);
+                 
+                 //将安装单信息发送给手机端
+                 AsynchronousSendMsgUtils.sendMessageToMobile(crmInstallBill,"CRM197");
              }
          }
          //订单回执失败，设置报文状态
@@ -380,10 +383,10 @@ public class MessageServiceImpl implements MessageService {
 	                crmInstallBillService.insertOrUpdate(crmInstallBill);
 	                
 	                  //将安装单信息发送给手机端
-	                  AsynchronousSendMsgUtils.sendMessageToMobile(crmInstallBill);
+	                  AsynchronousSendMsgUtils.sendMessageToMobile(crmInstallBill,null);
 	                  
 	                //将安装单信息发送到MQ
-	                  mqMessageService.sendInstallBillToMq(crmInstallBill, BusinessGlossary.SYSTEM_NAME_JL);
+	                  AsynchronousSendMsgUtils.sendInstallBillToMq(crmInstallBill, BusinessGlossary.SYSTEM_NAME_JL);
   	        }
   	}
  
@@ -411,11 +414,11 @@ public class MessageServiceImpl implements MessageService {
 					 crmInstallBillService.insertOrUpdate(crmInstallBill);
 					 
 	                  //将安装单信息发送给手机端
-	                 AsynchronousSendMsgUtils.sendMessageToMobile(crmInstallBill);
+	                 AsynchronousSendMsgUtils.sendMessageToMobile(crmInstallBill,null);
 					 
 	                  
 	                //将安装单信息发送到MQ
-	                  mqMessageService.sendInstallBillToMq(crmInstallBill, BusinessGlossary.SYSTEM_NAME_JL);
+	                 AsynchronousSendMsgUtils.sendInstallBillToMq(crmInstallBill, BusinessGlossary.SYSTEM_NAME_JL);
 	                  
 	                  
 					  //保存服务

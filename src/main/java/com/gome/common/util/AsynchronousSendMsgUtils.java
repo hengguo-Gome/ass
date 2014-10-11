@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.nio.charset.Charset;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -14,6 +15,8 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+
+import net.sf.json.JSONObject;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.PostMethod;
@@ -29,28 +32,35 @@ import org.apache.mina.filter.codec.ProtocolCodecFilter;
 import org.apache.mina.filter.codec.textline.TextLineCodecFactory;
 import org.apache.mina.filter.logging.LoggingFilter;
 import org.apache.mina.transport.socket.nio.NioSocketConnector;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.gome.ass.common.BusinessGlossary;
 import com.gome.ass.common.CustomizedPropertyPlaceholderConfigurer;
 import com.gome.ass.entity.CrmInstallBill;
 import com.gome.ass.entity.ShDataRecord;
 import com.gome.ass.entity.ShDeviceManage;
+import com.gome.ass.jms.InstallBillInfoPushMQSender;
 import com.gome.ass.jms.MessagePush;
 import com.gome.ass.jms.ShMessagePushMQSender;
 import com.gome.ass.service.permission.ShDeviceManageService;
 import com.gome.ass.service.system.ShDataRecordService;
+import com.gome.ass.util.BeanJsonUtils;
 import com.gome.ass.util.JsonUtil;
 import com.gome.ass.util.UUIDUtil;
 import com.gome.ass.util.XmlUtil;
 
 
 public class AsynchronousSendMsgUtils {
+	private static final Logger log = LoggerFactory.getLogger(AsynchronousSendMsgUtils.class);
 	private ExecutorService service = Executors.newFixedThreadPool(10);
 	private static CustomizedPropertyPlaceholderConfigurer sysConfig = null;
 	private static ShDeviceManageService shDeviceManageService = null;
 	private static ShMessagePushMQSender shMessagePushMQSender = null;
+	private static InstallBillInfoPushMQSender installBillInfoPushMQSender = null;
 	private static AsynchronousSendMsgUtils this$0 = null;
 	private AsynchronousSendMsgUtils(){
+		installBillInfoPushMQSender = (InstallBillInfoPushMQSender) SpringUtil.getBean("installBillInfoSender");
 		shMessagePushMQSender = (ShMessagePushMQSender) SpringUtil.getBean("shMessagePushMQSender");
 		shDeviceManageService = (ShDeviceManageService) SpringUtil.getBean("shDeviceManageService");
 		sysConfig = (CustomizedPropertyPlaceholderConfigurer)SpringUtil.getBean("systemProperty");
@@ -156,7 +166,7 @@ public class AsynchronousSendMsgUtils {
 	}
 	
 	
-	private  Future  sendMsgToMobile(final CrmInstallBill crmInstallBill){
+	private  Future  sendMsgToMobile(final CrmInstallBill crmInstallBill,final String interfaceId){
 		return service.submit(new Callable<String>() {
 			@Override
 			public String call() throws Exception {
@@ -175,14 +185,18 @@ public class AsynchronousSendMsgUtils {
 	                content.append("安装单：" + jlOrderNum+",");
 	                String perfConent = null;
 	                String billStatus = crmInstallBill.getBillStatus();
-	                if(billStatus.equals(BusinessGlossary.BILL_STATUS_DISPATCHED)){
-	                	perfConent = "已派工";
-	                }else if(billStatus.equals(BusinessGlossary.BILL_STATUS_CANCEL)){
-	                	perfConent = "已取消";
-	                }else if(billStatus.equals(BusinessGlossary.BILL_STATUS_SIGNED)){
-	                	perfConent = "已回执";
-	                }else if(billStatus.equals(BusinessGlossary.BILL_STATUS_COMPLETE)){
-	                	perfConent = "已完成";
+	                if(interfaceId != null && interfaceId.equals("CRM197")){
+	                	perfConent = "信息修改";
+	                }else{
+	                	if(billStatus.equals(BusinessGlossary.BILL_STATUS_DISPATCHED)){
+	                		perfConent = "已派工";
+	                	}else if(billStatus.equals(BusinessGlossary.BILL_STATUS_CANCEL)){
+	                		perfConent = "已取消";
+	                	}else if(billStatus.equals(BusinessGlossary.BILL_STATUS_SIGNED)){
+	                		perfConent = "已回执";
+	                	}else if(billStatus.equals(BusinessGlossary.BILL_STATUS_COMPLETE)){
+	                		perfConent = "已完成";
+	                	}
 	                }
 	                content.append(perfConent);
 	                for (ShDeviceManage shDeviceManage : deviceManageList) {
@@ -214,12 +228,75 @@ public class AsynchronousSendMsgUtils {
 		});
 	}
 	
-	public static  void sendMessageToMobile(final CrmInstallBill crmInstallBill){
-		getInstnce().sendMsgToMobile(crmInstallBill);
+	public static  void sendMessageToMobile(final CrmInstallBill crmInstallBill,final String interfaceId){
+		getInstnce().sendMsgToMobile(crmInstallBill,interfaceId);
 	}
 	
 	public static  void receiptCrmLegMessage(Map<String,? extends Object> paramMap){
 			getInstnce().receiptCrmLegMsg(paramMap);
+	}
+	public static void sendInstallBillToMq(final CrmInstallBill crmInstallBill,final String from) {
+		getInstnce().sendInstallBillToMQ(crmInstallBill,from);
+	}
+	public static void sendInstallBillToMQ(final CrmInstallBill crmInstallBill,final String from) {
+
+		JSONObject sendLegJsonObject = null;
+		CrmInstallBill sendInstallBill = new CrmInstallBill();
+		sendInstallBill.setJlOrderNum(crmInstallBill.getJlOrderNum());
+		sendInstallBill.setSalesOrgCode(crmInstallBill.getSalesOrgCode());
+		sendInstallBill.setPoNumberSold(crmInstallBill.getPoNumberSold());
+		sendInstallBill.setBillStatus(crmInstallBill.getBillStatus());
+		String bz = null;
+		String billStatus = crmInstallBill.getBillStatus();
+    	 if(from.equals(BusinessGlossary.SYSTEM_NAME_CRM) || from.equals(BusinessGlossary.SYSTEM_NAME_JL) ){
+    		 
+    		 if(billStatus.equals(BusinessGlossary.BILL_STATUS_SIGNED)){
+    			 sendInstallBill.setReceiptDate(crmInstallBill.getReceiptDate());
+    			 bz = "由"+from+"确认回执";
+    		 }else if(billStatus.equals(BusinessGlossary.BILL_STATUS_DISPATCHED)){
+    			 bz = "由"+from+"派工";
+    			 sendInstallBill = crmInstallBill;
+    		 }else if(billStatus.equals(BusinessGlossary.BILL_STATUS_CANCEL)){
+    			 bz = "由"+from+"取消安装单";
+    		 }else if(billStatus.equals(BusinessGlossary.BILL_STATUS_COMPLETE)){
+    			 bz = "由"+from+"确认完工";
+    		 }else{
+    			 return;
+    		 }
+    		
+    	 }else{
+    		 if(billStatus.equals(BusinessGlossary.BILL_STATUS_DELAY)){
+    			 
+    	    		Date planarriveSTime = crmInstallBill.getAppointStartDate();
+    	    		Date planarriveETime = crmInstallBill.getAppointEndDate();
+    	    		sendInstallBill.setAppointStartDate(planarriveSTime);
+    	    		sendInstallBill.setAppointEndDate(planarriveETime);
+    	    		SimpleDateFormat sdfS = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    	    		SimpleDateFormat sdfE = new SimpleDateFormat("HH:mm:ss");
+    	    		bz = "安装工:"+crmInstallBill.getOrderWorkerBig()+", 进行延期操作,延期至："+sdfS.format(planarriveSTime)+"-"+sdfE.format(planarriveETime);
+    	    	}else if(billStatus.equals(BusinessGlossary.BILL_STATUS_CANCEL)){
+    	    		bz = "安装工:"+crmInstallBill.getOrderWorkerBig()+"取消安装单";
+    	    	}else if(billStatus.equals(BusinessGlossary.BILL_STATUS_SIGNED)){
+    	    		sendInstallBill.setReceiptDate(crmInstallBill.getReceiptDate());
+    	    		 bz = "安装工:"+crmInstallBill.getOrderWorkerBig()+" 进行确认回执";
+    	    	}else{
+    	    		return;
+    	    	}
+    	 }
+    	
+    	try {
+    		sendLegJsonObject = BeanJsonUtils.convertBeanToJsonString(sendInstallBill);
+    		sendLegJsonObject.put("bz", bz);
+    		sendLegJsonObject.put("from", from);
+			if(!StringUtils.isBlank(sendInstallBill.getPoNumberSold()) && !StringUtils.isBlank(sendInstallBill.getSalesOrgCode())){
+				installBillInfoPushMQSender.send(sendLegJsonObject.toString());
+			}
+		} catch (Exception e) {
+			log.error(e.getMessage(),e);
+		} 
+		
+	
+	
 	}
 	
 	private  Future  receiptCrmCompleteLegMsg(final Map paramMap){

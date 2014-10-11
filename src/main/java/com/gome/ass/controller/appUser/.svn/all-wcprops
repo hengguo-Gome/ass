@@ -1,13 +1,13 @@
 K 25
 svn:wc:ra_dav:version-url
 V 90
-/svn/gome/!svn/ver/7111/trunk/mbl-server/ass/src/main/java/com/gome/ass/controller/appUser
+/svn/gome/!svn/ver/7115/trunk/mbl-server/ass/src/main/java/com/gome/ass/controller/appUser
 END
 AppOrderController.java
 K 25
 svn:wc:ra_dav:version-url
 V 114
-/svn/gome/!svn/ver/7051/trunk/mbl-server/ass/src/main/java/com/gome/ass/controller/appUser/AppOrderController.java
+/svn/gome/!svn/ver/7115/trunk/mbl-server/ass/src/main/java/com/gome/ass/controller/appUser/AppOrderController.java
 END
 AppUserController.java
 K 25

@@ -71,6 +71,8 @@ public class AppOrderController {
             Map<String, Object> map = ReciveMessageConvert.requestToMap(request);
             jlOrderService.appComplete(map);
             LogUtil.getLogJsonString(map, this.getClass().getName(), result.toString());
+            result.put(APPErrorInfo.ERRORCODE, APPErrorInfo.E00000);
+            result.put(APPErrorInfo.ERRORMSG, APPErrorInfo.M00000);
         } catch (Exception e) {
             log.error(e.getMessage(),e);
             result.put(APPErrorInfo.ERRORCODE, APPErrorInfo.E10013);
@@ -87,11 +89,14 @@ public class AppOrderController {
             Map<String, Object> map = ReciveMessageConvert.requestToMap(request);
             jlOrderService.appConcel(map);
             LogUtil.getLogJsonString(map, this.getClass().getName(), result.toString());
+            result.put(APPErrorInfo.ERRORCODE, APPErrorInfo.E00000);
+            result.put(APPErrorInfo.ERRORMSG, APPErrorInfo.M00000);
         } catch (Exception e) {
             log.error(e.getMessage(),e);
             result.put(APPErrorInfo.ERRORCODE, APPErrorInfo.E10013);
             result.put(APPErrorInfo.ERRORMSG, APPErrorInfo.M10013);
         }
+        
         return GzipAESUtil.compressThenEncryptAES(result.toString());
     }
 

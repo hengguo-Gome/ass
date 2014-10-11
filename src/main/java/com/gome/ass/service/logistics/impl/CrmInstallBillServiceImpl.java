@@ -136,4 +136,10 @@ public class CrmInstallBillServiceImpl implements CrmInstallBillService {
         }
 	}
 
+	@Override
+	public List<Map<String, Object>> queryDelayInstalls(
+			Map<String, Object> param) {
+		return  this.crmInstallBillDao.queryDelayInstalls(param);
+	}
+
 }

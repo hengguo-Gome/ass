@@ -3,6 +3,9 @@ package com.gome.ass.common;
 public interface APPErrorInfo {
 	String ERRORCODE = "error_code";
 	String ERRORMSG = "error_msg";
+	
+	String E00000 = "00000";
+	String M00000 = "操作成功";
 
 	String E10000 = "10000";
 	String M10000 = "服务器异常";

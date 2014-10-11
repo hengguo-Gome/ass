@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 89
-/svn/gome/!svn/ver/7111/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/logistics
+/svn/gome/!svn/ver/7131/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/logistics
 END
 CrmCompanyService.java
 K 25
@@ -13,5 +13,5 @@ CrmInstallBillService.java
 K 25
 svn:wc:ra_dav:version-url
 V 116
-/svn/gome/!svn/ver/7111/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/logistics/CrmInstallBillService.java
+/svn/gome/!svn/ver/7131/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/logistics/CrmInstallBillService.java
 END

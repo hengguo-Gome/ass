@@ -73,19 +73,19 @@
 		<constructor-arg value="tmsGroupMessageQueue" />
 	</bean>
 
-	<bean id="messageGroupPushMQSender" class="com.gome.ass.jms.ShMessageGroupPushMQSender">
+	<bean id="shMessageGroupPushMQSender" class="com.gome.ass.jms.ShMessageGroupPushMQSender">
 		<property name="jmsTemplate" ref="jmsTemplate"></property>
 		<property name="queue" ref="tmsGroupMessageQueue"></property>
 	</bean>
 
-	<bean id="messageGroupPushMQListener" class="com.gome.ass.jms.ShMessageGroupPushMQListener">
+	<bean id="shMessageGroupPushMQListener" class="com.gome.ass.jms.ShMessageGroupPushMQListener">
 	</bean>
 
-	<bean id="messageGroupPushMQConsumer"
+	<bean id="shMessageGroupPushMQConsumer"
 		class="org.springframework.jms.listener.DefaultMessageListenerContainer">
 		<property name="connectionFactory" ref="pooledJmsConnectionFactory" />
 		<property name="destination" ref="tmsGroupMessageQueue" />
-		<property name="messageListener" ref="messageGroupPushMQListener" />
+		<property name="messageListener" ref="shMessageGroupPushMQListener" />
 	</bean>
 
 </beans>

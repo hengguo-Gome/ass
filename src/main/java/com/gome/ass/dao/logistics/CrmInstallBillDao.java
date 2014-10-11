@@ -27,4 +27,11 @@ public interface CrmInstallBillDao {
      * @param map
      */
     void updateApointDate(Map<String, Object> map);
+    
+    /**
+     * 查询超时单子对应的工人代码
+     * @param param
+     * @return
+     */
+    List<Map<String,Object>> queryDelayInstalls(Map<String,Object> param);
 }

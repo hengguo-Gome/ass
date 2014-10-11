@@ -26,11 +26,27 @@
       <value>getAccount</value>
     </property>
   </bean>
+  <!-- 超时安装单消息 -->
+  <bean id="CrmInstallBillJob" class="com.gome.ass.schedule.CrmInstallBillJob" />
+  <bean id="CrmInstallBillJobMethod" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+    <property name="targetObject">
+      <ref bean="CrmInstallBillJob" />
+    </property>
+    <property name="targetMethod">  <!-- 要执行的方法名称 -->
+      <value>sendMessageToDelayWoker</value>
+    </property>
+  </bean>
 
     <!-- ======================== 调度触发器 ======================== -->
   <bean id="CronTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerBean">
     <property name="jobDetail" ref="GetAccountJobMethod"></property>
     <property name="cronExpression" value="0 59 23 * * ?"></property>
+  </bean>
+  
+    <!-- ======================== 调度触发器 ======================== -->
+  <bean id="CrmInstallBillJobCronTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerBean">
+    <property name="jobDetail" ref="CrmInstallBillJobMethod"></property>
+    <property name="cronExpression" value="0 0 6-22 * * ?"></property>
   </bean>
 
     <!-- ======================== 调度工厂 ======================== -->
@@ -41,6 +57,7 @@
     <property name="triggers">
       <list>
         <ref bean="CronTriggerBean" />
+        <ref bean="CrmInstallBillJobCronTriggerBean" /> 
       </list>
     </property>
   </bean>

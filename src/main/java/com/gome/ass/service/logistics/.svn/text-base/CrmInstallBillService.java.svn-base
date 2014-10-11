@@ -40,5 +40,7 @@ public interface CrmInstallBillService {
      * @return
      */
     public void updateLatAndLon(CrmInstallBill crmInstallBill);
+    
+    List<Map<String,Object>> queryDelayInstalls(Map<String,Object> param);
 
 }

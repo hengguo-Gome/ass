@@ -1,11 +1,13 @@
 package com.gome.ass.controller.message;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,8 +15,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.gome.ass.common.Constrants;
 import com.gome.ass.controller.crm.MessageController;
+import com.gome.ass.entity.ShUser;
+import com.gome.ass.service.message.ShGroupMessageService;
+import com.gome.ass.service.users.CrmWorkerService;
 import com.gome.ass.util.JsonUtil;
+import com.gome.common.page.Page;
 
 
 @Controller
@@ -22,7 +29,10 @@ import com.gome.ass.util.JsonUtil;
 public class ShGroupMessageController {
 
 	private static Logger log = LoggerFactory.getLogger(MessageController.class);
-
+	@Resource
+	private ShGroupMessageService shGroupMessageService;
+	@Resource
+	private CrmWorkerService crmWorkerService;
 	
 	/**
 	 * 保存用户百度消息UserId和chanelId
@@ -152,8 +162,8 @@ public class ShGroupMessageController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/groupMessageView")
-	public String groupMessageView(HttpServletRequest request, HttpServletResponse response, String mtms) throws Exception{
+	@RequestMapping("/groupMessageListView")
+	public String groupMessageListView(HttpServletRequest request, HttpServletResponse response, String mtms) throws Exception{
 		return "message/groupMessageList";
 	}
 	
@@ -166,26 +176,15 @@ public class ShGroupMessageController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/findGroupMessagePageList", produces="text/plain;charset=UTF-8")
-	public @ResponseBody String  findGroupMessagePageList(HttpServletRequest request, HttpServletResponse response, String mtms) throws Exception{
-		
-		Map<String,Object> result = new HashMap<String,Object>();
+	public @ResponseBody String  findGroupMessagePageList(HttpServletRequest request,  Page page,  HttpServletResponse response, String mtms) throws Exception{
+		ShUser user = (ShUser)request.getSession().getAttribute(Constrants.USER_INFO);
 		Map<String, Object> inMap = new HashMap<String, Object>();
-    	inMap.put("title", request.getParameter("title"));
+    	inMap.put("type", request.getParameter("type"));
     	inMap.put("content", request.getParameter("content"));
-    	//inMap.put("username", request.getParameter("username"));
-    	
-    	HttpSession session = request.getSession();
-    	Map<String,Object> userInfo = (Map<String, Object>) session.getAttribute("userInfo");
-    	String userType = (String) userInfo.get("userType");
-//    	if(BusinessGlossary.SYSTEM_USER_TYPE_WULIU_MANAGER.equals(userType)){//如果当前登录人是物流经理则只显示他发送的消息
-//    		Wuliumanager wm = (Wuliumanager) userInfo.get("user");
-//    		inMap.put("sendUserId", wm.getId());
-//    		inMap.put("sendUserType", BusinessGlossary.MESSAGE_SEND_USER_TYPE_WULIU_MANAGER);
-//    	}
-//    	
-//    	PaginationParameters param = new PaginationParameters(request,response);
-//    	
-		return JsonUtil.javaObjectToJsonString(result);
+    	inMap.put("webcode", user.getWebcode());
+    	page.setParam(inMap);
+    	List<Map<String,Object>> result = this.shGroupMessageService.findGroupMessagePageList(page);
+		return JsonUtil.writeListToDataGrid(page.getTotalResult(),result);
 	}
 	
 	/**
@@ -197,7 +196,7 @@ public class ShGroupMessageController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/saveWuliuManagerMessage", produces="text/plain;charset=UTF-8")
-	public @ResponseBody String saveWuliuManagerMessage(HttpServletRequest request, HttpServletResponse response, String mtms) throws Exception{
+	public @ResponseBody String saveWuliuManagerMessage(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		Map<String,Object> result = new HashMap<String,Object>();
 //		Message msg = new Message();
 //		
@@ -209,6 +208,15 @@ public class ShGroupMessageController {
 //		String groupId = request.getParameter("groupId");
 //		String type = request.getParameter("type");
 //		this.messageService.transSendMessage(userInfo, msg, driverIds, groupId, type);
+		return JsonUtil.javaObjectToJsonString(result);
+	}
+	
+	@RequestMapping(value="/findWebcodeList", produces="text/plain;charset=UTF-8")
+	@ResponseBody
+	public String findWebcodeList(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		ShUser user = (ShUser)request.getSession().getAttribute(Constrants.USER_INFO);
+		
+		List<Map<String, Object>> result = this.crmWorkerService.findWebcodeList(user.getFromType(), user.getWebcode());
 		return JsonUtil.javaObjectToJsonString(result);
 	}
 }

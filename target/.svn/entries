@@ -1,7 +1,7 @@
 10
 
 dir
-7127
+7134
 https://10.128.11.62/svn/gome/trunk/mbl-server/ass/target
 https://10.128.11.62/svn/gome
 
@@ -23,36 +23,15 @@ liuchao43
 
 
 
-incomplete
+
 ceea3779-27bf-e045-a9e1-b02ef83dfcfa
-
-
-
-
-
-
-
-
-((conflict classes dir update edited deleted (version https://10.128.11.62/svn/gome 4 7099 trunk/mbl-server/ass/target/classes 0 ) (version https://10.128.11.62/svn/gome 4 7112 trunk/mbl-server/ass/target/classes dir)))
-
-classes
-dir
-
-
-
-delete
-
-m2e-wtp
-dir
-
-
-
-delete
 
 test-classes
 dir
-
-
-
-delete
+
+m2e-wtp
+dir
+
+classes
+dir
 

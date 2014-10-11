@@ -1,7 +1,7 @@
 10
 
 dir
-7112
+7134
 https://10.128.11.62/svn/gome/trunk/mbl-server/ass/src/main/resources/template/jl
 https://10.128.11.62/svn/gome
 
@@ -12,7 +12,7 @@ https://10.128.11.62/svn/gome
 wanghengguo
 
 
-svn:special svn:externals svn:needs-lock
+
 
 
 
@@ -25,6 +25,108 @@ svn:special svn:externals svn:needs-lock
 
 
 ceea3779-27bf-e045-a9e1-b02ef83dfcfa
+
+JL_LEG_RECEIPT.xml
+file
+
+
+
+
+2014-09-28T09:44:10.947000Z
+948cff8869faf31861ea8fefdcd7c256
+2014-09-28T06:29:28.166918Z
+7004
+liuchao43
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1592
+
+JL_RECEIVE.xml
+file
+
+
+
+
+2014-09-29T01:49:27.148000Z
+bd6f8ca52cb6e6584906013b5ce513d2
+2014-09-29T01:41:20.099160Z
+7019
+liuchao43
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1822
+
+JL_TimeWindow.xml
+file
+
+
+
+
+2014-09-26T02:48:45.921000Z
+78927821ee4ecf69af6189c02a4e1977
+2014-09-26T03:07:19.603230Z
+6941
+wanghengguo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+286
 
 CRM272.xml
 file
@@ -128,40 +230,6 @@ liuchao43
 
 470
 
-JL_LEG_RECEIPT.xml
-file
-
-
-
-
-2014-09-28T09:44:10.947000Z
-948cff8869faf31861ea8fefdcd7c256
-2014-09-28T06:29:28.166918Z
-7004
-liuchao43
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1592
-
 JL_OrderDelay.xml
 file
 
@@ -195,72 +263,4 @@ wanghengguo
 
 
 400
-
-JL_RECEIVE.xml
-file
-
-
-
-
-2014-09-29T01:49:27.148000Z
-bd6f8ca52cb6e6584906013b5ce513d2
-2014-09-29T01:41:20.099160Z
-7019
-liuchao43
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1822
-
-JL_TimeWindow.xml
-file
-
-
-
-
-2014-09-26T02:48:45.921000Z
-78927821ee4ecf69af6189c02a4e1977
-2014-09-26T03:07:19.603230Z
-6941
-wanghengguo
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-286
 

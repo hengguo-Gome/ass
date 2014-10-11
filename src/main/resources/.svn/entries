@@ -1,14 +1,14 @@
 10
 
 dir
-7112
+7134
 https://10.128.11.62/svn/gome/trunk/mbl-server/ass/src/main/resources
 https://10.128.11.62/svn/gome
 
 
 
-2014-10-10T01:55:34.798668Z
-7111
+2014-10-10T09:24:54.594522Z
+7131
 chengbiao
 
 
@@ -25,6 +25,24 @@ chengbiao
 
 
 ceea3779-27bf-e045-a9e1-b02ef83dfcfa
+
+authentication
+dir
+
+config.properties
+file
+
+
+
+
+
+dec85170355245f4c0555052de26f725
+2014-10-10T01:55:34.798668Z
+7111
+chengbiao
+
+spring
+dir
 
 app_sh.properties
 file
@@ -60,23 +78,11 @@ chengbiao
 
 414
 
-authentication
+redis
 dir
 
-config.properties
-file
-
-
-
-
-
-dec85170355245f4c0555052de26f725
-2014-10-10T01:55:34.798668Z
-7111
-chengbiao
-
-
-svn:special svn:externals svn:needs-lock
+mybatis
+dir
 
 log4j.properties
 file
@@ -91,7 +97,7 @@ file
 chengbiao
 
 
-svn:special svn:externals svn:needs-lock
+
 
 
 
@@ -111,15 +117,6 @@ svn:special svn:externals svn:needs-lock
 
 
 1197
-
-mybatis
-dir
-
-redis
-dir
-
-spring
-dir
 
 template
 dir

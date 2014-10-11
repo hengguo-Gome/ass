@@ -29,5 +29,7 @@ public interface CrmWorkerDao {
 	 * @param map
 	 */
 	public void updatePasswordByCode(Map<String, Object> map);
+
+	List<Map<String, Object>> findWebCodeList(String webcode);
 	
 }

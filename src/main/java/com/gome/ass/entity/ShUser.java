@@ -13,7 +13,7 @@ public class ShUser {
 
     private String password;
 
-    private String fromtype;
+    private String fromType;
     
     private String webcode;
     
@@ -45,12 +45,14 @@ public class ShUser {
         this.password = password;
     }
 
-	public String getFromtype() {
-		return fromtype;
+    
+    
+	public String getFromType() {
+		return fromType;
 	}
 
-	public void setFromtype(String fromtype) {
-		this.fromtype = fromtype;
+	public void setFromType(String fromType) {
+		this.fromType = fromType;
 	}
 
 	public String getWebcode() {

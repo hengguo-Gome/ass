@@ -2,22 +2,30 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.gome.ass.dao.users.ShUserDao" >
   <resultMap id="BaseResultMap" type="com.gome.ass.entity.ShUser" >
-    <result column="NAME" property="name" jdbcType="VARCHAR" />
-    <result column="ACCOUNT" property="account" jdbcType="VARCHAR" />
-    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
-    <result column="COMPANY_CODE" property="companyCode" jdbcType="VARCHAR" />
-    <result column="WEBCODE" property="webcode" jdbcType="VARCHAR"/>
-    <result column="FROM_TYPE" property="fromType" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="account" property="account" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="from_type" property="fromType" jdbcType="VARCHAR" />
+    <result column="company_code" property="companyCode" jdbcType="VARCHAR" />
+    <result column="webcode" property="webcode" jdbcType="VARCHAR"/>
   </resultMap>
  <sql id="Base_Column_List" >
-    NAME, ACCOUNT, PASSWORD, COMPANY_CODE, FROM_TYPE
+    name, account, password, company_code, webcode, from_type
   </sql>
   <select id="getUserPageList" parameterType="com.gome.common.page.Page" resultType="hashmap">
-    SELECT 
-        <include refid="Base_Column_List"/>
-    FROM
-        v_user
-    <where>
+    SELECT
+		v_user.	,
+		v_user.ACCOUNT,
+		v_user.`password`,
+		v_user.company_code,
+		v_user.webcode,
+		sh_code_setting.code_value AS from_type
+	FROM
+		sh_code_setting
+	INNER JOIN sh_code ON sh_code.code_id = sh_code_setting.code_id
+	INNER JOIN v_user ON sh_code_setting.code_key = CONVERT (from_type, CHAR(2))
+    WHERE
+    	sh_code.code_id = 'user_type'
       <if test="param.name != null and param.name != '' ">
           and v_user.name LIKE CONCAT('%', #{param.name}, '%')
       </if>
@@ -27,39 +35,31 @@
       <if test="param.pasword != null and param.password != '' ">
           and v_user.password = #{param.password}
       </if>
-      <if test="param.fromType != null and param.fromType != ''">
-          and v_user.from_type = #{param.fromType}
-      </if>
-    </where>
+<!--       <if test="param.fromType != null and param.fromType != ''"> -->
+<!--           and v_user.from_type = #{param.fromType} -->
+<!--       </if> -->
   </select>
-  <select id="getUserSelective" parameterType="com.gome.common.page.Page" resultType="com.gome.ass.entity.ShUser">
+  <select id="getUserSelective" parameterType="com.gome.common.page.Page" resultMap="BaseResultMap">
     SELECT
-		v_user.`NAME`,
-		v_user.ACCOUNT,
-		v_user.`PASSWORD`,
-		v_user.COMPANY_CODE,
-		v_user.WEBCODE,
-		sh_code_setting.code_value AS FROM_TYPE
+		<include refid="Base_Column_List"/>
 	FROM
-		sh_code_setting
-	INNER JOIN sh_code ON sh_code.code_id = sh_code_setting.code_id,
-	 v_user
-	WHERE
-		sh_code.code_id = 'user_type'
+		v_user
+	<where>
       <if test="param.account != null and param.account != '' ">
-          and v_user.account = #{param.account}
+          and v_user.ACCOUNT = #{param.account}
       </if>
       <if test="param.pasword != null and param.password != '' ">
           and v_user.password = #{param.password}
       </if>
-      <if test="param.fromType != null and param.fromType != ''">
+      <if test="param.fromType!= null and param.fromType != ''">
           and v_user.from_type = #{param.fromType}
       </if>
+    </where>
   </select>
   <!-- 
   <insert id="insert" parameterType="com.gome.ass.entity.ShUser" >
-    insert into v_user (NAME, ACCOUNT, PASSWORD, 
-      COMPANY_CODE, FROM_TYPE)
+    insert into v_user (NAME, ACCOUNT, password, 
+      company_code, from_type)
     values (#{name,jdbcType=VARCHAR}, #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{companyCode,jdbcType=VARCHAR}, #{fromType,jdbcType=VARCHAR})
   </insert>
@@ -73,13 +73,13 @@
         ACCOUNT,
       </if>
       <if test="password != null" >
-        PASSWORD,
+        password,
       </if>
       <if test="companyCode != null" >
-        COMPANY_CODE,
+        company_code,
       </if>
       <if test="fromType != null" >
-        FROM_TYPE,
+        from_type,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >

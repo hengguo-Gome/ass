@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -20,6 +21,7 @@ import org.dom4j.Element;
 import org.springframework.stereotype.Service;
 
 import com.gome.ass.common.APPErrorInfo;
+import com.gome.ass.common.BusinessGlossary;
 import com.gome.ass.entity.CrmAccessories;
 import com.gome.ass.entity.CrmInstallBill;
 import com.gome.ass.entity.CrmService;
@@ -67,6 +69,11 @@ public class JlOrderServiceImpl implements JlOrderService{
             //更新本地安装单状态
             if(result.get("RESULT") != null && result.get("RESULT").equals("1")){
                 this.crmInstallBillService.updateApointDate(map);
+                
+                //将安装单信息发送给mq
+    			String jlOrderNum = (String)map.get("azd01");
+    			CrmInstallBill crmInstallBill = this.crmInstallBillService.queryCrmInstallBillByJlOrderNum(jlOrderNum);
+                AsynchronousSendMsgUtils.sendInstallBillToMq(crmInstallBill, BusinessGlossary.SYSTEM_NAME_APP);
             }
         } catch (Exception e) {
             result = new JSONObject();
@@ -187,6 +194,14 @@ public class JlOrderServiceImpl implements JlOrderService{
 			}
 			//TODO根据金力单号查询，修改状相关信息，保存
 			crmInstallBill.setBillStatus("E0014");
+			crmInstallBill.setReceiptCode( (String)map.get("receiptCode"));
+			
+			if(map.get("receiptDate")!=null&&!"".equals(map.get("receiptDate"))){
+				crmInstallBill.setReceiptDate(new SimpleDateFormat("yyyy-mm-dd hh").parse((String)map.get("receiptDate")));
+			}else{
+				crmInstallBill.setReceiptDate(new Date());
+			}
+			
 			this.crmInstallBillService.updateByPrimaryKeySelective(crmInstallBill);
 			List services = (List)map.get("services");
 			List<CrmService> crmServices = new ArrayList<CrmService>();
@@ -226,6 +241,8 @@ public class JlOrderServiceImpl implements JlOrderService{
 			}else{//网点代码其他以字母开头为自建网点，回执到crm
 				AsynchronousSendMsgUtils.receiptCrmCompleteLegMessage(param);
 			}
+			//将安装单信息发送到mq
+			AsynchronousSendMsgUtils.sendInstallBillToMq(crmInstallBill, BusinessGlossary.SYSTEM_NAME_APP);
 			
 		}catch(Exception e){
 			throw new RuntimeException(e);
@@ -250,6 +267,8 @@ public class JlOrderServiceImpl implements JlOrderService{
 			}else{//网点代码其他以字母开头为自建网点，回执到crm
 				AsynchronousSendMsgUtils.receiptCrmConcelLegMessage(param);
 			}
+			//将安装单信息发送到mq
+			AsynchronousSendMsgUtils.sendInstallBillToMq(crmInstallBill, BusinessGlossary.SYSTEM_NAME_APP);
 			
 		}catch(Exception e){
 			throw new RuntimeException(e);

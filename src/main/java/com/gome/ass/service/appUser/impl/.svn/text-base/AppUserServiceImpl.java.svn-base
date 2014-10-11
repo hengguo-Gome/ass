@@ -113,6 +113,7 @@ public class AppUserServiceImpl implements AppUserService {
 								shDeviceManageDao.insertShDeviceManage(map);
 								result.put("userId", crmWorker.getWorkerCode());
 								result.put("userName", crmWorker.getWorkerName());
+								result.put("phone", crmWorker.getPhone());
 							}else{
 								if(shDeviceManage.getStatus().equals(BusinessGlossary.FALSE_INFO)){
 									result.put(APPErrorInfo.ERRORCODE, APPErrorInfo.E10008);
@@ -120,6 +121,7 @@ public class AppUserServiceImpl implements AppUserService {
 								}else if(StringUtils.isNotBlank(snNo) && snNo.equals(shDeviceManage.getSnNo())){
 									result.put("userId", crmWorker.getWorkerCode());
 									result.put("userName", crmWorker.getWorkerName());
+									result.put("phone", crmWorker.getPhone());
 								}else{
 									result.put(APPErrorInfo.ERRORCODE, APPErrorInfo.E10006);
 									result.put(APPErrorInfo.ERRORMSG, APPErrorInfo.M10006);

@@ -1,13 +1,13 @@
 K 25
 svn:wc:ra_dav:version-url
 V 44
-/svn/gome/!svn/ver/7112/trunk/mbl-server/ass
+/svn/gome/!svn/ver/7131/trunk/mbl-server/ass
 END
-pom.xml
+.classpath
 K 25
 svn:wc:ra_dav:version-url
-V 52
-/svn/gome/!svn/ver/7112/trunk/mbl-server/ass/pom.xml
+V 55
+/svn/gome/!svn/ver/6919/trunk/mbl-server/ass/.classpath
 END
 .project
 K 25
@@ -15,9 +15,9 @@ svn:wc:ra_dav:version-url
 V 53
 /svn/gome/!svn/ver/6111/trunk/mbl-server/ass/.project
 END
-.classpath
+pom.xml
 K 25
 svn:wc:ra_dav:version-url
-V 55
-/svn/gome/!svn/ver/6919/trunk/mbl-server/ass/.classpath
+V 52
+/svn/gome/!svn/ver/7112/trunk/mbl-server/ass/pom.xml
 END

@@ -1,13 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 91
-/svn/gome/!svn/ver/7049/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/system/impl
-END
-JlAccountServiceImpl.java
-K 25
-svn:wc:ra_dav:version-url
-V 117
-/svn/gome/!svn/ver/6874/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/system/impl/JlAccountServiceImpl.java
+/svn/gome/!svn/ver/7130/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/system/impl
 END
 CommonMessageServiceImpl.java
 K 25
@@ -15,11 +9,23 @@ svn:wc:ra_dav:version-url
 V 121
 /svn/gome/!svn/ver/6522/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/system/impl/CommonMessageServiceImpl.java
 END
+ShMenuServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/gome/!svn/ver/6505/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/system/impl/ShMenuServiceImpl.java
+END
 JlOrderServiceImpl.java
 K 25
 svn:wc:ra_dav:version-url
 V 115
-/svn/gome/!svn/ver/7049/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/system/impl/JlOrderServiceImpl.java
+/svn/gome/!svn/ver/7130/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/system/impl/JlOrderServiceImpl.java
+END
+JlAccountServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/gome/!svn/ver/6874/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/system/impl/JlAccountServiceImpl.java
 END
 ShDataRecordServiceImpl.java
 K 25
@@ -27,21 +33,15 @@ svn:wc:ra_dav:version-url
 V 120
 /svn/gome/!svn/ver/7047/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/system/impl/ShDataRecordServiceImpl.java
 END
-CrmWebBasicdataServiceImpl.java
-K 25
-svn:wc:ra_dav:version-url
-V 123
-/svn/gome/!svn/ver/6794/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/system/impl/CrmWebBasicdataServiceImpl.java
-END
 ShCodeServiceImpl.java
 K 25
 svn:wc:ra_dav:version-url
 V 114
 /svn/gome/!svn/ver/6574/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/system/impl/ShCodeServiceImpl.java
 END
-ShMenuServiceImpl.java
+CrmWebBasicdataServiceImpl.java
 K 25
 svn:wc:ra_dav:version-url
-V 114
-/svn/gome/!svn/ver/6505/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/system/impl/ShMenuServiceImpl.java
+V 123
+/svn/gome/!svn/ver/6794/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/system/impl/CrmWebBasicdataServiceImpl.java
 END

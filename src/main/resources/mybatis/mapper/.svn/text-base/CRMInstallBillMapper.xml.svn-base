@@ -497,6 +497,19 @@
 		order_worker_litter = #{userId}
 
 	</select>
+
+	<select id="queryDelayInstalls" parameterType="map" resultType="map">
+		SELECT b.`jl_order_num` azdh,d.`baidu_id` baiduId,d.`access_token` accessToken FROM
+		crm_install_bill b
+		LEFT JOIN sh_device_manage d
+		ON b.`order_worker_big` = d.`user_id` OR b.order_worker_litter =
+		d.`user_id`
+		WHERE b.jl_order_num IN (SELECT jl_order_num FROM crm_install_bill
+		WHERE
+		DATE_FORMAT( appoint_start_date, '%Y-%m-%d %H')>=#{qyeryTime} AND
+		bill_status = 'E0010')
+
+	</select>
 	<update id="updateApointDate" parameterType="hashmap">
 		UPDATE
 		crm_install_bill

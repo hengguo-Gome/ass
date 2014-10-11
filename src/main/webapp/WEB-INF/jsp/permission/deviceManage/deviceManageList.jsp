@@ -147,7 +147,7 @@
             pagination : true,
             pageSize : 20,
             rownumbers : true,
-            fitColumns : true,
+            fitColumns : false,
             columns : [ [ {
                 checkbox : true
             }, {

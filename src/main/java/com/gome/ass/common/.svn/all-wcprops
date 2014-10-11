@@ -1,19 +1,13 @@
 K 25
 svn:wc:ra_dav:version-url
 V 78
-/svn/gome/!svn/ver/7111/trunk/mbl-server/ass/src/main/java/com/gome/ass/common
+/svn/gome/!svn/ver/7115/trunk/mbl-server/ass/src/main/java/com/gome/ass/common
 END
 BusinessGlossary.java
 K 25
 svn:wc:ra_dav:version-url
 V 100
 /svn/gome/!svn/ver/7111/trunk/mbl-server/ass/src/main/java/com/gome/ass/common/BusinessGlossary.java
-END
-Constrants.java
-K 25
-svn:wc:ra_dav:version-url
-V 94
-/svn/gome/!svn/ver/7025/trunk/mbl-server/ass/src/main/java/com/gome/ass/common/Constrants.java
 END
 CustomizedPropertyPlaceholderConfigurer.java
 K 25
@@ -25,5 +19,11 @@ APPErrorInfo.java
 K 25
 svn:wc:ra_dav:version-url
 V 96
-/svn/gome/!svn/ver/6956/trunk/mbl-server/ass/src/main/java/com/gome/ass/common/APPErrorInfo.java
+/svn/gome/!svn/ver/7115/trunk/mbl-server/ass/src/main/java/com/gome/ass/common/APPErrorInfo.java
+END
+Constrants.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/gome/!svn/ver/7025/trunk/mbl-server/ass/src/main/java/com/gome/ass/common/Constrants.java
 END

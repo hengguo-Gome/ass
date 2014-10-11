@@ -62,6 +62,19 @@ public static final String MQ_MESSAGE_TYPE_HUIZHI = "NOTE_REPLY";
 	String BILL_STATUS_CANCEL = "E0021";
 	String BILL_STATUS_DELAY = "DELAY";
 	
+	//手机端消息类型
+	/**
+	 * 订单消息
+	 */
+	public static final Integer MOBILE_MESSAGE_TYPE_ORDER = 0;
+	/**
+	 * 系统消息
+	 */
+	public static final Integer MOBILE_MESSAGE_TYPE_SYSTEM = 1;
+	/**
+	 * 投诉消息
+	 */
+	public static final Integer MOBILE_MESSAGE_TYPE_COMPLAINT = 2;
 	//TMS运单状态
 	/** 待派工 */
 	public static final String LEG_TYPE_WAITPLAN = "WAITPLAN";
