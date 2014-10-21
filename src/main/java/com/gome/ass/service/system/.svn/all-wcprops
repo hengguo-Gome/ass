@@ -1,19 +1,19 @@
 K 25
 svn:wc:ra_dav:version-url
 V 86
-/svn/gome/!svn/ver/7130/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/system
-END
-ShMenuService.java
-K 25
-svn:wc:ra_dav:version-url
-V 105
-/svn/gome/!svn/ver/6505/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/system/ShMenuService.java
+/svn/gome/!svn/ver/7323/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/system
 END
 JlAccountService.java
 K 25
 svn:wc:ra_dav:version-url
 V 108
 /svn/gome/!svn/ver/6874/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/system/JlAccountService.java
+END
+CommonMessageService.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/gome/!svn/ver/6522/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/system/CommonMessageService.java
 END
 ShDataRecordService.java
 K 25
@@ -33,9 +33,9 @@ svn:wc:ra_dav:version-url
 V 114
 /svn/gome/!svn/ver/6794/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/system/CrmWebBasicdataService.java
 END
-CommonMessageService.java
+ShMenuService.java
 K 25
 svn:wc:ra_dav:version-url
-V 112
-/svn/gome/!svn/ver/6522/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/system/CommonMessageService.java
+V 105
+/svn/gome/!svn/ver/6505/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/system/ShMenuService.java
 END

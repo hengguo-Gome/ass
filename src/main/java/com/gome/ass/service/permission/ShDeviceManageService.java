@@ -7,14 +7,14 @@ import com.gome.ass.entity.ShDeviceManage;
 import com.gome.common.page.Page;
 public interface ShDeviceManageService {
 
-	public void insertWlDeviceManage(Map<String,Object> inMap);
+	public void insertShDeviceManageByMap(Map<String,Object> inMap);
 	/**
 	 * APP版本检测更新
 	 * @param wlDeviceManage
 	 */
 	public void updateWlDeviceManage(ShDeviceManage wlDeviceManage);
 	
-	public ShDeviceManage findWlDeviceManageById(Map<String,Object> inMap);
+	public ShDeviceManage findShDeviceManageById(Map<String,Object> inMap);
 	
 	/**
 	 * 按大小工查找设备信息

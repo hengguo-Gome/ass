@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>与TMS系统通讯日志</title>
+<title>系统消息日志</title>
 <script type="text/javascript">
     function searchBtn() {
         $('#dataRecordList').datagrid('load');
@@ -22,7 +22,7 @@
             pagination : true,
             pageSize : 20,
             rownumbers : true,
-            fitColumns : true,
+            fitColumns : false,
             columns : [ [ {
                 field : 'id',
                 title : 'ID',
@@ -32,7 +32,7 @@
             }, {
                 field : 'xml_content',
                 title : '报文原始内容',
-                width : 50,
+                width : 100,
                 formatter : function(value) {
                     value = value.replace(new RegExp("<", "ig"), "&lt;");
                     value = value.replace(new RegExp(">", "ig"), "&gt;");
@@ -43,24 +43,24 @@
             }, {
                 field : 'interface_type',
                 title : '接口类型',
-                width : 50
+                width : 100
             }, {
                 field : 'sender',
                 title : '发送方',
-                width : 50
+                width : 100
             }, {
                 field : 'receiver',
                 title : '接收方',
-                width : 50
+                width : 100
 
             }, {
                 field : 'result_content',
                 title : '处理结果',
-                width : 50
+                width : 100
             }, {
                 field : 'create_time',
                 title : '时间',
-                width : 50
+                width : 200
             } ] ],
             loadMsg : "数据加载中...",
             onBeforeLoad : function(param) {

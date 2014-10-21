@@ -20,6 +20,8 @@ public interface CrmInstallBillDao {
     
     public void delBatch(List<String> jlorderCodes);
     
+    public Integer getTodayOrderSuquence(String workerId);
+    
     public List<Map<String,Object>> queryInstallBill(Map<String,Object> param);
 
     /**

@@ -9,10 +9,16 @@ public interface RedisCommonDao {
 	
 	public Set<Object> keyZSetGet(final String key);
 	
+	public Set<Object> keyZSetRangeGet(final String key,final Double start,final Double end);
+	
 	public void keyZSetRemove(final String key,final Object value);
 	
 	public void keyZSetRemoveList(final String key,final List<Object> values);
 	
 	public Map<String,String> keyZMapGet(final String key);
+	
+	public void keyMapAdd(final String key,final Map<String,String> map,final Long expireSeconds) ;
+	
+	public void keyZSetAdd(final String key,final Double time,final Object value,final Long expireSeconds) ;
 	
 }

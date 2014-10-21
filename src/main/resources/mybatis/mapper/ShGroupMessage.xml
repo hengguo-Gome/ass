@@ -28,12 +28,23 @@
     VALUES(
     #{id,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
     #{district,jdbcType=VARCHAR}, #{workerId,jdbcType=VARCHAR}, #{msgtime,jdbcType=TIMESTAMP}, 
-    #{sendtime,jdbcType=TIMESTAMP}, #{scope,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT},
+    #{sendtime,jdbcType=TIMESTAMP}, #{scope,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR},
     #{sendUserId},
     #{sendUserType}
     )
   </insert>
-
+  <insert id="insertShGroupMessage" parameterType="com.gome.ass.entity.ShGroupMessage">
+  	INSERT INTO sh_group_message(
+    <include refid="message_Column_List" />
+    )
+    VALUES(
+    #{id,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+    #{district,jdbcType=VARCHAR}, #{workerId,jdbcType=VARCHAR}, #{msgtime,jdbcType=TIMESTAMP}, 
+    #{sendtime,jdbcType=TIMESTAMP}, #{scope,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR},
+    #{sendUserId},
+    #{sendUserType}
+    )
+  </insert>
   <update id="update" parameterType="com.gome.ass.entity.ShGroupMessage">
     UPDATE sh_group_message
     <set>
@@ -82,7 +93,7 @@
     <where>
      id = #{id}
       <if test="title != null"> and title like "%"#{title}"%"</if>
-      <if test="type != null"> and type = #{type}</if>
+      <if test="type != null"> and type = #{type}</if><!-- TODO 修改类型 -->
     </where>
   </select>
   
@@ -104,12 +115,14 @@
 	INNER JOIN sh_code_setting ON sh_code_setting.code_key = message.type
 	INNER JOIN sh_code ON sh_code_setting.code_id = sh_code.code_id
 	INNER JOIN v_user ON message.send_user_id = v_user.ACCOUNT
-	INNER JOIN crm_worker ON message.worker_id = crm_worker.worker_id
+	INNER JOIN crm_worker ON message.worker_id = crm_worker.worker_code
 	WHERE
 		sh_code_setting.code_id = 'message_type'
-      	<if test="param.content != null and param.content != '' "> and title like "%"#{param.content}"%"</if>
+      	<if test="param.content != null and param.content != '' "> and content like "%"#{param.content}"%"</if>
+      	<if test="param.title != null and param.title != '' "> and title like "%"#{param.title}"%"</if>
       	<if test="param.type != null and param.type != '' "> and type = #{param.type}</if>
       	<if test="param.webcode != null and param.webcode != '' ">and crm_worker.website_code = #{param.webcode}</if>
+    ORDER BY send_time DESC
   </select>
   
   <!-- 

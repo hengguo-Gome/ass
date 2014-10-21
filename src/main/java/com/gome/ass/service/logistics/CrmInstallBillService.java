@@ -4,6 +4,8 @@ package com.gome.ass.service.logistics;
 import java.util.List;
 import java.util.Map;
 
+import net.sf.json.JSONObject;
+
 import com.gome.ass.entity.CrmAccessories;
 import com.gome.ass.entity.CrmInstallBill;
 import com.gome.ass.entity.CrmService;
@@ -15,7 +17,9 @@ public interface CrmInstallBillService {
     
     public void insertAccessoriesBatch(List<CrmAccessories> crmAccessorieses);
     
-    public List<Map<String,String>> queryInstallBill(Map<String,Object> param);
+    public JSONObject queryInstallBill(Map<String,Object> param);
+    
+    public JSONObject queryLegTrack(Map<String,Object> param);
     
     public void delBatch(List<String> jlorderCodes);
     
@@ -40,6 +44,17 @@ public interface CrmInstallBillService {
      * @return
      */
     public void updateLatAndLon(CrmInstallBill crmInstallBill);
+    /**
+     * 提交排成
+     * @param param
+     */
+    public void updateInstallSuquence(Map<String,Object> param);
+    
+    /**
+     * 提交经纬度
+     * @param param
+     */
+    public void updateWorkerLocation(Map<String,Object> param);
     
     List<Map<String,Object>> queryDelayInstalls(Map<String,Object> param);
 

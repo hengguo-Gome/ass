@@ -8,7 +8,7 @@
 		<DTSEND></DTSEND>
 	</HEADER>
 	<XML_DATA>
-		<CRM272>
+		<CRM274>
 			<HEADER>
 				<AZD01>$!{crmIntsallBill.jlOrderNum}</AZD01>
 				<HZRQ>$!{crmInstallBill.receiptDate}</HZRQ>
@@ -43,6 +43,6 @@
 				</ITEM2>
 				#end
 			</ITEMS>
-		</CRM272>
+		</CRM274>
 	</XML_DATA>
 </ns1:MT_CRM_Req>

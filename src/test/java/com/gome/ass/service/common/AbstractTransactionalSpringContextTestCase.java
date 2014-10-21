@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.AbstractTransactionalJUnit4Spring
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.gome.ass.dao.users.CrmWorkerDao;
+import com.gome.ass.dao.users.ShUserDao;
 import com.gome.ass.entity.ShUser;
 import com.gome.common.page.Page;
 /**
@@ -21,7 +22,7 @@ import com.gome.common.page.Page;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={
-        "classpath:/spring/applicationContext.xml"
+        "classpath:/spring/spring-appContext.xml"
 })
 public class AbstractTransactionalSpringContextTestCase extends AbstractTransactionalJUnit4SpringContextTests{
 
@@ -38,14 +39,15 @@ public class AbstractTransactionalSpringContextTestCase extends AbstractTransact
     
     @Test
     public void testBean(){
-    	CrmWorkerDao crmWorkerDAO = (CrmWorkerDao) getBeanByName("crmWorkerDao");
+    	ShUserDao shUserDao = (ShUserDao) getBeanByName("shUserDao");
     	Page page = new Page();
     	Map<String, Object> map = new HashMap<String, Object>();
-    	map.put("account", "222222");
-	    map.put("password", "1");
-	    map.put("fromType", 1);
+//    	map.put("account", "222222");
+//	    map.put("password", "1");
+//	    map.put("fromType", 1);
+    	map.put("workerCode", "123456789");
     	page.setParam(map);
-    	List list = crmWorkerDAO.findWebCodeList(null);
+    	List list = shUserDao.getUserPageList(page);
     	System.out.println(list.size());
     }
 }

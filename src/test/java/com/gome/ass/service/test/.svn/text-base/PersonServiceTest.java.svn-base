@@ -1,7 +1,9 @@
 package com.gome.ass.service.test;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -12,6 +14,7 @@ import org.springframework.test.annotation.Rollback;
 import com.gome.ass.entity.Person;
 import com.gome.ass.service.PersonService;
 import com.gome.ass.service.common.AbstractTransactionalSpringContextTestCase;
+import com.gome.ass.service.logistics.CrmInstallBillService;
 
 /**
  * 该类只作为模板参考，不参与具体的业务
@@ -50,8 +53,23 @@ public class PersonServiceTest extends AbstractTransactionalSpringContextTestCas
 		personService.deletePerson(inMap);
 	}
 	
+	@Resource
+	private CrmInstallBillService crmInstallBillService;
 	@Test
 	public void findPersonByPage() throws Exception{
+		List<Map> list = new ArrayList<Map>();
+		for (int i = 0; i < 2; i++) {
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("azdh", "0200080383");
+			map.put("thd", "1224334901");
+			map.put("gsdm", "1001");
+			map.put("order", "1");
+			list.add(map);
+		}
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("suquence", list);
+		crmInstallBillService.updateInstallSuquence(param);
+		
 	}
 	
 }

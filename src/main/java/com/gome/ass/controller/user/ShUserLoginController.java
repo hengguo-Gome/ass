@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.gome.ass.common.Constrants;
 import com.gome.ass.entity.ShUser;
@@ -62,9 +63,45 @@ public class ShUserLoginController {
 		}
 	}
 	
+	@RequestMapping(value="/alterPwd",method=RequestMethod.POST,produces="text/plain;charset=utf-8")
+    @ResponseBody
+    public String alterPwd(Page page, HttpServletRequest request){
+        Map<String, Object> map = new HashMap<String, Object>();
+        String oldPwd = request.getParameter("oldPwd");
+        String newPwd = request.getParameter("newPwd");
+        if(StringUtils.isBlank(oldPwd)) return "{\"flag\" : \"oldPwdNull\"}";
+        if(StringUtils.isBlank(newPwd)) return "{\"flag\" : \"newPwdNull\"}";
+        ShUser shUser = (ShUser) request.getSession().getAttribute(Constrants.USER_INFO);
+        map.put("account", shUser.getAccount());
+        map.put("password", oldPwd);
+        map.put("fromType", shUser.getFromType());
+        
+        page.setParam(map);
+        ShUserPwdInfo shUserPwdInfo = shUserPwdInfoService.findUserByUserId(map);
+        if(shUserPwdInfo == null){
+            return "{\"flag\" : \"accountNull\"}";
+        }else {
+            if(!oldPwd.equals(shUserPwdInfo.getPassword())){
+                return "{\"flag\" : \"oldPwdError\"}";
+            }else{
+                map.put("userId", shUser.getAccount());
+                map.put("password", newPwd);
+                map.put("userType", shUser.getFromType());
+                shUserPwdInfoService.updateByPrimaryKey(map);
+                return "{\"flag\" : \"success\"}";
+            }
+        }
+    }
+	
 	@RequestMapping(value="/index")
 	public String index(){
 		return "index";
 	}
-	
+	@RequestMapping(value="/logout",method=RequestMethod.GET,produces="text/plain;charset=utf-8")
+    @ResponseBody
+    public ModelAndView logout(Page page, HttpServletRequest request){
+    	ModelAndView mv = new ModelAndView("../jsp/login");
+        request.getSession().removeAttribute(Constrants.USER_INFO);
+        return mv;
+	}
 }

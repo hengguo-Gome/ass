@@ -12,7 +12,17 @@ public class CrmInstallBill implements Serializable{
 	
 	private Double longitude;
 	private Double latitude;
+	private Integer planFinishSuquence;
 	
+	
+	public Integer getPlanFinishSuquence() {
+		return planFinishSuquence;
+	}
+
+	public void setPlanFinishSuquence(Integer planFinishSuquence) {
+		this.planFinishSuquence = planFinishSuquence;
+	}
+
 	public Double getLongitude() {
 		return longitude;
 	}

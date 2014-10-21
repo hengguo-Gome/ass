@@ -33,22 +33,22 @@ public class TestJLWebservice {
     public void test() throws ResourceNotFoundException, ParseErrorException, Exception {
         /**
          * 弹时间窗接口类型：AZNLCX
-       
+       */
         Map<String, String> context = new HashMap<String, String>();
         context.put("type", "AZNLCX");
         context.put("sender", "CEN");
         context.put("receiver", "DIS");
         context.put("messageId", "a5c89616-b229-4a69-9436-154e45659a78");
         context.put("azd01", "52557");
-        context.put("yysj", "2014-09-26");
+        context.put("yysj", "2014-10-13");
         System.out.println(XmlUtil.getInstance().genXmlByTemplate("jl/JL_TimeWindow.xml", context));
         
         String result = new CENJKServiceLocator().getCENJK().invokeSHService(XmlUtil.getInstance().genXmlByTemplate("jl/JL_TimeWindow.xml", context));
         System.out.println("--> "+result);
-         */
+         
         /**
          * 订单延期修改预约时间接口:YYAZ
-        */
+        
         Map<String, String> context = new HashMap<String, String>();
         context.put("type", "YYAZ");
         context.put("sender", "CEN");
@@ -64,7 +64,7 @@ public class TestJLWebservice {
         
         String result = new CENJKServiceLocator().getCENJK().invokeSHService(XmlUtil.getInstance().genXmlByTemplate("jl/JL_OrderDelay.xml", context));
         System.out.println("--> "+result);
-        
+        */
         
     }
 }

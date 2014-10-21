@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import com.gome.ass.common.APPErrorInfo;
 import com.gome.ass.common.BusinessGlossary;
+import com.gome.ass.common.Constrants;
 import com.gome.ass.dao.permission.ShDeviceManageDao;
 import com.gome.ass.entity.CrmWorker;
 import com.gome.ass.entity.ShDeviceManage;
@@ -66,7 +67,7 @@ public class AppUserServiceImpl implements AppUserService {
 				ShUserPwdInfo shUser = new ShUserPwdInfo();
 				shUser.setUserId(crmWorker.getWorkerCode());
 				shUser.setPassword(MD5EncryptUtils.MD5Encode(randomPassword));
-				shUser.setUserType("crm");
+				shUser.setUserType(Constrants.CRM_WORKER);
     			this.shUserPwdInfoService.insertOrUpdate(shUser);
     			//成功更新密码后，调用短信接口发送随机密码
     			Map<String,Object> messageMap = new HashMap<String,Object>();
@@ -110,7 +111,7 @@ public class AppUserServiceImpl implements AppUserService {
 							if(null == shDeviceManage){
 								map.put("userId", crmWorker.getWorkerCode());
 								map.put("status", BusinessGlossary.TRUE_INFO);
-								shDeviceManageDao.insertShDeviceManage(map);
+								shDeviceManageDao.insertShDeviceManageByMap(map);
 								result.put("userId", crmWorker.getWorkerCode());
 								result.put("userName", crmWorker.getWorkerName());
 								result.put("phone", crmWorker.getPhone());

@@ -19,6 +19,7 @@
     <PGSJ>$crmInstallBillVO.senderDate</PGSJ>
     <BZ>$crmInstallBillVO.remark</BZ>
     <ZFBJ>$crmInstallBillVO.billStatus</ZFBJ>
+    <AZLX>$crmInstallBill.installationType</AZLX>
   </HEADER>
   <ITEMS>
     <ITEM>

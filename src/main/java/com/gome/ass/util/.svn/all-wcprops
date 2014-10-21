@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 76
-/svn/gome/!svn/ver/7111/trunk/mbl-server/ass/src/main/java/com/gome/ass/util
+/svn/gome/!svn/ver/7140/trunk/mbl-server/ass/src/main/java/com/gome/ass/util
 END
 TemplateLoader.java
 K 25
@@ -115,5 +115,5 @@ ReciveMessageConvert.java
 K 25
 svn:wc:ra_dav:version-url
 V 102
-/svn/gome/!svn/ver/6517/trunk/mbl-server/ass/src/main/java/com/gome/ass/util/ReciveMessageConvert.java
+/svn/gome/!svn/ver/7140/trunk/mbl-server/ass/src/main/java/com/gome/ass/util/ReciveMessageConvert.java
 END

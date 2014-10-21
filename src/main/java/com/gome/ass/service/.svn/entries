@@ -1,15 +1,15 @@
 10
 
 dir
-7134
+7338
 https://10.128.11.62/svn/gome/trunk/mbl-server/ass/src/main/java/com/gome/ass/service
 https://10.128.11.62/svn/gome
 
 
 
-2014-10-10T09:24:54.594522Z
-7131
-chengbiao
+2014-10-20T09:17:01.175310Z
+7323
+liuchao43
 
 
 
@@ -25,24 +25,6 @@ chengbiao
 
 
 ceea3779-27bf-e045-a9e1-b02ef83dfcfa
-
-appUser
-dir
-
-logistics
-dir
-
-crm
-dir
-
-impl
-dir
-
-users
-dir
-
-system
-dir
 
 PersonService.java
 file
@@ -78,10 +60,31 @@ chengbiao
 
 922
 
-permission
+appUser
+dir
+
+crm
+dir
+
+impl
 dir
 
 jms
+dir
+
+logistics
+dir
+
+message
+dir
+
+permission
+dir
+
+system
+dir
+
+users
 dir
 
 wsdl

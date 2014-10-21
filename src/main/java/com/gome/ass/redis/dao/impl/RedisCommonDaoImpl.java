@@ -12,6 +12,7 @@ import org.springframework.data.redis.core.BoundHashOperations;
 import org.springframework.data.redis.core.BoundZSetOperations;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.stereotype.Repository;
 
 import com.gome.ass.redis.dao.RedisCommonDao;
@@ -19,6 +20,23 @@ import com.gome.ass.redis.dao.RedisCommonDao;
 public  class RedisCommonDaoImpl implements RedisCommonDao{
 	@Resource
 	private RedisTemplate<Object, Object> redisTemplate;
+	
+	
+	@Override
+	public void keyMapAdd(final String key,final Map<String,String> map,final Long expireSeconds) {
+		redisTemplate.execute(new RedisCallback<Object>() {
+			public Object doInRedis(RedisConnection connection)
+					throws DataAccessException {
+				BoundHashOperations<Object, Object, Object> boundHashOps = redisTemplate.boundHashOps(key);
+				boundHashOps.putAll(map);
+				if(null != expireSeconds){
+					RedisSerializer<String> serializer = redisTemplate.getStringSerializer(); 
+					connection.expire(serializer.serialize(key), expireSeconds);
+				}
+				return null;
+			}
+		});
+	}
 	
 	@Override
 	public Set<Object> keyZSetGet(final String key) {
@@ -67,6 +85,35 @@ public  class RedisCommonDaoImpl implements RedisCommonDao{
 				BoundHashOperations<Object, String, String> boundHashOps = redisTemplate.boundHashOps(key);
 				Map<String, String> entries = boundHashOps.entries();
 				return entries;
+			}
+		});
+		return execute;
+	}
+	
+	@Override
+	public void keyZSetAdd(final String key,final Double time,final Object value,final Long expireSeconds) {
+		redisTemplate.execute(new RedisCallback<Object>() {
+			public Object doInRedis(RedisConnection connection)
+					throws DataAccessException {
+				BoundZSetOperations<Object, Object> boundZSetOps = redisTemplate.boundZSetOps(key);
+				boundZSetOps.add(value, time);
+				if(null != expireSeconds){
+					RedisSerializer<String> serializer = redisTemplate.getStringSerializer(); 
+					connection.expire(serializer.serialize(key), expireSeconds);
+				}
+				return null;
+			}
+		});
+	}
+
+	@Override
+	public Set<Object> keyZSetRangeGet(final String key,final Double start,final Double end) {
+		Set<Object> execute = redisTemplate.execute(new RedisCallback<Set<Object>>() {
+			public Set<Object> doInRedis(RedisConnection connection)
+					throws DataAccessException {
+				BoundZSetOperations<Object, Object> boundZSetOps = redisTemplate.boundZSetOps(key);
+				Set<Object> set = boundZSetOps.rangeByScore(start, end);
+				return set;
 			}
 		});
 		return execute;

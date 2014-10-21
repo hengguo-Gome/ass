@@ -1,5 +1,6 @@
 package com.gome.ass.jms;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.jms.JMSException;
@@ -12,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
 
+import com.gome.ass.common.CustomizedPropertyPlaceholderConfigurer;
 import com.gome.ass.util.JsonUtil;
 
 public class ShMessagePushMQSender {
@@ -42,13 +44,21 @@ public class ShMessagePushMQSender {
 	 * 发送消息
 	 * @param message
 	 */
-	public void send(final Map<String,Object> map){
+	public void send(final String userId, final Map<String,Object> msgMap){
 		this.jmsTemplate.send(queue, new MessageCreator() {
 			@Override
 			public Message createMessage(Session session) throws JMSException {
 				String message = null;
 				try {
-					message = JsonUtil.javaObjectToJsonString(map);
+					Map<String, Object> map = new HashMap<String, Object>();
+					map.put("userId", userId);
+                	map.put("message", JsonUtil.javaObjectToJsonString(msgMap));
+					map.put("deviceType", "android");
+                	map.put("sendType", "single");
+                	map.put("apiKey", CustomizedPropertyPlaceholderConfigurer.getContextProperty("APIKEY"));
+                	map.put("secretKey",  CustomizedPropertyPlaceholderConfigurer.getContextProperty("SECRETKEY"));
+//                	map.put("messageType", 0);
+                	message =  JsonUtil.javaObjectToJsonString(map);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

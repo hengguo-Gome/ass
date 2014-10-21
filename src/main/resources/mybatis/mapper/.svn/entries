@@ -1,15 +1,15 @@
 10
 
 dir
-7134
+7338
 https://10.128.11.62/svn/gome/trunk/mbl-server/ass/src/main/resources/mybatis/mapper
 https://10.128.11.62/svn/gome
 
 
 
-2014-10-10T09:24:54.594522Z
-7131
-chengbiao
+2014-10-21T03:24:10.746770Z
+7338
+wanghengguo
 
 
 
@@ -41,10 +41,10 @@ file
 
 
 
-2014-10-11T02:37:59.715601Z
-1df2401ab727ee207a36adaa0d7aabc1
-2014-10-10T09:24:54.594522Z
-7131
+2014-10-17T06:37:50.445000Z
+75e1abb607c1e2164e22a9816f52a294
+2014-10-16T09:01:08.332432Z
+7271
 chengbiao
 
 
@@ -67,7 +67,7 @@ chengbiao
 
 
 
-18397
+18906
 
 CRMWebBasicdataMapper.xml
 file
@@ -109,10 +109,10 @@ file
 
 
 
-2014-10-09T03:30:43.581306Z
-ffcc03a9e460e816217a11485b90cabb
-2014-09-26T03:42:40.504214Z
-6942
+2014-10-13T07:59:38.416698Z
+78dc134da5073726d0d2963e78fbf9c3
+2014-10-13T09:40:12.597515Z
+7175
 wanghengguo
 
 
@@ -135,19 +135,19 @@ wanghengguo
 
 
 
-8388
+8173
 
-ShMessageMapper.xml
+CrmAccessoriesMapper.xml
 file
 
 
 
 
-2014-09-15T09:59:35.404254Z
-4b86ee2d1acc204ae544cad228fcf5d1
-2014-09-15T10:07:45.397049Z
-6505
-wanghengguo
+2014-09-24T03:10:49.154000Z
+2b14f0f4f73911c53cdc8f9045f6effd
+2014-09-24T02:34:19.257399Z
+6833
+chengbiao
 
 
 
@@ -169,7 +169,75 @@ wanghengguo
 
 
 
-2451
+8207
+
+CrmCompanyMapper.xml
+file
+
+
+
+
+2014-09-22T09:39:05.589000Z
+eec1247f028d02ee02522824c8680dc3
+2014-09-22T08:17:35.374472Z
+6764
+chengbiao
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+7563
+
+CrmServiceMapper.xml
+file
+
+
+
+
+2014-09-24T08:18:58.218000Z
+cb4b04aa31a8c7a6acb356fe9fec048f
+2014-09-24T08:13:03.398026Z
+6868
+chengbiao
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+6642
 
 EmpMapper.xml
 file
@@ -239,16 +307,16 @@ wanghengguo
 
 4063
 
-ShMenuMapper.xml
+PersonMapper.xml
 file
 
 
 
 
-2014-09-15T09:58:48.618576Z
-f8b552455031c99090f75aeaf9251b7c
-2014-09-15T10:07:45.397049Z
-6505
+2014-09-04T06:11:48.960327Z
+d437116171609e3b444076d18b9881b3
+2014-09-04T09:28:50.067715Z
+6284
 wanghengguo
 
 
@@ -271,109 +339,7 @@ wanghengguo
 
 
 
-1678
-
-UserRoleMapper.xml
-file
-
-
-
-
-2014-09-01T08:07:36.461000Z
-67598da3057ea2be312ecfc7ca274176
-2014-08-27T08:28:21.973274Z
-6111
-zhangmingji
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-907
-
-ShUserPwdInfoMapper.xml
-file
-
-
-
-
-2014-10-10T00:17:36.585445Z
-6f9c44b76078c3783a5087cfc65377c6
-2014-10-10T03:03:48.403785Z
-7113
-wanghengguo
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-3143
-
-UserInfoMsgMapper.xml
-file
-
-
-
-
-2014-09-01T08:07:36.474000Z
-6c24087f450fc7c2e99e64332b74eac1
-2014-08-27T08:28:21.973274Z
-6111
-zhangmingji
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1906
+2175
 
 RoleMapper.xml
 file
@@ -409,17 +375,17 @@ zhangmingji
 
 1586
 
-CrmServiceMapper.xml
+RoleResourceMapper.xml
 file
 
 
 
 
-2014-09-24T08:18:58.218000Z
-cb4b04aa31a8c7a6acb356fe9fec048f
-2014-09-24T08:13:03.398026Z
-6868
-chengbiao
+2014-09-01T08:07:36.541000Z
+ab73a7a74dcf57d7f7a5e2114600f2ff
+2014-08-27T08:28:21.973274Z
+6111
+zhangmingji
 
 
 
@@ -441,7 +407,41 @@ chengbiao
 
 
 
-6642
+936
+
+ShCodeMapper.xml
+file
+
+
+
+
+2014-09-16T02:34:06.011000Z
+93aea1985e5c2e04902deb5e12a7fd80
+2014-09-16T02:51:28.875392Z
+6513
+wanghengguo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1379
 
 ShDataRecordMapper.xml
 file
@@ -483,44 +483,10 @@ file
 
 
 
-2014-10-09T01:20:48.394000Z
-89247961652160067017d1b640036486
-2014-10-09T01:17:30.585922Z
-7079
-chengbiao
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-5919
-
-ShCodeMapper.xml
-file
-
-
-
-
-2014-09-16T02:34:06.011000Z
-93aea1985e5c2e04902deb5e12a7fd80
-2014-09-16T02:51:28.875392Z
-6513
+2014-10-14T06:22:49.451000Z
+e22aba1bee4026c6bb53458cd8d78efd
+2014-10-14T08:28:57.706268Z
+7204
 wanghengguo
 
 
@@ -543,52 +509,18 @@ wanghengguo
 
 
 
-1379
+6719
 
-CrmAccessoriesMapper.xml
+ShGroupMessage.xml
 file
 
 
 
 
-2014-09-24T03:10:49.154000Z
-2b14f0f4f73911c53cdc8f9045f6effd
-2014-09-24T02:34:19.257399Z
-6833
-chengbiao
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-8207
-
-PersonMapper.xml
-file
-
-
-
-
-2014-09-04T06:11:48.960327Z
-d437116171609e3b444076d18b9881b3
-2014-09-04T09:28:50.067715Z
-6284
+2014-10-14T08:16:56.090000Z
+b371fb05d7ce1255ba0bcfc0940da2c2
+2014-10-14T08:28:57.706268Z
+7204
 wanghengguo
 
 
@@ -611,19 +543,19 @@ wanghengguo
 
 
 
-2175
+6023
 
-CrmCompanyMapper.xml
+ShMenuMapper.xml
 file
 
 
 
 
-2014-09-22T09:39:05.589000Z
-eec1247f028d02ee02522824c8680dc3
-2014-09-22T08:17:35.374472Z
-6764
-chengbiao
+2014-09-15T09:58:48.618576Z
+f8b552455031c99090f75aeaf9251b7c
+2014-09-15T10:07:45.397049Z
+6505
+wanghengguo
 
 
 
@@ -645,16 +577,118 @@ chengbiao
 
 
 
-7563
+1678
 
-RoleResourceMapper.xml
+ShMessageMapper.xml
 file
 
 
 
 
-2014-09-01T08:07:36.541000Z
-ab73a7a74dcf57d7f7a5e2114600f2ff
+2014-09-15T09:59:35.404254Z
+4b86ee2d1acc204ae544cad228fcf5d1
+2014-09-15T10:07:45.397049Z
+6505
+wanghengguo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2451
+
+ShUserMapper.xml
+file
+
+
+
+
+2014-10-21T02:31:55.272824Z
+387e6364a6330d776c4535e3fc9d87aa
+2014-10-21T03:24:10.746770Z
+7338
+wanghengguo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4058
+
+ShUserPwdInfoMapper.xml
+file
+
+
+
+
+2014-10-10T09:30:59.472849Z
+7d15ee9377f3e521b2a61e16b244a43a
+2014-10-13T09:40:12.597515Z
+7175
+wanghengguo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3167
+
+UserInfoMsgMapper.xml
+file
+
+
+
+
+2014-09-01T08:07:36.474000Z
+6c24087f450fc7c2e99e64332b74eac1
 2014-08-27T08:28:21.973274Z
 6111
 zhangmingji
@@ -679,19 +713,19 @@ zhangmingji
 
 
 
-936
+1906
 
-ShUserMapper.xml
+UserRoleMapper.xml
 file
 
 
 
 
-2014-09-30T05:50:29.501000Z
-8b7bd70fc2f98dd5c00ec228ec2414a8
-2014-10-08T02:43:20.439074Z
-7048
-wanghengguo
+2014-09-01T08:07:36.461000Z
+67598da3057ea2be312ecfc7ca274176
+2014-08-27T08:28:21.973274Z
+6111
+zhangmingji
 
 
 
@@ -713,7 +747,7 @@ wanghengguo
 
 
 
-3518
+907
 
 UserTagMapper.xml
 file

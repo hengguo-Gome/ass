@@ -14,9 +14,9 @@
   </sql>
   <select id="getUserPageList" parameterType="com.gome.common.page.Page" resultType="hashmap">
     SELECT
-		v_user.	,
-		v_user.ACCOUNT,
-		v_user.`password`,
+        v_user.name,
+		v_user.account,
+<!-- 		v_user.password, -->
 		v_user.company_code,
 		v_user.webcode,
 		sh_code_setting.code_value AS from_type
@@ -32,8 +32,11 @@
       <if test="param.account != null and param.account != '' ">
           and v_user.account = #{param.account}
       </if>
-      <if test="param.pasword != null and param.password != '' ">
-          and v_user.password = #{param.password}
+<!--       <if test="param.pasword != null and param.password != '' "> -->
+<!--           and v_user.password = #{param.password} -->
+<!--       </if> -->
+      <if test="param.webcode != null and param.webcode != '' ">
+          and v_user.webcode = #{param.webcode}
       </if>
 <!--       <if test="param.fromType != null and param.fromType != ''"> -->
 <!--           and v_user.from_type = #{param.fromType} -->
@@ -48,9 +51,9 @@
       <if test="param.account != null and param.account != '' ">
           and v_user.ACCOUNT = #{param.account}
       </if>
-      <if test="param.pasword != null and param.password != '' ">
-          and v_user.password = #{param.password}
-      </if>
+<!--       <if test="param.pasword != null and param.password != '' "> -->
+<!--           and v_user.password = #{param.password} -->
+<!--       </if> -->
       <if test="param.fromType!= null and param.fromType != ''">
           and v_user.from_type = #{param.fromType}
       </if>

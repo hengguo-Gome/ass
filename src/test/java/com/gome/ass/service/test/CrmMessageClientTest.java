@@ -18,12 +18,14 @@ public class CrmMessageClientTest {
 
     public static void main(String[] args) throws ClientProtocolException, IOException {
         
-        HttpPost httppost = new HttpPost("http://localhost:8080/ass/message/processJLMessage");
+        HttpPost httppost = new HttpPost("http://localhost:8080/ass/message/processCrmMessage");
 
         InputStream inputStream = null;
         Document read = null;
         try {
+
             inputStream = new ClassPathResource("CRM263.xml").getInputStream();
+
             
             SAXReader sax = new SAXReader();
             read = sax.read(inputStream,"UTF-8");

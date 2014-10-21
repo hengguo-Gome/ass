@@ -16,34 +16,36 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.junit.Test;
 
+import com.gome.ass.util.AESAPPUtils;
 import com.gome.ass.util.GzipAESUtil;
 
 public class HttpClientTest {
 
 	@Test
 	public void http() {
+		String pre = "appdata/queryInstallBillData";
+//		String pre = "appUser/appRegister";
 //		String pre = "appUser/appLogin";
 //		String pre = "appUser/appAlterPwd";
 //		String pre = "appUser/appLogout";
 //		String pre = "appUser/appCheckVersion";
-		String pre = "appUser/appRegister";
 		String url = "http://localhost:8080/ass/" + pre;
 		JSONObject jo = new JSONObject();
 		jo.put("sjId", "" + new Date().getTime());
-		jo.put("jkId", "ass001");
-		jo.put("mkId", "1001");
+		jo.put("jkId", "mtms001");
+		jo.put("mkId", "1002");
 
-		jo.put("phone", "13681239343");
+		jo.put("phone", "15810976335");
 //		jo.put("password", "123456");
-//		jo.put("snNo", "99000550356133");
+//		jo.put("snNo", "14E23749-543F-46CD-AF63-A1A7031F8EFF");
 //		jo.put("osInfo", "android 4.3");
 //		jo.put("deviceInfo", "HM 1SC");
 //		jo.put("isRoot", "0");
 //		jo.put("isDouble", "0");
 		
-		jo.put("userId", "0004019153");
+		jo.put("userId", "wbsjg_001");
 		jo.put("baiduId", "4dasxc");
-		jo.put("appType", "android");
+		jo.put("appType", "ios");
 		jo.put("appVersion", "1.0.1");
 //		jo.put("password", "797110");
 //		jo.put("newPassword", "123456");
@@ -51,9 +53,12 @@ public class HttpClientTest {
 		try {
 			HttpPost httppost = new HttpPost(url);
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
-			params.add(new BasicNameValuePair("ass", GzipAESUtil.compressThenEncryptAES(jo.toString())));
-			httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
-			HttpResponse httpResponse = new DefaultHttpClient().execute(httppost);
+			params.add(new BasicNameValuePair("ass", AESAPPUtils.encryptAES(jo
+					.toString())));
+						httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+//			httppost.setEntity(new StringEntity("测试消息回执123", Consts.UTF_8));
+			HttpResponse httpResponse = new DefaultHttpClient()
+					.execute(httppost);
 			HttpEntity entity2 = httpResponse.getEntity();
 			String result = EntityUtils.toString(entity2);
 			System.out.println(GzipAESUtil.decryptAESThenUnCompress(result));

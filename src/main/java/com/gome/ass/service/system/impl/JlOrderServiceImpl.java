@@ -195,6 +195,9 @@ public class JlOrderServiceImpl implements JlOrderService{
 			//TODO根据金力单号查询，修改状相关信息，保存
 			crmInstallBill.setBillStatus("E0014");
 			crmInstallBill.setReceiptCode( (String)map.get("receiptCode"));
+			crmInstallBill.setReceiptName( (String)map.get("receiptName"));
+			crmInstallBill.setInnerMachineCode((String)map.get("innerMachineCode"));
+			crmInstallBill.setOuterMachineCode((String)map.get("outerMachineCode"));
 			
 			if(map.get("receiptDate")!=null&&!"".equals(map.get("receiptDate"))){
 				crmInstallBill.setReceiptDate(new SimpleDateFormat("yyyy-mm-dd hh").parse((String)map.get("receiptDate")));
@@ -258,6 +261,7 @@ public class JlOrderServiceImpl implements JlOrderService{
 				throw new RuntimeException("该单已取消！");
 			}
 			crmInstallBill.setBillStatus("E0021");
+			this.crmInstallBillService.updateByPrimaryKeySelective(crmInstallBill);
 			Map param = new HashMap();
 			param.put("crmInstallBill", crmInstallBill);
 			String gomeOrderAddr = crmInstallBill.getGomeOrderAddr();//接单网店代码
@@ -267,6 +271,7 @@ public class JlOrderServiceImpl implements JlOrderService{
 			}else{//网点代码其他以字母开头为自建网点，回执到crm
 				AsynchronousSendMsgUtils.receiptCrmConcelLegMessage(param);
 			}
+		
 			//将安装单信息发送到mq
 			AsynchronousSendMsgUtils.sendInstallBillToMq(crmInstallBill, BusinessGlossary.SYSTEM_NAME_APP);
 			

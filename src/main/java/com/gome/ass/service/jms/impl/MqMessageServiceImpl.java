@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.gome.ass.common.BusinessGlossary;
-import com.gome.ass.common.CustomizedPropertyPlaceholderConfigurer;
 import com.gome.ass.dao.logistics.CrmInstallBillDao;
 import com.gome.ass.dao.permission.ShDeviceManageDao;
 import com.gome.ass.entity.CrmInstallBill;
@@ -82,27 +81,12 @@ public class MqMessageServiceImpl implements MqMessageService {
 							msgMap.put("title", title);
 							msgMap.put("content", content.toString());
 							msgMap.put("messageType", 0);
-							Map<String, Object> sendMap = new HashMap<String, Object>();
-							sendMap.put("deviceType", "android");
-							sendMap.put("sendType", "single");
-							sendMap.put("apiKey",
-									CustomizedPropertyPlaceholderConfigurer
-									.getContextProperty("APIKEY"));
-							sendMap.put("secretKey",
-									CustomizedPropertyPlaceholderConfigurer
-									.getContextProperty("SECRETKEY"));
-							sendMap.put("userId", shDeviceManage.getBaiduId());
-							sendMap.put("message",
-									JsonUtil.javaObjectToJsonString(msgMap));
-							sendMap.put("messageType", 0);
-							shMessagePushMQSender.send(sendMap);
-						} else if (StringUtils.isNotBlank(shDeviceManage
-								.getAccessToken())) {// 苹果设备
+							shMessagePushMQSender.send(shDeviceManage.getBaiduId(), msgMap);
+						} else if (StringUtils.isNotBlank(shDeviceManage.getAccessToken())) {// 苹果设备
 							String message = "<订单提醒(订单)>" + content.toString();
 							List<String> devicetokens = new ArrayList<String>();
 							devicetokens.add(shDeviceManage.getAccessToken());
-							MessagePush.sendMessageToAppleUser(devicetokens,
-									message);
+							MessagePush.sendMessageToAppleUser(devicetokens, message);
 						}
 					}
 					

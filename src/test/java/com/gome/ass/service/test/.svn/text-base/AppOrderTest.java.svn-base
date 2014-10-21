@@ -22,17 +22,17 @@ import com.gome.ass.util.GzipAESUtil;
 public class AppOrderTest {
     
     
-    @Test
+//    @Test
     public void appSync(){
         String pre = "appOrder/appSynch";
-        String url = "http://localhost:8080/ass/" + pre;
+        String url = "http://10.128.46.8:8082/ass/" + pre;
         JSONObject jo = new JSONObject();
         jo.put("sjId", "" + new Date().getTime());
         jo.put("jkId", "ass002");
         jo.put("mkId", "1004");
         jo.put("phone", "13263180885");
         jo.put("azd01", "52557");
-        jo.put("yysj", "2014-09-26");
+        jo.put("yysj", "2014-10-08");
         try {
             HttpPost httppost = new HttpPost(url);
             List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -43,13 +43,13 @@ public class AppOrderTest {
                     .execute(httppost);
             HttpEntity entity2 = httpResponse.getEntity();
             String result = EntityUtils.toString(entity2);
-            System.out.println(result);
+            System.out.println(GzipAESUtil.decryptAESThenUnCompress(result));
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-//    @Test
+    @Test
     public void appOrderDelay(){
         String pre = "appOrder/appOrderDelay";
         String url = "http://localhost:8080/ass/" + pre;
@@ -58,7 +58,7 @@ public class AppOrderTest {
         jo.put("jkId", "ass002");
         jo.put("mkId", "1003");
         jo.put("phone", "13263180885");
-        jo.put("yysj", "2014-09-22");
+        jo.put("yysj", "2014-10-10");
         jo.put("azd01", "52557");
         jo.put("nlsd", "5");
         jo.put("azwd01", "0003000125");

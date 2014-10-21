@@ -25,4 +25,11 @@ public interface CrmWorkerService {
      * @return
      */
 	List<Map<String, Object>> findWebcodeList(String userType, String webcode);
+	
+	/**
+	 * 根据网点查找网点下所有工人code
+	 * @param webcode
+	 * @return
+	 */
+	List<String> findWorkerCodeByWebcode(String webcode);
 }

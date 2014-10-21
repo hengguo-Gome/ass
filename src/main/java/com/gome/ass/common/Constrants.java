@@ -15,4 +15,7 @@ public class Constrants {
 	public static final Integer THIRD_NETWORK_USER = 1;	//JL..
 	public static final Integer SYS_DEFINE_USER = 2;	//ADMIN
 	public static final Integer CRM_WORKER = 3;	//CRM 
+	
+	public static final String SEND_GROUP_MESSAGE = "group";
+	public static final String SEND_PERSON_MESSAGE = "person";
 }

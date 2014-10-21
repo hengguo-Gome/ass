@@ -302,20 +302,12 @@ public class MessageServiceImpl implements MessageService {
              jlAccountService.deleteBatch(codes);
              jlAccountService.insertBatch(accounts);
              for(JlAccount jlAccount : accounts){
-                 try{
-                     ShUserPwdInfo shUserPwdInfo = new ShUserPwdInfo();
-                     shUserPwdInfo.setUserId(jlAccount.getId());
-                     shUserPwdInfo.setPassword(jlAccount.getAccountPassword());
-                     shUserPwdInfo.setUserType(Constrants.THIRD_NETWORK_USER);
-                     shUserPwdInfoService.insert(shUserPwdInfo);
-                 }catch(DataAccessException  e){
-                     if(e.getCause() instanceof MySQLIntegrityConstraintViolationException){
-                         //ignored 推送已经存在用户数据时不更新密码
-                     }else {
-                         log.error(e.getMessage(), e);
-                         e.printStackTrace();
-                     }
-                 }
+                 ShUserPwdInfo shUserPwdInfo = new ShUserPwdInfo();
+                 shUserPwdInfo.setUserId(jlAccount.getId());
+                 shUserPwdInfo.setPassword(jlAccount.getAccountPassword());
+                 shUserPwdInfo.setUserType(Constrants.THIRD_NETWORK_USER);
+                 shUserPwdInfoService.insert(shUserPwdInfo);
+                 
              }
              
          }

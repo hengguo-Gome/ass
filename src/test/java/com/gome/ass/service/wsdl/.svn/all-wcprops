@@ -1,11 +1,11 @@
 K 25
 svn:wc:ra_dav:version-url
 V 84
-/svn/gome/!svn/ver/7026/trunk/mbl-server/ass/src/test/java/com/gome/ass/service/wsdl
+/svn/gome/!svn/ver/7204/trunk/mbl-server/ass/src/test/java/com/gome/ass/service/wsdl
 END
 TestJLWebservice.java
 K 25
 svn:wc:ra_dav:version-url
 V 106
-/svn/gome/!svn/ver/7026/trunk/mbl-server/ass/src/test/java/com/gome/ass/service/wsdl/TestJLWebservice.java
+/svn/gome/!svn/ver/7204/trunk/mbl-server/ass/src/test/java/com/gome/ass/service/wsdl/TestJLWebservice.java
 END

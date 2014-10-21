@@ -7,6 +7,7 @@ import java.net.Socket;
 import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -46,7 +47,6 @@ import com.gome.ass.jms.ShMessagePushMQSender;
 import com.gome.ass.service.permission.ShDeviceManageService;
 import com.gome.ass.service.system.ShDataRecordService;
 import com.gome.ass.util.BeanJsonUtils;
-import com.gome.ass.util.JsonUtil;
 import com.gome.ass.util.UUIDUtil;
 import com.gome.ass.util.XmlUtil;
 
@@ -60,7 +60,7 @@ public class AsynchronousSendMsgUtils {
 	private static InstallBillInfoPushMQSender installBillInfoPushMQSender = null;
 	private static AsynchronousSendMsgUtils this$0 = null;
 	private AsynchronousSendMsgUtils(){
-		installBillInfoPushMQSender = (InstallBillInfoPushMQSender) SpringUtil.getBean("installBillInfoSender");
+		installBillInfoPushMQSender = (InstallBillInfoPushMQSender) SpringUtil.getBean("installBillInfoPushMQSender");
 		shMessagePushMQSender = (ShMessagePushMQSender) SpringUtil.getBean("shMessagePushMQSender");
 		shDeviceManageService = (ShDeviceManageService) SpringUtil.getBean("shDeviceManageService");
 		sysConfig = (CustomizedPropertyPlaceholderConfigurer)SpringUtil.getBean("systemProperty");
@@ -116,7 +116,6 @@ public class AsynchronousSendMsgUtils {
 			return null;
 		}
 		
-		@SuppressWarnings(value="unchecked")
 		public  static String sendSocketMsg(String addr,int port,String content,boolean isReturn){
 			String returnMsg = null;
 			try{
@@ -133,7 +132,6 @@ public class AsynchronousSendMsgUtils {
 			return returnMsg;
 		}
 		
-		@SuppressWarnings(value="unchecked")
 		public  static Object sendSocketChannelMsg(final String addr,final int port,final Object content,final boolean isReturn){
 			 NioSocketConnector connector = new NioSocketConnector();
 			 connector.getFilterChain().addLast( "logger", new LoggingFilter() ); 
@@ -165,80 +163,118 @@ public class AsynchronousSendMsgUtils {
 		});
 	}
 	
-	
-	private  Future  sendMsgToMobile(final CrmInstallBill crmInstallBill,final String interfaceId){
+	private  Future  sendMsgToMobile(final String content, final String title, final List<String> workerIds, final String interfaceId){
 		return service.submit(new Callable<String>() {
 			@Override
 			public String call() throws Exception {
-				List<String> workerIds = new ArrayList<String>();
-				String orderWorkerBig = crmInstallBill.getOrderWorkerBig();
-				String orderWorkerLitter = crmInstallBill.getOrderWorkerLitter();
-				workerIds.add(orderWorkerBig);
-				workerIds.add(orderWorkerLitter);
-				
 				List<ShDeviceManage> deviceManageList = shDeviceManageService.findShDeviceManageList(workerIds);
-				if(deviceManageList != null && deviceManageList.size()>0){
-					String jlOrderNum = crmInstallBill.getJlOrderNum();
-	                String title = "安装单提醒";
-	                StringBuffer content = new StringBuffer();
-	                
-	                content.append("安装单：" + jlOrderNum+",");
-	                String perfConent = null;
-	                String billStatus = crmInstallBill.getBillStatus();
-	                if(interfaceId != null && interfaceId.equals("CRM197")){
-	                	perfConent = "信息修改";
-	                }else{
-	                	if(billStatus.equals(BusinessGlossary.BILL_STATUS_DISPATCHED)){
-	                		perfConent = "已派工";
-	                	}else if(billStatus.equals(BusinessGlossary.BILL_STATUS_CANCEL)){
-	                		perfConent = "已取消";
-	                	}else if(billStatus.equals(BusinessGlossary.BILL_STATUS_SIGNED)){
-	                		perfConent = "已回执";
-	                	}else if(billStatus.equals(BusinessGlossary.BILL_STATUS_COMPLETE)){
-	                		perfConent = "已完成";
-	                	}
+                for (ShDeviceManage shDeviceManage : deviceManageList) {
+	                if (StringUtils.isNotBlank(shDeviceManage.getBaiduId())) {// 安卓设备
+	                	
+	                	Map<String,Object> msgMap = new HashMap<String,Object>();
+	                    msgMap.put("title", title);
+	                    msgMap.put("content", content);
+	                    msgMap.put("messageType", BusinessGlossary.MOBILE_MESSAGE_TYPE_ORDER);
+	                	shMessagePushMQSender.send(shDeviceManage.getBaiduId(), msgMap);
+	                } else if(StringUtils.isNotBlank(shDeviceManage.getAccessToken())){// 苹果设备
+	                    String message = "<系统提醒>" + content;
+	                    List<String> devicetokens = new ArrayList<String>();
+	                    devicetokens.add(shDeviceManage.getAccessToken());
+	                    MessagePush.sendMessageToAppleUser(devicetokens, message);
 	                }
-	                content.append(perfConent);
-	                for (ShDeviceManage shDeviceManage : deviceManageList) {
-		                if (StringUtils.isNotBlank(shDeviceManage.getBaiduId())) {// 安卓设备
-		                	
-		                	Map<String,Object> msgMap = new HashMap<String,Object>();
-		                    msgMap.put("title", title);
-		                    msgMap.put("content", content.toString());
-		                    msgMap.put("messageType", 0);
-		                	Map<String,Object> sendMap = new HashMap<String,Object>();
-		                	sendMap.put("deviceType", "android");
-		                	sendMap.put("sendType", "single");
-		                	sendMap.put("apiKey", CustomizedPropertyPlaceholderConfigurer.getContextProperty("APIKEY"));
-		                	sendMap.put("secretKey",  CustomizedPropertyPlaceholderConfigurer.getContextProperty("SECRETKEY"));
-		                	sendMap.put("userId", shDeviceManage.getBaiduId());
-		                	sendMap.put("message", JsonUtil.javaObjectToJsonString(msgMap));
-		                	sendMap.put("messageType", 0);
-		                	shMessagePushMQSender.send(sendMap);
-		                } else if(StringUtils.isNotBlank(shDeviceManage.getAccessToken())){// 苹果设备
-		                    String message = "<订单提醒(订单)>" + content.toString();
-		                    List<String> devicetokens = new ArrayList<String>();
-		                    devicetokens.add(shDeviceManage.getAccessToken());
-		                    MessagePush.sendMessageToAppleUser(devicetokens, message);
-		                }
-					}
 				}
-				return null;
+                return null;
+			}
+		});
+	}
+	
+	private  Future  sendMsgToMobile(final String content, final String title, final String workerId, final String interfaceId){
+		return service.submit(new Callable<String>() {
+			@Override
+			public String call() throws Exception {
+				List<ShDeviceManage> deviceManageList = shDeviceManageService.findShDeviceManageList(Arrays.asList(workerId));
+                for (ShDeviceManage shDeviceManage : deviceManageList) {
+                	Map<String,Object> msgMap = new HashMap<String,Object>();
+	                if (StringUtils.isNotBlank(shDeviceManage.getBaiduId())) {// 安卓设备
+	                	msgMap.put("title", title);
+	                	msgMap.put("content", content);
+	                	msgMap.put("messageType", BusinessGlossary.MOBILE_MESSAGE_TYPE_SYSTEM);	                	
+	                	shMessagePushMQSender.send(shDeviceManage.getBaiduId(), msgMap);
+	                } else if(StringUtils.isNotBlank(shDeviceManage.getAccessToken())){// 苹果设备
+	                	String message = "<系统提醒>" + content;
+	                    List<String> devicetokens = new ArrayList<String>();
+	                    devicetokens.add(shDeviceManage.getAccessToken());
+	                    MessagePush.sendMessageToAppleUser(devicetokens, message);
+	                }
+				}
+                return null;
 			}
 		});
 	}
 	
 	public static  void sendMessageToMobile(final CrmInstallBill crmInstallBill,final String interfaceId){
-		getInstnce().sendMsgToMobile(crmInstallBill,interfaceId);
+		List<String> workerIds = new ArrayList<String>();
+		String orderWorkerBig = crmInstallBill.getOrderWorkerBig();
+		String orderWorkerLitter = crmInstallBill.getOrderWorkerLitter();
+		workerIds.add(orderWorkerBig);
+		workerIds.add(orderWorkerLitter);
+		List<ShDeviceManage> deviceManageList = shDeviceManageService.findShDeviceManageList(workerIds);
+		if(deviceManageList != null && deviceManageList.size()>0){
+			String jlOrderNum = crmInstallBill.getJlOrderNum();
+            String title = "安装单提醒";
+            StringBuffer content = new StringBuffer();
+            
+            content.append("安装单：" + jlOrderNum+",");
+            String perfConent = null;
+            String billStatus = crmInstallBill.getBillStatus();
+            if(interfaceId != null && interfaceId.equals("CRM197")){
+            	perfConent = "信息修改";
+            }else{
+            	if(billStatus.equals(BusinessGlossary.BILL_STATUS_DISPATCHED)){
+            		perfConent = "已派工";
+            	}else if(billStatus.equals(BusinessGlossary.BILL_STATUS_CANCEL)){
+            		perfConent = "已取消";
+            	}else if(billStatus.equals(BusinessGlossary.BILL_STATUS_SIGNED)){
+            		perfConent = "已回执";
+            	}else if(billStatus.equals(BusinessGlossary.BILL_STATUS_COMPLETE)){
+            		perfConent = "已完成";
+            	}
+            }
+        content.append(perfConent);
+		getInstnce().sendMsgToMobile(content.toString(), title, workerIds, interfaceId);
+		}
+	}
+	
+	/**
+	 * 推送多个消息给设备
+	 * @param content 消息内容
+	 * @param title	消息标题
+	 * @param workerIds 工人Code(s)
+	 * @param interfaceId
+	 */
+	public static void sendMessageToMobile(String content, String title, List<String> workerIds, final String interfaceId) {
+		getInstnce().sendMsgToMobile(content, title, workerIds, interfaceId);
+	}
+	
+	/**
+	 * 推送单个消息给设备
+	 * @param content 消息内容
+	 * @param title	消息标题
+	 * @param workerId 工人Code
+	 * @param interfaceId
+	 */
+	public static void sendMessageToMobile(String content, String title, String workerId, final String interfaceId) {
+		getInstnce().sendMsgToMobile(content, title, workerId, interfaceId);
 	}
 	
 	public static  void receiptCrmLegMessage(Map<String,? extends Object> paramMap){
 			getInstnce().receiptCrmLegMsg(paramMap);
 	}
 	public static void sendInstallBillToMq(final CrmInstallBill crmInstallBill,final String from) {
+		
 		getInstnce().sendInstallBillToMQ(crmInstallBill,from);
 	}
-	public static void sendInstallBillToMQ(final CrmInstallBill crmInstallBill,final String from) {
+	public  void sendInstallBillToMQ(final CrmInstallBill crmInstallBill,final String from) {
 
 		JSONObject sendLegJsonObject = null;
 		CrmInstallBill sendInstallBill = new CrmInstallBill();
@@ -347,7 +383,7 @@ public class AsynchronousSendMsgUtils {
 		        dr.setDirection(BusinessGlossary.DATA_INTERACTION_OUT);
 		        dr.setSender("ASS");
 		        dr.setReceiver("CRM");
-		        dr.setInterfaceType("CRM271");
+		        dr.setInterfaceType("CRM274");
 				dr.setMessageId(MessageId);
 				shDataRecordService.insertShDataRecord(dr);
 			    return SendMsgUtil.sendHttpMsg(url, content);
@@ -402,7 +438,7 @@ public class AsynchronousSendMsgUtils {
 			public String call() throws Exception {
 				String MessageId = UUIDUtil.getUUID();
 				paramMap.put("MessageId",MessageId);
-				String content = XmlUtil.getInstance().genXmlByTemplate("crm/CRM_SEND.xml", paramMap);
+				String content = XmlUtil.getInstance().genXmlByTemplate("crm/CRM_LEG_RECEIPT.xml", paramMap);
 				String url = (String)sysConfig.getContextProperty("receiptCrmLeg");
 				ShDataRecordService shDataRecordService = (ShDataRecordService)SpringUtil.getBean("shDataRecordService");
 		        ShDataRecord dr = new ShDataRecord();

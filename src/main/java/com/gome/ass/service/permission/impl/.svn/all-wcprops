@@ -1,11 +1,11 @@
 K 25
 svn:wc:ra_dav:version-url
 V 95
-/svn/gome/!svn/ver/7088/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/permission/impl
+/svn/gome/!svn/ver/7204/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/permission/impl
 END
 ShDeviceManageServiceImpl.java
 K 25
 svn:wc:ra_dav:version-url
 V 126
-/svn/gome/!svn/ver/7088/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/permission/impl/ShDeviceManageServiceImpl.java
+/svn/gome/!svn/ver/7204/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/permission/impl/ShDeviceManageServiceImpl.java
 END

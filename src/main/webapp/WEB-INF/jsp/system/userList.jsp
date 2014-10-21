@@ -26,19 +26,19 @@ $(function(){
                    {
                        checkbox:true
                    },{
-                       field:'NAME',
+                       field:'name',
                        title:'姓名',
                        align : 'center',
                        width:100
                    },
                    {
-                       field:'ACCOUNT',
+                       field:'account',
                        title:'账号',
                        align : 'center',
                        width:200
                    },
                    {
-                       field:'COMPANY_CODE',
+                       field:'company_code',
                        title:'公司代码',
                        align : 'center',
                        width:100
@@ -50,12 +50,12 @@ $(function(){
                            return "<a href='javascript:void(0);' uid='" + value + "' onclick='showPositionAndRole(this);'>查看职位</a>";
                        }*/
                    }, {
-                       field:'WEBCODE',
+                       field:'webcode',
                        title:'网点代码',
                        align : 'center',
                        width:100
                    },{
-                       field:'FROM_TYPE',
+                       field:'from_type',
                        title:'用户类型',
                        align : 'center',
                        width:200

@@ -1,6 +1,5 @@
 package com.gome.ass.service.permission.impl;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,8 +18,8 @@ public class ShDeviceManageServiceImpl implements ShDeviceManageService{
 	private ShDeviceManageDao shDeviceManageDao;
 	
 	@Override
-	public void insertWlDeviceManage(Map<String,Object> inMap) {
-		this.shDeviceManageDao.insertShDeviceManage(inMap);
+	public void insertShDeviceManageByMap(Map<String,Object> inMap) {
+		this.shDeviceManageDao.insertShDeviceManageByMap(inMap);
 	}
 
 	@Override
@@ -30,7 +29,7 @@ public class ShDeviceManageServiceImpl implements ShDeviceManageService{
 
 
 	@Override
-	public ShDeviceManage findWlDeviceManageById(Map<String, Object> inMap) {
+	public ShDeviceManage findShDeviceManageById(Map<String, Object> inMap) {
 		return this.shDeviceManageDao.findShDeviceManageById(inMap);
 	}
 
@@ -46,13 +45,6 @@ public class ShDeviceManageServiceImpl implements ShDeviceManageService{
 
     @Override
     public void deleteDeviceManageSn(Map<String, Object> inMap) {
-        try{
-            Map map = new HashMap();
-            map.put("userId", "2");
-            this.shDeviceManageDao.insertShDeviceManage(map);
-        }catch(Exception e) {
-            e.printStackTrace();
-        }
         this.shDeviceManageDao.deleteDeviceManageSn(inMap);
     }
 

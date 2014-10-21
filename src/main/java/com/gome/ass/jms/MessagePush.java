@@ -210,7 +210,7 @@ public class MessagePush {
 
             // 4. 创建请求类对象
             PushBroadcastMessageRequest request = new PushBroadcastMessageRequest();
-            request.setDeviceType(BusinessGlossary.BAIDU_NOTIFICATION_DEVICE_TYPE_ANDROID); 
+            request.setDeviceType(Integer.valueOf(BusinessGlossary.BAIDU_NOTIFICATION_DEVICE_TYPE_ANDROID)); 
             // device_type => 1: web 2: pc 3:android
                                       // 4:ios 5:wp
 

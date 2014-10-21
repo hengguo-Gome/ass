@@ -186,7 +186,7 @@ body {
 	
 	
 	function logout(){
-		window.location.href=basePath + "n/user/logout";
+		window.location.href="${ctx}/logout";
 	}
 	
 	function  alterPwd(){
@@ -211,19 +211,29 @@ body {
 				$.ajax({
 		            type: "POST",
 		            data : {
-		            	username:$("input[name='name']").eq(0).val(),
+		            	name:$("input[name='name']").eq(0).val(),
 		            	oldPwd:$("input[name='oldPwd']").eq(0).val(),
 		            	newPwd:$("input[name='newPwd']").eq(0).val()
 		            },
-		            url:ctx+"n/user/alterPwd",
+		            url:ctx+"/alterPwd",
 					error : function(request) {
 						closeProgressing();
 						$.messager.alert('消息提示',"发送请求错误!",'error');
 					},
-					success : function(data) {
+					success : function(msg) {
 						closeProgressing();
-						$.messager.alert('消息提示',data,'info');
-						$('#newPwdWin').window('close');
+						if ($.parseJSON(msg).flag == "oldPwdNull") {
+		                    $.messager.alert('提示:', '旧密码为空!');
+		                } else if ($.parseJSON(msg).flag == "newPwdNull") {
+                            $.messager.alert('提示:', '新密码为空!');
+                        } else if ($.parseJSON(msg).flag == "accountNull") {
+		                    $.messager.alert('提示:', '账号不存在!');
+		                } else if ($.parseJSON(msg).flag == "oldPwdError") {
+		                    $.messager.alert('提示:', '旧密码错误!');
+		                } else if ($.parseJSON(msg).flag == "success") {
+		                    $('#newPwdWin').window('close');
+		                    window.location.href = "${ctx}/logout";
+		                }
 					}
 				});
 			};

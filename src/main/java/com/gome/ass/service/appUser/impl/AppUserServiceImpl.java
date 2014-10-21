@@ -111,7 +111,7 @@ public class AppUserServiceImpl implements AppUserService {
 							if(null == shDeviceManage){
 								map.put("userId", crmWorker.getWorkerCode());
 								map.put("status", BusinessGlossary.TRUE_INFO);
-								shDeviceManageDao.insertShDeviceManage(map);
+								shDeviceManageDao.insertShDeviceManageByMap(map);
 								result.put("userId", crmWorker.getWorkerCode());
 								result.put("userName", crmWorker.getWorkerName());
 								result.put("phone", crmWorker.getPhone());

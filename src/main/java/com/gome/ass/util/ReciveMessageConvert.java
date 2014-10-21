@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 public class ReciveMessageConvert {
     
     private static Logger log = LoggerFactory.getLogger(ReciveMessageConvert.class);
@@ -19,4 +20,5 @@ public class ReciveMessageConvert {
         log.info("recive message:\t"+recive);
         return map;
     }
+    
 }

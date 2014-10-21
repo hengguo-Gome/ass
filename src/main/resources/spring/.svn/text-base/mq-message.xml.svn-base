@@ -29,7 +29,7 @@
 		<constructor-arg value="sh.installBill.info.queue" />
 	</bean>
 
-	<bean id="installBillInfoSender" class="com.gome.ass.jms.InstallBillInfoPushMQSender">
+	<bean id="installBillInfoPushMQSender" class="com.gome.ass.jms.InstallBillInfoPushMQSender">
 		<property name="jmsTemplate" ref="jmsTemplate"></property>
 		<property name="queue" ref="installBillInfoQueue"></property>
 	</bean>

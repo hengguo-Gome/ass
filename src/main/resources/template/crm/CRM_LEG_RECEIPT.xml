@@ -42,7 +42,8 @@
 	        <WB_AZD01>$!{crmInstallBill.sapOrderNum}</WB_AZD01>>
 	        <AZD01>$!{crmInstallBill.jlOrderNum}</AZD01>
 	        <WB_GSXX01>$!{crmInstallBill.salesOrgCode}</WB_GSXX01>
-	        <YYSJD>$!{crmIntsallBill.appointDateDetail}</YYSJD>
+	        <ZYYSJD>$crmInstallBill.appointDatePeriod</ZYYSJD>
+       		<ZAZLB>$crmInstallBill.installationType</ZAZLB>
 	        <AZKBM>$!{crmIntsallBill.installCardCode}</AZKBM>  
 	        <YJTM>$!{crmIntsallBill.outerMachineCode}</YJTM>   
 	        <NJTM>$!{crmIntsallBill.innerMachineCode}</NJTM>		

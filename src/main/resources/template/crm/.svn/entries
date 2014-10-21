@@ -1,15 +1,15 @@
 10
 
 dir
-7134
+7338
 https://10.128.11.62/svn/gome/trunk/mbl-server/ass/src/main/resources/template/crm
 https://10.128.11.62/svn/gome
 
 
 
-2014-10-09T07:06:58.167602Z
-7094
-liuchao43
+2014-10-20T01:52:26.196928Z
+7303
+chengbiao
 
 
 
@@ -25,74 +25,6 @@ liuchao43
 
 
 ceea3779-27bf-e045-a9e1-b02ef83dfcfa
-
-CRM_LEG_RECEIPT.xml
-file
-
-
-
-
-2014-09-28T09:44:10.892000Z
-6d2e6bf4f34ebe82f4ddbf33a84a6c60
-2014-09-28T06:28:46.884297Z
-7003
-liuchao43
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-3370
-
-CRM_RECEIVE.xml
-file
-
-
-
-
-2014-09-29T01:49:27.227000Z
-2f8c3fc31f040d0220f42c1ed21415db
-2014-09-29T01:41:20.099160Z
-7019
-liuchao43
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-2076
 
 CRM270.xml
 file
@@ -127,6 +59,74 @@ liuchao43
 
 
 2737
+
+CRM_LEG_RECEIPT.xml
+file
+
+
+
+
+2014-10-20T02:11:12.845000Z
+f88320584d5fddbb78b3a5a9f7256dfc
+2014-10-20T01:52:26.196928Z
+7303
+chengbiao
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3427
+
+CRM_RECEIVE.xml
+file
+
+
+
+
+2014-09-29T01:49:27.227000Z
+2f8c3fc31f040d0220f42c1ed21415db
+2014-09-29T01:41:20.099160Z
+7019
+liuchao43
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2076
 
 CRM_SEND.xml
 file

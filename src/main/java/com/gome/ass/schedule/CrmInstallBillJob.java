@@ -14,11 +14,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import com.gome.ass.common.CustomizedPropertyPlaceholderConfigurer;
 import com.gome.ass.jms.MessagePush;
 import com.gome.ass.jms.ShMessagePushMQSender;
 import com.gome.ass.service.logistics.CrmInstallBillService;
-import com.gome.ass.util.JsonUtil;
 
 @Component
 public class CrmInstallBillJob {
@@ -50,17 +48,9 @@ public class CrmInstallBillJob {
             		msgMap.put("title", title);
             		msgMap.put("content", content);
             		msgMap.put("messageType", 0);
-            		Map<String,Object> sendMap = new HashMap<String,Object>();
-            		sendMap.put("deviceType", "android");
-            		sendMap.put("sendType", "single");
-            		sendMap.put("apiKey", CustomizedPropertyPlaceholderConfigurer.getContextProperty("APIKEY"));
-            		sendMap.put("secretKey",  CustomizedPropertyPlaceholderConfigurer.getContextProperty("SECRETKEY"));
-            		sendMap.put("userId", baiduId);
-            		sendMap.put("message", JsonUtil.javaObjectToJsonString(msgMap));
-            		sendMap.put("messageType", 0);
-            		shMessagePushMQSender.send(sendMap);
+            		shMessagePushMQSender.send(baiduId, msgMap);
             	} else if(StringUtils.isNotBlank(accessToken)){// 苹果设备
-            		String message = "<订单提醒(订单)>" + content.toString();
+            		String message = "<订单提醒(订单)>" + content;
             		List<String> devicetokens = new ArrayList<String>();
             		devicetokens.add(accessToken);
             		MessagePush.sendMessageToAppleUser(devicetokens, message);

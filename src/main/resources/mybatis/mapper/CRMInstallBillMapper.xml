@@ -64,6 +64,7 @@
 			jdbcType="VARCHAR" />
 		<result column="longitude" property="longitude" />
 		<result column="latitude" property="latitude" />
+		<result column="plan_finish_suquence" property="planFinishSuquence" />
 	</resultMap>
 	<sql id="Base_Column_List">
 		bill_id, sales_org_short, business_type, po_number_sold,
@@ -102,6 +103,12 @@
 			<if test="salesOrgCode != null"> and sales_org_code = #{salesOrgCode,jdbcType=VARCHAR}
 			</if>
 		</where>
+	</select>
+	<select id="getTodayOrderSuquence" resultType="Integer"
+		parameterType="String">
+		SELECT MAX(plan_finish_suquence) FROM crm_install_bill
+		WHERE DATE_FORMAT( NOW( ) , '%Y%m%d' ) = DATE_FORMAT( appoint_date,
+		'%Y%m%d' ) AND (order_worker_big = #{workerId} OR order_worker_litter =#{workerId})
 	</select>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
 		delete from
@@ -375,6 +382,10 @@
 				latitude =
 				#{latitude}
 			</if>
+			<if test="planFinishSuquence != null">
+				plan_finish_suquence =
+				#{planFinishSuquence}
+			</if>
 		</set>
 		where jl_order_num = #{jlOrderNum,jdbcType=VARCHAR}
 	</update>
@@ -499,14 +510,18 @@
 	</select>
 
 	<select id="queryDelayInstalls" parameterType="map" resultType="map">
-		SELECT b.`jl_order_num` azdh,d.`baidu_id` baiduId,d.`access_token` accessToken FROM
+		SELECT b.`jl_order_num` azdh,d.`baidu_id` baiduId,d.`access_token`
+		accessToken FROM
 		crm_install_bill b
 		LEFT JOIN sh_device_manage d
-		ON b.`order_worker_big` = d.`user_id` OR b.order_worker_litter =
+		ON
+		b.`order_worker_big` = d.`user_id` OR b.order_worker_litter =
 		d.`user_id`
-		WHERE b.jl_order_num IN (SELECT jl_order_num FROM crm_install_bill
+		WHERE b.jl_order_num IN (SELECT jl_order_num FROM
+		crm_install_bill
 		WHERE
-		DATE_FORMAT( appoint_start_date, '%Y-%m-%d %H')>=#{qyeryTime} AND
+		DATE_FORMAT( appoint_start_date, '%Y-%m-%d
+		%H')>=#{qyeryTime} AND
 		bill_status = 'E0010')
 
 	</select>
@@ -519,4 +534,5 @@
 		WHERE
 		jl_order_num = #{azd01}
 	</update>
+
 </mapper>

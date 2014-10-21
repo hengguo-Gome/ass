@@ -10,7 +10,7 @@ import com.gome.common.page.Page;
 @Repository("shDeviceManageDao")
 public interface ShDeviceManageDao {
 
-	public void insertShDeviceManage(Map<String,Object> inMap);
+	public void insertShDeviceManageByMap(Map<String,Object> inMap);
 
 	/**
 	 * APP版本检测更新

@@ -1,5 +1,11 @@
 K 25
 svn:wc:ra_dav:version-url
 V 75
-/svn/gome/!svn/ver/6213/trunk/mbl-server/ass/src/main/webapp/WEB-INF/images
+/svn/gome/!svn/ver/7338/trunk/mbl-server/ass/src/main/webapp/WEB-INF/images
+END
+del.jpg
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/gome/!svn/ver/7175/trunk/mbl-server/ass/src/main/webapp/WEB-INF/images/del.jpg
 END

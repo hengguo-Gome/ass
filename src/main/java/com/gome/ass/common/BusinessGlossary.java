@@ -27,15 +27,15 @@ public static final String MQ_MESSAGE_TYPE_HUIZHI = "NOTE_REPLY";
 	/**
 	 * web
 	 */
-	public static final Integer BAIDU_NOTIFICATION_DEVICE_TYPE_WEB = 1;
+	public static final String BAIDU_NOTIFICATION_DEVICE_TYPE_WEB = "1";
 	/**
 	 * pc
 	 */
-	public static final Integer BAIDU_NOTIFICATION_DEVICE_TYPE_PC = 2;
+	public static final String BAIDU_NOTIFICATION_DEVICE_TYPE_PC = "2";
 	/**
 	 * android
 	 */
-	public static final Integer BAIDU_NOTIFICATION_DEVICE_TYPE_ANDROID = 3;
+	public static final String BAIDU_NOTIFICATION_DEVICE_TYPE_ANDROID = "3";
 	/**
 	 * ios
 	 */
@@ -66,15 +66,15 @@ public static final String MQ_MESSAGE_TYPE_HUIZHI = "NOTE_REPLY";
 	/**
 	 * 订单消息
 	 */
-	public static final Integer MOBILE_MESSAGE_TYPE_ORDER = 0;
+	public static final String MOBILE_MESSAGE_TYPE_ORDER = "0";
 	/**
 	 * 系统消息
 	 */
-	public static final Integer MOBILE_MESSAGE_TYPE_SYSTEM = 1;
+	public static final String MOBILE_MESSAGE_TYPE_SYSTEM = "1";
 	/**
 	 * 投诉消息
 	 */
-	public static final Integer MOBILE_MESSAGE_TYPE_COMPLAINT = 2;
+	public static final String MOBILE_MESSAGE_TYPE_COMPLAINT = "2";
 	//TMS运单状态
 	/** 待派工 */
 	public static final String LEG_TYPE_WAITPLAN = "WAITPLAN";
@@ -97,9 +97,11 @@ public static final String MQ_MESSAGE_TYPE_HUIZHI = "NOTE_REPLY";
 	public static final String WL_DRIVER_LEGS = "wlsjdd_";
 	public static final String WL_LEG_INFO = "wlddxx_";
 	public static final String WL_LEG_STATUS = "wlddzt_";
+	public static final String WL_WORKERS_LOCATION = "wlsjwz_";
 	public static final String SH_INSTALL_INFO = "shazxx_";
 	public static final String SH_INSTALL_STATUS = "shanzt_";
 	public static final String SH_WORKERS_INSTALLS = "shsjan_";
+	public static final String SH_WORKERS_LOCATION = "shsjwz_";
 	
 	//发送消息设备类型
 	/**
@@ -110,8 +112,4 @@ public static final String MQ_MESSAGE_TYPE_HUIZHI = "NOTE_REPLY";
 	 * IOS设备
 	 */
 	public static final String DEVICE_TYPE_IOS = "ios";
-	
-	public static final Integer USER_GOME = 0;
-	public static final Integer USER_THIRD_PART = 1;
-	public static final Integer USER_ADMIN = 2;
 }
