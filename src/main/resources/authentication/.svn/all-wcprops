@@ -1,17 +1,17 @@
 K 25
 svn:wc:ra_dav:version-url
 V 78
-/svn/gome/!svn/ver/7079/trunk/mbl-server/ass/src/main/resources/authentication
+/svn/gome/!svn/ver/7360/trunk/mbl-server/ass/src/main/resources/authentication
 END
-aps_development.p12
+aps_development_test.p12
 K 25
 svn:wc:ra_dav:version-url
-V 98
-/svn/gome/!svn/ver/7079/trunk/mbl-server/ass/src/main/resources/authentication/aps_development.p12
+V 103
+/svn/gome/!svn/ver/7360/trunk/mbl-server/ass/src/main/resources/authentication/aps_development_test.p12
 END
-logistics_aps_production.p12
+aps_production.p12
 K 25
 svn:wc:ra_dav:version-url
-V 107
-/svn/gome/!svn/ver/7079/trunk/mbl-server/ass/src/main/resources/authentication/logistics_aps_production.p12
+V 97
+/svn/gome/!svn/ver/7360/trunk/mbl-server/ass/src/main/resources/authentication/aps_production.p12
 END

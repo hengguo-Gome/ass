@@ -1,11 +1,11 @@
 K 25
 svn:wc:ra_dav:version-url
 V 90
-/svn/gome/!svn/ver/7175/trunk/mbl-server/ass/src/main/java/com/gome/ass/controller/message
+/svn/gome/!svn/ver/7378/trunk/mbl-server/ass/src/main/java/com/gome/ass/controller/message
 END
 ShGroupMessageController.java
 K 25
 svn:wc:ra_dav:version-url
 V 120
-/svn/gome/!svn/ver/7175/trunk/mbl-server/ass/src/main/java/com/gome/ass/controller/message/ShGroupMessageController.java
+/svn/gome/!svn/ver/7378/trunk/mbl-server/ass/src/main/java/com/gome/ass/controller/message/ShGroupMessageController.java
 END

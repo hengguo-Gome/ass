@@ -25,7 +25,7 @@ public class AppOrderTest {
 //    @Test
     public void appSync(){
         String pre = "appOrder/appSynch";
-        String url = "http://10.128.46.8:8082/ass/" + pre;
+        String url = "http://localhost:8080/ass/" + pre;
         JSONObject jo = new JSONObject();
         jo.put("sjId", "" + new Date().getTime());
         jo.put("jkId", "ass002");

@@ -15,9 +15,12 @@ import javax.annotation.Resource;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import org.apache.commons.lang.StringUtils;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.gome.ass.common.APPErrorInfo;
@@ -29,6 +32,7 @@ import com.gome.ass.service.appUser.JlOrderService;
 import com.gome.ass.service.logistics.CrmInstallBillService;
 import com.gome.ass.service.system.ShDataRecordService;
 import com.gome.ass.service.wsdl.service.CENJKServiceLocator;
+import com.gome.ass.util.BeanJsonUtils;
 import com.gome.ass.util.BeanTool;
 import com.gome.ass.util.UUIDUtil;
 import com.gome.ass.util.XmlUtil;
@@ -36,6 +40,8 @@ import com.gome.common.util.AsynchronousSendMsgUtils;
 
 @Service("jlOrderService")
 public class JlOrderServiceImpl implements JlOrderService{
+	
+	private static final Logger log = LoggerFactory.getLogger(JlOrderServiceImpl.class);
     @Resource
     private ShDataRecordService shDataRecordService;
     @Resource
@@ -47,14 +53,7 @@ public class JlOrderServiceImpl implements JlOrderService{
         
         String jlResult = new CENJKServiceLocator().getCENJK().invokeSHService(inXml);
         JSONObject result = null;
-        try {
-            result = this.parseTimeWindowXml((String)map.get("yysj"), jlResult);
-        } catch (Exception e) {
-            result = new JSONObject();
-            result.put(APPErrorInfo.ERRORCODE, APPErrorInfo.E10000);
-            result.put(APPErrorInfo.ERRORMSG, APPErrorInfo.M10000);
-            e.printStackTrace();
-        }
+        result = this.parseTimeWindowXml((String)map.get("yysj"), jlResult);
         return result;
     }
     
@@ -64,22 +63,17 @@ public class JlOrderServiceImpl implements JlOrderService{
         
         String jlResult = new CENJKServiceLocator().getCENJK().invokeSHService(inXml);
         JSONObject result = null;
-        try {
-            result = this.parseOrderDelayXml(jlResult);
-            //更新本地安装单状态
-            if(result.get("RESULT") != null && result.get("RESULT").equals("1")){
-                this.crmInstallBillService.updateApointDate(map);
-                
-                //将安装单信息发送给mq
-    			String jlOrderNum = (String)map.get("azd01");
-    			CrmInstallBill crmInstallBill = this.crmInstallBillService.queryCrmInstallBillByJlOrderNum(jlOrderNum);
-                AsynchronousSendMsgUtils.sendInstallBillToMq(crmInstallBill, BusinessGlossary.SYSTEM_NAME_APP);
-            }
-        } catch (Exception e) {
-            result = new JSONObject();
-            result.put(APPErrorInfo.ERRORCODE, APPErrorInfo.E10000);
-            result.put(APPErrorInfo.ERRORMSG, APPErrorInfo.M10000);
-            e.printStackTrace();
+        result = this.parseOrderDelayXml(jlResult);
+        //更新本地安装单状态
+        if(result.get("result") != null && result.get("result").equals("1")){
+            this.crmInstallBillService.updateApointDate(map);
+            
+            //将安装单信息发送给mq
+			String jlOrderNum = (String)map.get("azd01");
+			CrmInstallBill crmInstallBill = this.crmInstallBillService.queryCrmInstallBillByJlOrderNum(jlOrderNum);
+			if(null != crmInstallBill ){
+				AsynchronousSendMsgUtils.sendInstallBillToMq(crmInstallBill, BusinessGlossary.SYSTEM_NAME_APP);
+			}
         }
         return result;
     }
@@ -165,7 +159,7 @@ public class JlOrderServiceImpl implements JlOrderService{
         if(jl.element("MESSAGE") != null && ("1".equals(jl.element("MESSAGE").element("ISCG").getText()))){
             JSONObject js = new JSONObject();
 //            String result = jl.element("MESSAGE").element("ISCG").getText();
-            js.put("RESULT", "1");
+            js.put("result", "1");
             return js;
         }else {
             JSONObject result = new JSONObject();
@@ -177,7 +171,10 @@ public class JlOrderServiceImpl implements JlOrderService{
     
     public static void main(String[] args) {
         try {
-            System.out.println(new JlOrderServiceImpl().parseOrderDelayXml(""));
+        	SimpleDateFormat sdf = new SimpleDateFormat("MM-dd");
+    		String format = sdf.format(new Date(1413777600000L));
+    		System.out.println(format);
+//            System.out.println(new JlOrderServiceImpl().parseOrderDelayXml(""));
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -185,15 +182,28 @@ public class JlOrderServiceImpl implements JlOrderService{
     }
 
 	@Override
-	public void  appComplete(Map<String, Object> map)  {
+	public JSONObject appComplete(Map<String, Object> map)  {
+		JSONObject result = new JSONObject();
 		try{
 			String jlOrderNum = (String)map.get("jlOrderNum");
+			if(StringUtils.isBlank(jlOrderNum)){
+				result.put(APPErrorInfo.ERRORCODE, APPErrorInfo.E00001);
+				result.put(APPErrorInfo.ERRORMSG, APPErrorInfo.M00001);
+				return result;
+			}
 			CrmInstallBill crmInstallBill = this.crmInstallBillService.queryCrmInstallBillByJlOrderNum(jlOrderNum);
-			if("E0014".equals(crmInstallBill.getBillStatus())){
-				throw new RuntimeException("该单已回执！");
+			if(crmInstallBill == null){
+				result.put(APPErrorInfo.ERRORCODE, APPErrorInfo.E00002);
+				result.put(APPErrorInfo.ERRORMSG, APPErrorInfo.M00002);
+				return result;
+			}
+			if(!BusinessGlossary.BILL_STATUS_DISPATCHED.equals(crmInstallBill.getBillStatus())){
+				result.put(APPErrorInfo.ERRORCODE, "E");
+				result.put(APPErrorInfo.ERRORMSG, "改单子已操作");
+				return result;
 			}
 			//TODO根据金力单号查询，修改状相关信息，保存
-			crmInstallBill.setBillStatus("E0014");
+			crmInstallBill.setBillStatus(BusinessGlossary.BILL_STATUS_COMPLETE);
 			crmInstallBill.setReceiptCode( (String)map.get("receiptCode"));
 			crmInstallBill.setReceiptName( (String)map.get("receiptName"));
 			crmInstallBill.setInnerMachineCode((String)map.get("innerMachineCode"));
@@ -211,7 +221,9 @@ public class JlOrderServiceImpl implements JlOrderService{
 			if(services!=null&&services.size()!=0){
 				for(Object service : services){
 					CrmService crmService = new CrmService();
-					BeanTool.map2Bean((Map)service, crmService);
+					Map serviceMap = (Map)service;
+					serviceMap.put("legNo", jlOrderNum);
+					BeanTool.map2Bean(serviceMap, crmService);
 					crmService.setInstallBillId(jlOrderNum);
 					crmService.setId(UUIDUtil.getUUID());
 					crmServices.add(crmService);
@@ -224,7 +236,9 @@ public class JlOrderServiceImpl implements JlOrderService{
 			if(accessorieses!=null&&accessorieses.size()!=0){
 				for(Object accessories : accessorieses){
 					CrmAccessories crmAccessories = new CrmAccessories();
-					BeanTool.map2Bean((Map)accessories, crmAccessories);
+					Map accessoriesMap = (Map)accessories;
+					accessoriesMap.put("legNo", jlOrderNum);
+					BeanTool.map2Bean(accessoriesMap, crmAccessories);
 					crmAccessories.setInstallBillId(jlOrderNum);
 					crmAccessories.setId(UUIDUtil.getUUID());
 					crmAccessorieses.add(crmAccessories);
@@ -234,50 +248,86 @@ public class JlOrderServiceImpl implements JlOrderService{
 			}
 			
 			Map param = new HashMap();
-			param.put("crmInstallBill", crmInstallBill);
-			param.put("services", crmServices);
-			param.put("accessorieses", accessorieses);
+			Map<String, Object> convertMap = BeanJsonUtils.convertMapToMap(crmInstallBill);
+			String appointStartDate = (String)convertMap.get("appointStartDate");
+			String appointEndDate = (String)convertMap.get("appointEndDate");
+			if(StringUtils.isNotBlank(appointStartDate) && StringUtils.isNotBlank(appointEndDate)){
+				String appointDatePeriod = appointStartDate.substring(8, 10)+"-"+appointEndDate.substring(8, 10);
+				convertMap.put("appointDatePeriod", appointDatePeriod);
+			}
+			param.put("crmInstallBill", convertMap);
+			param.put("crmServices", crmServices);
+			param.put("crmAccessorieses", accessorieses);
 			String gomeOrderAddr = crmInstallBill.getGomeOrderAddr();//接单网店代码
-			//网点代码以3开头为第三方网点，回执到金力系统
-			if(gomeOrderAddr.startsWith("3")){
-				AsynchronousSendMsgUtils.receiptJLCompleteLegMessage(param);
-			}else{//网点代码其他以字母开头为自建网点，回执到crm
+			//网点代码以S开头为第三方网点，回执到crm
+			if(gomeOrderAddr.startsWith("S")){
 				AsynchronousSendMsgUtils.receiptCrmCompleteLegMessage(param);
+			}else{//网点代码其他以字母开头为自建网点，回执到金力系统
+				AsynchronousSendMsgUtils.receiptJLCompleteLegMessage(param);
 			}
 			//将安装单信息发送到mq
 			AsynchronousSendMsgUtils.sendInstallBillToMq(crmInstallBill, BusinessGlossary.SYSTEM_NAME_APP);
 			
 		}catch(Exception e){
-			throw new RuntimeException(e);
+			log.error(e.getMessage(),e);
+			result.put(APPErrorInfo.ERRORCODE, APPErrorInfo.E10000);
+			result.put(APPErrorInfo.ERRORMSG, APPErrorInfo.M10000);
+			return result;
 		}
+		result.put("result", 0);
+		return result;
 	}
 
 	@Override
-	public void appConcel(Map<String, Object> map) {
+	public JSONObject appConcel(Map<String, Object> map) {
+		JSONObject result = new JSONObject();
 		try{
 			String jlOrderNum = (String)map.get("jlOrderNum");
+			if(StringUtils.isBlank(jlOrderNum)){
+				result.put(APPErrorInfo.ERRORCODE, APPErrorInfo.E00001);
+				result.put(APPErrorInfo.ERRORMSG, APPErrorInfo.M00001);
+				return result;
+			}
 			CrmInstallBill crmInstallBill = this.crmInstallBillService.queryCrmInstallBillByJlOrderNum(jlOrderNum);
-			if("E0021".equals(crmInstallBill.getBillStatus())){
-				throw new RuntimeException("该单已取消！");
+			if(crmInstallBill == null){
+				result.put(APPErrorInfo.ERRORCODE, APPErrorInfo.E00002);
+				result.put(APPErrorInfo.ERRORMSG, APPErrorInfo.M00002);
+				return result;
 			}
-			crmInstallBill.setBillStatus("E0021");
-			this.crmInstallBillService.updateByPrimaryKeySelective(crmInstallBill);
-			Map param = new HashMap();
-			param.put("crmInstallBill", crmInstallBill);
 			String gomeOrderAddr = crmInstallBill.getGomeOrderAddr();//接单网店代码
-			//网点代码以3开头为第三方网点，回执到金力系统
-			if(gomeOrderAddr.startsWith("3")){
-				AsynchronousSendMsgUtils.receiptJLConcelLegMessage(param);
-			}else{//网点代码其他以字母开头为自建网点，回执到crm
-				AsynchronousSendMsgUtils.receiptCrmConcelLegMessage(param);
+			
+			if(gomeOrderAddr.startsWith("S") && !BusinessGlossary.BILL_STATUS_COMPLETE.equals(crmInstallBill.getBillStatus())){
+				result.put(APPErrorInfo.ERRORCODE, APPErrorInfo.E10014);
+				result.put(APPErrorInfo.ERRORMSG, APPErrorInfo.M10014);
+				return result;
 			}
-		
+			crmInstallBill.setBillStatus(BusinessGlossary.BILL_STATUS_CANCEL);
+			Map param = new HashMap();
+			Map<String, Object> convertMap = BeanJsonUtils.convertMapToMap(crmInstallBill);
+			String appointStartDate = (String)convertMap.get("appointStartDate");
+			String appointEndDate = (String)convertMap.get("appointEndDate");
+			if(StringUtils.isNotBlank(appointStartDate) && StringUtils.isNotBlank(appointEndDate)){
+				String appointDatePeriod = appointStartDate.substring(8, 10)+"-"+appointEndDate.substring(8, 10);
+				convertMap.put("appointDatePeriod", appointDatePeriod);
+			}
+			param.put("crmInstallBill", convertMap);
+			//网点代码以S开头为第三方网点，回执到crm
+			if(gomeOrderAddr.startsWith("S")){
+				AsynchronousSendMsgUtils.receiptCrmCompleteLegMessage(param);
+			}else{//网点代码其他以字母开头为自建网点，回执到金力系统
+				AsynchronousSendMsgUtils.receiptJLCompleteLegMessage(param);
+			}
 			//将安装单信息发送到mq
 			AsynchronousSendMsgUtils.sendInstallBillToMq(crmInstallBill, BusinessGlossary.SYSTEM_NAME_APP);
 			
 		}catch(Exception e){
-			throw new RuntimeException(e);
+			log.error(e.getMessage(),e);
+			result.put(APPErrorInfo.ERRORCODE, APPErrorInfo.E10000);
+			result.put(APPErrorInfo.ERRORMSG, APPErrorInfo.M10000);
+			return result;
 		}
+		result.put("result", 0);
+		return result;
 		
 	}
 

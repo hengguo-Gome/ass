@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ns1:MT_CRM_Req xmlns:ns1="http://gome.com/DIS/MOBILE/Inbound">
 	<HEADER>
-		<INTERFACE_ID></INTERFACE_ID>
+		<INTERFACE_ID>CRM274</INTERFACE_ID>
 		<MESSAGE_ID>$!{MessageID}</MESSAGE_ID>
 		<SENDER>MDIS</SENDER>
-		<RECEIVER></RECEIVER>
-		<DTSEND></DTSEND>
+		<RECEIVER>DIS</RECEIVER>
+		<DTSEND>$!{Dtsend}</DTSEND>
 	</HEADER>
 	<XML_DATA>
 		<CRM274>
 			<HEADER>
-				<AZD01>$!{crmIntsallBill.jlOrderNum}</AZD01>
+				<AZD01>$!{crmInstallBill.jlOrderNum}</AZD01>
 				<HZRQ>$!{crmInstallBill.receiptDate}</HZRQ>
 				<HZGRDM>$!{crmInstallBill.receiptCode}</HZGRDM>
 				<HZGRMC>$!{crmInstallBill.receiptName}</HZGRMC>
-				<AZKBM>$!{crmIntsallBill.installCardCode}</AZKBM>
-				<NJTM>$!{crmIntsallBill.innerMachineCode}</NJTM>
-				<WJTM>$!{crmIntsallBill.outerMachineCode}</WJTM>
-				<HZZT>$!{crmIntsallBill.isFinish}</HZZT>
+				<AZKBM>$!{crmInstallBill.installCardCode}</AZKBM>
+				<NJTM>$!{crmInstallBill.innerMachineCode}</NJTM>
+				<WJTM>$!{crmInstallBill.outerMachineCode}</WJTM>
+				<HZZT>$!{crmInstallBill.isFinish}</HZZT>
 				<BZ>$!{crmInstallBill.remark}</BZ>
 				<DJZT>$!{crmInstallBill.billStatus}</DJZT>
 			</HEADER>
 			<ITEMS>
 				#foreach($crmService in $crmServices)
 				<ITEM1>
-					<FWXM01>$crmService.serviceMeasuresCode</FWXM01>
-					<FWXMMC>$crmService.serviceMeasuresName</FWXMMC>
-					<SL>$crmAccessories.quantity</SL>
-					<JG></JG>
-					<JE></JE>
+					<FWXM01>$!{crmService.serviceMeasuresCode}</FWXM01>
+					<FWXMMC>$!{crmService.serviceMeasuresName}</FWXMMC>
+					<SL>$!{crmService.quantity}</SL>
+					<JG>$!{crmService.unitPrice}</JG>
+					<JE>$!{crmService.grossValue}</JE>
 				</ITEM1>
 				#end
 				#foreach($crmAccessories in $crmAccessorieses)
 				<ITEM2>
-					<SPBM>$crmAccessories.accessoriesProdCode</SPBM>
-					<SPMC>$crmAccessories.accessoriesProdName</SPMC>
-					<SL>$crmAccessories.quantity</SL>
-					<DJ>$crmAccessories.unitPrice</DJ>
-					<JE>$crmAccessories.amount</JE>
-					<PPB01>$crmAccessories.accessoriesBrand</PPB01>
-					<SPFL01>$crmAccessories.accessoriesCategory</SPFL01>
+					<SPBM>$!{crmAccessories.accessoriesProdCode}</SPBM>
+					<SPMC>$!{crmAccessories.accessoriesProdName}</SPMC>
+					<SL>$!{crmAccessories.quantity}</SL>
+					<DJ>$!{crmAccessories.unitPrice}</DJ>
+					<JE>$!{crmAccessories.amount}</JE>
+					<PPB01>$!{crmAccessories.accessoriesBrand}</PPB01>
+					<SPFL01>$!{crmAccessories.accessoriesCategory}</SPFL01>
 				</ITEM2>
 				#end
 			</ITEMS>

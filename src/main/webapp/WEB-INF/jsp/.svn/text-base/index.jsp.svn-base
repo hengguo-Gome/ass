@@ -76,7 +76,7 @@ body {
 	<div region="west" split="false" title="导航菜单"
 		style="width: 250px; ">
 
-		<div class="easyui-accordion" id="left_nav" fit="true" border="false">
+		<div class="easyui-accordion" id="left_nav" fit="false" border="false" style="height:420px;">
 		</div>
 
 	</div>

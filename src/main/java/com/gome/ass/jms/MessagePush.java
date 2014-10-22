@@ -9,6 +9,7 @@ import javapns.devices.implementations.basic.BasicDevice;
 import javapns.notification.AppleNotificationServerBasicImpl;
 import javapns.notification.PushNotificationManager;
 import javapns.notification.PushNotificationPayload;
+import javapns.notification.PushedNotifications;
 
 import org.junit.Assert;
 import org.springframework.core.io.ClassPathResource;
@@ -55,7 +56,7 @@ public class MessagePush {
 			payLoad.addSound(BusinessGlossary.APPLE_NOTIFICATION_SOUND);
 			
 			PushNotificationManager pushManager = new PushNotificationManager();
-			pushManager.initializeConnection(new AppleNotificationServerBasicImpl(in, certificatePassword, true));
+			pushManager.initializeConnection(new AppleNotificationServerBasicImpl(in, certificatePassword, false));
 			
 			//发给多个设备
 			List<Device> devices = new ArrayList<Device>();
@@ -66,8 +67,8 @@ public class MessagePush {
 				device.setToken(devicetoken);
 				devices.add(device);
 			}
-			pushManager.sendNotifications(payLoad, devices);
-			
+			PushedNotifications sendNotifications = pushManager.sendNotifications(payLoad, devices);
+			System.out.println(sendNotifications);
 			pushManager.stopConnection();
 		} catch (Exception e) {
 			throw new Exception(e);

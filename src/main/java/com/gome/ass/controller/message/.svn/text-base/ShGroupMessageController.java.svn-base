@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gome.ass.common.Constrants;
-import com.gome.ass.controller.crm.MessageController;
-import com.gome.ass.entity.ShGroupMessage;
 import com.gome.ass.entity.ShUser;
 import com.gome.ass.service.message.ShGroupMessageService;
 import com.gome.ass.service.users.CrmWorkerService;
@@ -28,7 +26,7 @@ import com.gome.common.page.Page;
 @RequestMapping("/groupMessage")
 public class ShGroupMessageController {
 
-	private static Logger log = LoggerFactory.getLogger(MessageController.class);
+	private static Logger log = LoggerFactory.getLogger(ShGroupMessageController.class);
 	@Resource
 	private ShGroupMessageService shGroupMessageService;
 	@Resource

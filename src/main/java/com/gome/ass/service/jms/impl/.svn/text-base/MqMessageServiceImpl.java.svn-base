@@ -24,17 +24,17 @@ import com.gome.ass.util.JsonUtil;
 
 @Service("mqMessageService")
 public class MqMessageServiceImpl implements MqMessageService {
-	
-	private static final Logger log = LoggerFactory.getLogger(MqMessageServiceImpl.class);
-	
+
+	private static final Logger log = LoggerFactory
+			.getLogger(MqMessageServiceImpl.class);
+
 	@Resource
 	private CrmInstallBillDao crmInstallBillDao;
 	@Resource
 	private ShDeviceManageDao shDeviceManageDao;
 	@Resource
 	private ShMessagePushMQSender shMessagePushMQSender;
-	
-	
+
 	@Override
 	public void processMqLegMessage(String jsonString) {
 		Map<String, String> map = JsonUtil.convertJsonToMap(jsonString,
@@ -42,62 +42,71 @@ public class MqMessageServiceImpl implements MqMessageService {
 		String status = map.get("ydzt");
 		String thd = map.get("thd");
 		String gsdm = map.get("gsdm");
+		String needinstall = map.get("needinstall");
+		if (needinstall.equals("1")) {
 
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("poNumberSold", thd);
-		paramMap.put("salesOrgCode", gsdm);
-		CrmInstallBill installBill = crmInstallBillDao
-				.selectByPrimaryKey(paramMap);
-		if (null != installBill) {
-			List<String> workerIds = new ArrayList<String>();
-			workerIds.add(installBill.getOrderWorkerBig());
-			workerIds.add(installBill.getOrderWorkerLitter());
-			List<ShDeviceManage> shDeviceManageList = shDeviceManageDao
-					.findShDeviceManageList(workerIds);
-			if (shDeviceManageList != null && shDeviceManageList.size() > 0) {
-				String jlOrderNum = installBill.getJlOrderNum();
-				String title = "安装单物流状态提醒";
-				StringBuffer content = new StringBuffer();
+			Map<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("poNumberSold", thd);
+			paramMap.put("salesOrgCode", gsdm);
+			CrmInstallBill installBill = crmInstallBillDao
+					.selectByPrimaryKey(paramMap);
+			if (null != installBill) {
+				List<String> workerIds = new ArrayList<String>();
+				workerIds.add(installBill.getOrderWorkerBig());
+				workerIds.add(installBill.getOrderWorkerLitter());
+				List<ShDeviceManage> shDeviceManageList = shDeviceManageDao
+						.findShDeviceManageList(workerIds);
+				if (shDeviceManageList != null && shDeviceManageList.size() > 0) {
+					String jlOrderNum = installBill.getJlOrderNum();
+					String title = "安装单物流状态提醒";
+					StringBuffer content = new StringBuffer();
 
-				content.append("安装单：" + jlOrderNum + ",");
-				String perfConent = null;
-				if (status.equals(BusinessGlossary.LEG_TYPE_SIGNED)) {
-					perfConent = "物流已回执";
-				} else if (status.equals(BusinessGlossary.LEG_TYPE_DISPATCHED)) {
-					perfConent = "物流已派工";
-				} else if (status.equals(BusinessGlossary.LEG_TYPE_WAITPLAN)) {
-					perfConent = "物流已取消";
-				} else if (status.equals(BusinessGlossary.LEG_TYPE_DAMAGED)) {
-					perfConent = "物流开箱残";
-				}else if (status.equals(BusinessGlossary.LEG_TYPE_DELAY)) {
-					perfConent = "物流已延期";
-				} 
-				content.append(perfConent);
-				try {
-					for (ShDeviceManage shDeviceManage : shDeviceManageList) {
-						if (StringUtils.isNotBlank(shDeviceManage.getBaiduId())) {// 安卓设备
-							
-							Map<String, Object> msgMap = new HashMap<String, Object>();
-							msgMap.put("title", title);
-							msgMap.put("content", content.toString());
-							msgMap.put("messageType", 0);
-							shMessagePushMQSender.send(shDeviceManage.getBaiduId(), msgMap);
-						} else if (StringUtils.isNotBlank(shDeviceManage.getAccessToken())) {// 苹果设备
-							String message = "<订单提醒(订单)>" + content.toString();
-							List<String> devicetokens = new ArrayList<String>();
-							devicetokens.add(shDeviceManage.getAccessToken());
-							MessagePush.sendMessageToAppleUser(devicetokens, message);
-						}
+					content.append("安装单：" + jlOrderNum + ",");
+					String perfConent = null;
+					if (status.equals(BusinessGlossary.LEG_TYPE_SIGNED)) {
+						perfConent = "物流已回执";
+					} else if (status
+							.equals(BusinessGlossary.LEG_TYPE_DISPATCHED)) {
+						perfConent = "物流已派工";
+					} else if (status
+							.equals(BusinessGlossary.LEG_TYPE_WAITPLAN)) {
+						perfConent = "物流已取消";
+					} else if (status.equals(BusinessGlossary.LEG_TYPE_DAMAGED)) {
+						perfConent = "物流开箱残";
+					} else if (status.equals(BusinessGlossary.LEG_TYPE_DELAY)) {
+						perfConent = "物流已延期";
 					}
-					
-				} catch (Exception e) {
-					log.error(e.getMessage(),e);
+					content.append(perfConent);
+					try {
+						for (ShDeviceManage shDeviceManage : shDeviceManageList) {
+							if (StringUtils.isNotBlank(shDeviceManage
+									.getBaiduId())) {// 安卓设备
+
+								Map<String, Object> msgMap = new HashMap<String, Object>();
+								msgMap.put("title", title);
+								msgMap.put("content", content.toString());
+								msgMap.put("messageType", 0);
+								shMessagePushMQSender.send(
+										shDeviceManage.getBaiduId(), msgMap);
+							} else if (StringUtils.isNotBlank(shDeviceManage
+									.getAccessToken())) {// 苹果设备
+								String message = "<订单提醒(订单)>"
+										+ content.toString();
+								List<String> devicetokens = new ArrayList<String>();
+								devicetokens.add(shDeviceManage
+										.getAccessToken());
+								MessagePush.sendMessageToAppleUser(
+										devicetokens, message);
+							}
+						}
+
+					} catch (Exception e) {
+						log.error(e.getMessage(), e);
+					}
 				}
 			}
 		}
 
 	}
-
-
 
 }

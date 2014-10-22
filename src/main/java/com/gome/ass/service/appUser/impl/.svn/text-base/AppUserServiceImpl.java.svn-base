@@ -159,7 +159,7 @@ public class AppUserServiceImpl implements AppUserService {
 					Map<String, Object> userInfoMap = new HashMap<String, Object>();
 					userInfoMap.put("userId", crmWorker.getWorkerCode());
 					userInfoMap.put("password", MD5EncryptUtils.MD5Encode(newPassword));
-					userInfoMap.put("userType", "crm");
+					userInfoMap.put("userType", Constrants.CRM_WORKER);
 					this.shUserPwdInfoService.updateByPrimaryKey(userInfoMap);
 					result.put("result", 0);
 				}else{

@@ -116,6 +116,7 @@ public class AsynchronousSendMsgUtils {
 			return null;
 		}
 		
+		@SuppressWarnings(value="unchecked")
 		public  static String sendSocketMsg(String addr,int port,String content,boolean isReturn){
 			String returnMsg = null;
 			try{
@@ -132,6 +133,7 @@ public class AsynchronousSendMsgUtils {
 			return returnMsg;
 		}
 		
+		@SuppressWarnings(value="unchecked")
 		public  static Object sendSocketChannelMsg(final String addr,final int port,final Object content,final boolean isReturn){
 			 NioSocketConnector connector = new NioSocketConnector();
 			 connector.getFilterChain().addLast( "logger", new LoggingFilter() ); 
@@ -188,6 +190,37 @@ public class AsynchronousSendMsgUtils {
 		});
 	}
 	
+	private  void  sendMsgToMobile(final CrmInstallBill crmInstallBill, final String interfaceId){
+				
+				List<String> workerIds = new ArrayList<String>();
+				String orderWorkerBig = crmInstallBill.getOrderWorkerBig();
+				String orderWorkerLitter = crmInstallBill.getOrderWorkerLitter();
+				workerIds.add(orderWorkerBig);
+				workerIds.add(orderWorkerLitter);
+					String jlOrderNum = crmInstallBill.getJlOrderNum();
+		            String title = "安装单提醒";
+		            StringBuffer content = new StringBuffer();
+		            
+		            content.append("安装单：" + jlOrderNum+",");
+		            String perfConent = null;
+		            String billStatus = crmInstallBill.getBillStatus();
+		            if(interfaceId != null && interfaceId.equals("CRM197")){
+		            	perfConent = "信息修改";
+		            }else{
+		            	if(billStatus.equals(BusinessGlossary.BILL_STATUS_DISPATCHED)){
+		            		perfConent = "已派工";
+		            	}else if(billStatus.equals(BusinessGlossary.BILL_STATUS_CANCEL)){
+		            		perfConent = "已取消";
+		            	}else if(billStatus.equals(BusinessGlossary.BILL_STATUS_SIGNED)){
+		            		perfConent = "已回执";
+		            	}else if(billStatus.equals(BusinessGlossary.BILL_STATUS_COMPLETE)){
+		            		perfConent = "已完成";
+		            	}
+		            }
+		        content.append(perfConent);
+				sendMsgToMobile(content.toString(), title, workerIds, interfaceId);
+	}
+	
 	private  Future  sendMsgToMobile(final String content, final String title, final String workerId, final String interfaceId){
 		return service.submit(new Callable<String>() {
 			@Override
@@ -213,36 +246,7 @@ public class AsynchronousSendMsgUtils {
 	}
 	
 	public static  void sendMessageToMobile(final CrmInstallBill crmInstallBill,final String interfaceId){
-		List<String> workerIds = new ArrayList<String>();
-		String orderWorkerBig = crmInstallBill.getOrderWorkerBig();
-		String orderWorkerLitter = crmInstallBill.getOrderWorkerLitter();
-		workerIds.add(orderWorkerBig);
-		workerIds.add(orderWorkerLitter);
-		List<ShDeviceManage> deviceManageList = shDeviceManageService.findShDeviceManageList(workerIds);
-		if(deviceManageList != null && deviceManageList.size()>0){
-			String jlOrderNum = crmInstallBill.getJlOrderNum();
-            String title = "安装单提醒";
-            StringBuffer content = new StringBuffer();
-            
-            content.append("安装单：" + jlOrderNum+",");
-            String perfConent = null;
-            String billStatus = crmInstallBill.getBillStatus();
-            if(interfaceId != null && interfaceId.equals("CRM197")){
-            	perfConent = "信息修改";
-            }else{
-            	if(billStatus.equals(BusinessGlossary.BILL_STATUS_DISPATCHED)){
-            		perfConent = "已派工";
-            	}else if(billStatus.equals(BusinessGlossary.BILL_STATUS_CANCEL)){
-            		perfConent = "已取消";
-            	}else if(billStatus.equals(BusinessGlossary.BILL_STATUS_SIGNED)){
-            		perfConent = "已回执";
-            	}else if(billStatus.equals(BusinessGlossary.BILL_STATUS_COMPLETE)){
-            		perfConent = "已完成";
-            	}
-            }
-        content.append(perfConent);
-		getInstnce().sendMsgToMobile(content.toString(), title, workerIds, interfaceId);
-		}
+		getInstnce().sendMsgToMobile(crmInstallBill, interfaceId);
 	}
 	
 	/**
@@ -301,7 +305,7 @@ public class AsynchronousSendMsgUtils {
     		 }
     		
     	 }else{
-    		 if(billStatus.equals(BusinessGlossary.BILL_STATUS_DELAY)){
+    		 if(billStatus.equals(BusinessGlossary.BILL_STATUS_DISPATCHED)){
     			 
     	    		Date planarriveSTime = crmInstallBill.getAppointStartDate();
     	    		Date planarriveETime = crmInstallBill.getAppointEndDate();
@@ -312,9 +316,9 @@ public class AsynchronousSendMsgUtils {
     	    		bz = "安装工:"+crmInstallBill.getOrderWorkerBig()+", 进行延期操作,延期至："+sdfS.format(planarriveSTime)+"-"+sdfE.format(planarriveETime);
     	    	}else if(billStatus.equals(BusinessGlossary.BILL_STATUS_CANCEL)){
     	    		bz = "安装工:"+crmInstallBill.getOrderWorkerBig()+"取消安装单";
-    	    	}else if(billStatus.equals(BusinessGlossary.BILL_STATUS_SIGNED)){
+    	    	}else if(billStatus.equals(BusinessGlossary.BILL_STATUS_COMPLETE)){
     	    		sendInstallBill.setReceiptDate(crmInstallBill.getReceiptDate());
-    	    		 bz = "安装工:"+crmInstallBill.getOrderWorkerBig()+" 进行确认回执";
+    	    		 bz = "安装工:"+crmInstallBill.getOrderWorkerBig()+" 进行确认完工";
     	    	}else{
     	    		return;
     	    	}
@@ -322,11 +326,13 @@ public class AsynchronousSendMsgUtils {
     	
     	try {
     		sendLegJsonObject = BeanJsonUtils.convertBeanToJsonString(sendInstallBill);
+    		if(StringUtils.isBlank(sendInstallBill.getPoNumberSold())){
+    			sendLegJsonObject.put("poNumberSold", sendInstallBill.getJlOrderNum());
+    			sendLegJsonObject.put("hasNoThd", "1");
+    		}
     		sendLegJsonObject.put("bz", bz);
     		sendLegJsonObject.put("from", from);
-			if(!StringUtils.isBlank(sendInstallBill.getPoNumberSold()) && !StringUtils.isBlank(sendInstallBill.getSalesOrgCode())){
-				installBillInfoPushMQSender.send(sendLegJsonObject.toString());
-			}
+			installBillInfoPushMQSender.send(sendLegJsonObject.toString());
 		} catch (Exception e) {
 			log.error(e.getMessage(),e);
 		} 
@@ -340,9 +346,10 @@ public class AsynchronousSendMsgUtils {
 			@Override
 			public String call() throws Exception {
 				String MessageId = UUIDUtil.getUUID();
-				paramMap.put("MessageId",MessageId);
-				String content = XmlUtil.getInstance().genXmlByTemplate("crm/CRM_SEND.xml", paramMap);
-				String url = (String)sysConfig.getContextProperty("receiptCrmLeg");
+				paramMap.put("MessageID",MessageId);
+				paramMap.put("Dtsend",new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date()));
+				String content = XmlUtil.getInstance().genXmlByTemplate("crm/CRM_LEG_RECEIPT.xml", paramMap);
+				String url = (String)sysConfig.getContextProperty("sendMessageToPI");
 				ShDataRecordService shDataRecordService = (ShDataRecordService)SpringUtil.getBean("shDataRecordService");
 		        ShDataRecord dr = new ShDataRecord();
 		        dr.setCreateTime(new Date());
@@ -353,6 +360,7 @@ public class AsynchronousSendMsgUtils {
 		        dr.setReceiver("CRM");
 		        dr.setInterfaceType("CRM271");
 				dr.setMessageId(MessageId);
+				dr.setDateSend(new Date());
 				shDataRecordService.insertShDataRecord(dr);
 			    return SendMsgUtil.sendHttpMsg(url, content);
 			}
@@ -372,9 +380,10 @@ public class AsynchronousSendMsgUtils {
 			@Override
 			public String call() throws Exception {
 				String MessageId = UUIDUtil.getUUID();
-				paramMap.put("MessageId",MessageId);
+				paramMap.put("MessageID",MessageId);
+				paramMap.put("Dtsend",new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date()));
 				String content = XmlUtil.getInstance().genXmlByTemplate("jl/JL_LEG_RECEIPT.xml", paramMap);
-				String url = (String)sysConfig.getContextProperty("receiptCrmLeg");
+				String url = (String)sysConfig.getContextProperty("sendMessageToPI");
 				ShDataRecordService shDataRecordService = (ShDataRecordService)SpringUtil.getBean("shDataRecordService");
 		        ShDataRecord dr = new ShDataRecord();
 		        dr.setCreateTime(new Date());
@@ -382,9 +391,10 @@ public class AsynchronousSendMsgUtils {
 		        dr.setXmlContent(content);
 		        dr.setDirection(BusinessGlossary.DATA_INTERACTION_OUT);
 		        dr.setSender("ASS");
-		        dr.setReceiver("CRM");
+		        dr.setReceiver("DIS");
 		        dr.setInterfaceType("CRM274");
 				dr.setMessageId(MessageId);
+				dr.setDateSend(new Date());
 				shDataRecordService.insertShDataRecord(dr);
 			    return SendMsgUtil.sendHttpMsg(url, content);
 			}
@@ -404,10 +414,13 @@ public class AsynchronousSendMsgUtils {
 		return service.submit(new Callable<String>() {
 			@Override
 			public String call() throws Exception {
+				
 				String MessageId = UUIDUtil.getUUID();
-				paramMap.put("MessageId",MessageId);
+				paramMap.put("MessageID",MessageId);
+				paramMap.put("Dtsend",new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date()));
 				String content = XmlUtil.getInstance().genXmlByTemplate("jl/JL_LEG_CONCEL.xml", paramMap);
-				String url = (String)sysConfig.getContextProperty("receiptCrmLeg");
+				String url = (String)sysConfig.getContextProperty("sendMessageToPI");
+				
 				ShDataRecordService shDataRecordService = (ShDataRecordService)SpringUtil.getBean("shDataRecordService");
 		        ShDataRecord dr = new ShDataRecord();
 		        dr.setCreateTime(new Date());
@@ -418,6 +431,7 @@ public class AsynchronousSendMsgUtils {
 		        dr.setReceiver("CRM");
 		        dr.setInterfaceType("CRM271");
 				dr.setMessageId(MessageId);
+				dr.setDateSend(new Date());
 				shDataRecordService.insertShDataRecord(dr);
 			    return SendMsgUtil.sendHttpMsg(url, content);
 			}
@@ -436,10 +450,12 @@ public class AsynchronousSendMsgUtils {
 		return service.submit(new Callable<String>() {
 			@Override
 			public String call() throws Exception {
+				
 				String MessageId = UUIDUtil.getUUID();
-				paramMap.put("MessageId",MessageId);
+				paramMap.put("MessageID",MessageId);
+				paramMap.put("Dtsend",new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date()));
 				String content = XmlUtil.getInstance().genXmlByTemplate("crm/CRM_LEG_RECEIPT.xml", paramMap);
-				String url = (String)sysConfig.getContextProperty("receiptCrmLeg");
+				String url = (String)sysConfig.getContextProperty("sendMessageToPI");
 				ShDataRecordService shDataRecordService = (ShDataRecordService)SpringUtil.getBean("shDataRecordService");
 		        ShDataRecord dr = new ShDataRecord();
 		        dr.setCreateTime(new Date());
@@ -450,6 +466,7 @@ public class AsynchronousSendMsgUtils {
 		        dr.setReceiver("CRM");
 		        dr.setInterfaceType("CRM271");
 				dr.setMessageId(MessageId);
+				dr.setDateSend(new Date());
 				shDataRecordService.insertShDataRecord(dr);
 			    return SendMsgUtil.sendHttpMsg(url, content);
 			}

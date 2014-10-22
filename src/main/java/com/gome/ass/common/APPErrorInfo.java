@@ -6,6 +6,12 @@ public interface APPErrorInfo {
 	
 	String E00000 = "00000";
 	String M00000 = "操作成功";
+	
+	String E00001 = "00001";
+	String M00001 = "空参数异常";
+	
+	String E00002 = "00002";
+	String M00002 = "查无此单";
 
 	String E10000 = "10000";
 	String M10000 = "服务器异常";
@@ -44,8 +50,14 @@ public interface APPErrorInfo {
     String M10011 = "此预约时间无安装能力";
     
     String E10012 = "10012";
-    String M10012 = "订单延期修改失败";
+    String M10012 = "延期修改失败";
     
     String E10013 = "10013";
-    String M10013 = "订单回执失败";
+    String M10013 = "回执失败";
+    
+    String E10014 = "10014";
+    String M10014 = "请先确认完工,再进行取消";
+    
+    String E10015 = "10015";
+    String M10015 = "取消失败";
 }

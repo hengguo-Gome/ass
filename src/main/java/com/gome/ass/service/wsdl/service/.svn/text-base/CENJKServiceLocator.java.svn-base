@@ -7,6 +7,8 @@
 
 package com.gome.ass.service.wsdl.service;
 
+import com.gome.ass.common.CustomizedPropertyPlaceholderConfigurer;
+
 public class CENJKServiceLocator extends org.apache.axis.client.Service implements com.gome.ass.service.wsdl.service.CENJKService {
 
     public CENJKServiceLocator() {
@@ -22,7 +24,7 @@ public class CENJKServiceLocator extends org.apache.axis.client.Service implemen
     }
 
     // Use to get a proxy class for CENJK
-    private java.lang.String CENJK_address = "http://10.2.2.131:8020/jlwebserver/services/CENJK";
+    private java.lang.String CENJK_address = (String) CustomizedPropertyPlaceholderConfigurer.getContextProperty("orderDelay");
 
     public java.lang.String getCENJKAddress() {
         return CENJK_address;

@@ -410,17 +410,17 @@ public class CrmInstallBillVO {
         
         CrmInstallBill po = new CrmInstallBill();
         String startEndDateHour = vo.getAppointStartDate();
-        String start = startEndDateHour.split("-")[0];
-        String end = startEndDateHour.split("-")[1];
-        //yyyy-MM-dd HH:mm:ss
         Date inDate = DateUtils.toDate(vo.getAppointDate(), DateUtils.LONG_DATE_FORMAT);
         po.setAppointDate(inDate);
         String day = DateUtils.formatDateTime(inDate, DateUtils.LONG_DATE_FORMAT);
-        po.setAppointDate(DateUtils.toDate(day, DateUtils.LONG_DATE_FORMAT));
-        Date appointStartDate = DateUtils.toDate(day + " " + start + ":00:00");
-        Date appointEndDate = DateUtils.toDate(day + " " + end + ":00:00");
-        po.setAppointStartDate(appointStartDate);
-        po.setAppointEndDate(appointEndDate);
+        if(startEndDateHour != null){
+        	String start = startEndDateHour.split("-")[0];
+        	String end = startEndDateHour.split("-")[1];
+        	Date appointStartDate = DateUtils.toDate(day + " " + start + ":00:00");
+        	Date appointEndDate = DateUtils.toDate(day + " " + end + ":00:00");
+        	po.setAppointStartDate(appointStartDate);
+        	po.setAppointEndDate(appointEndDate);
+        }
         
         po.setJlOrderNum(vo.getJlOrderNum());
         po.setClientAddr(vo.getClientAddr());
@@ -433,10 +433,7 @@ public class CrmInstallBillVO {
         po.setSalesOrgShort(vo.getSalesOrgShort());
         po.setPoNumberSold(vo.getPoNumberSold());
         po.setSalesOrgCode(vo.getSalesOrgCode());
-        
-        if("1".equals(vo.getBillStatus())){
-            po.setBillStatus("E0014");
-        }
+        po.setBillStatus(vo.getBillStatus());
         po.setSenderDate(vo.getSenderDate());
         po.setRemark(vo.getRemark());
         return po;

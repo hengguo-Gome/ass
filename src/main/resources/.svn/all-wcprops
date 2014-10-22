@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 63
-/svn/gome/!svn/ver/7338/trunk/mbl-server/ass/src/main/resources
+/svn/gome/!svn/ver/7378/trunk/mbl-server/ass/src/main/resources
 END
 varconfig.xml
 K 25
@@ -13,7 +13,7 @@ log4j.properties
 K 25
 svn:wc:ra_dav:version-url
 V 80
-/svn/gome/!svn/ver/7175/trunk/mbl-server/ass/src/main/resources/log4j.properties
+/svn/gome/!svn/ver/7378/trunk/mbl-server/ass/src/main/resources/log4j.properties
 END
 app_sh.properties
 K 25
@@ -25,5 +25,5 @@ config.properties
 K 25
 svn:wc:ra_dav:version-url
 V 81
-/svn/gome/!svn/ver/7271/trunk/mbl-server/ass/src/main/resources/config.properties
+/svn/gome/!svn/ver/7368/trunk/mbl-server/ass/src/main/resources/config.properties
 END

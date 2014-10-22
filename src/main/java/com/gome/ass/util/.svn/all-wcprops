@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 76
-/svn/gome/!svn/ver/7140/trunk/mbl-server/ass/src/main/java/com/gome/ass/util
+/svn/gome/!svn/ver/7360/trunk/mbl-server/ass/src/main/java/com/gome/ass/util
 END
 TemplateLoader.java
 K 25
@@ -91,7 +91,7 @@ BeanJsonUtils.java
 K 25
 svn:wc:ra_dav:version-url
 V 95
-/svn/gome/!svn/ver/7111/trunk/mbl-server/ass/src/main/java/com/gome/ass/util/BeanJsonUtils.java
+/svn/gome/!svn/ver/7360/trunk/mbl-server/ass/src/main/java/com/gome/ass/util/BeanJsonUtils.java
 END
 JsonDateValueProcessor.java
 K 25

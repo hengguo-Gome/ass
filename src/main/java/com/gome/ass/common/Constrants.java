@@ -18,4 +18,6 @@ public class Constrants {
 	
 	public static final String SEND_GROUP_MESSAGE = "group";
 	public static final String SEND_PERSON_MESSAGE = "person";
+	
+    public static final String APP_MESSAGE_KEY = "ass";
 }

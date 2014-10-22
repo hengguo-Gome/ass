@@ -57,7 +57,7 @@ public class ShMessagePushMQSender {
                 	map.put("sendType", "single");
                 	map.put("apiKey", CustomizedPropertyPlaceholderConfigurer.getContextProperty("APIKEY"));
                 	map.put("secretKey",  CustomizedPropertyPlaceholderConfigurer.getContextProperty("SECRETKEY"));
-//                	map.put("messageType", 0);
+                	map.put("messageType", 0);
                 	message =  JsonUtil.javaObjectToJsonString(map);
 				} catch (Exception e) {
 					e.printStackTrace();

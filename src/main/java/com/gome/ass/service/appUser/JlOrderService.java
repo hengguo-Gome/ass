@@ -31,7 +31,7 @@ public interface JlOrderService {
 	* @auto liuchao
 	* @throws
 	*/
-	public void appComplete(Map<String, Object> map);
+	public JSONObject appComplete(Map<String, Object> map);
 
 	/**
 	* @Title: appConcel
@@ -40,5 +40,5 @@ public interface JlOrderService {
 	* @return void 返回类型
 	* @throws
 	*/
-	public void appConcel(Map<String, Object> map);
+	public JSONObject appConcel(Map<String, Object> map);
 }

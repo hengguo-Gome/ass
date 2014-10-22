@@ -103,6 +103,10 @@ public class CrmInstallBillServiceImpl implements CrmInstallBillService {
 			}
 			
 		}
+		if(removeBillIs.size()>0){
+			redisCommonDao.keyZSetRemoveList(BusinessGlossary.SH_WORKERS_INSTALLS+userId, removeBillIs);
+		}
+		
 		if(flag){
 			result.put("needOrder", 0);
 		}else{

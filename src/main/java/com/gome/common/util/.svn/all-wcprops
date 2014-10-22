@@ -1,13 +1,13 @@
 K 25
 svn:wc:ra_dav:version-url
 V 79
-/svn/gome/!svn/ver/7338/trunk/mbl-server/ass/src/main/java/com/gome/common/util
+/svn/gome/!svn/ver/7360/trunk/mbl-server/ass/src/main/java/com/gome/common/util
 END
 AsynchronousSendMsgUtils.java
 K 25
 svn:wc:ra_dav:version-url
 V 109
-/svn/gome/!svn/ver/7338/trunk/mbl-server/ass/src/main/java/com/gome/common/util/AsynchronousSendMsgUtils.java
+/svn/gome/!svn/ver/7360/trunk/mbl-server/ass/src/main/java/com/gome/common/util/AsynchronousSendMsgUtils.java
 END
 SpringUtil.java
 K 25
