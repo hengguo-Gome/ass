@@ -1,7 +1,13 @@
 K 25
 svn:wc:ra_dav:version-url
 V 78
-/svn/gome/!svn/ver/7360/trunk/mbl-server/ass/src/main/resources/authentication
+/svn/gome/!svn/ver/7389/trunk/mbl-server/ass/src/main/resources/authentication
+END
+aps_development.p12
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/gome/!svn/ver/7389/trunk/mbl-server/ass/src/main/resources/authentication/aps_development.p12
 END
 aps_development_test.p12
 K 25

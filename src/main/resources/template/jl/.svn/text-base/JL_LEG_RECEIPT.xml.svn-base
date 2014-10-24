@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ns1:MT_CRM_Req xmlns:ns1="http://gome.com/DIS/MOBILE/Inbound">
+<ns1:MT_CRM_Req xmlns:ns1="http://gome.com/DIS/MOBILE/Outbound">
 	<HEADER>
 		<INTERFACE_ID>CRM274</INTERFACE_ID>
 		<MESSAGE_ID>$!{MessageID}</MESSAGE_ID>
@@ -17,7 +17,7 @@
 				<AZKBM>$!{crmInstallBill.installCardCode}</AZKBM>
 				<NJTM>$!{crmInstallBill.innerMachineCode}</NJTM>
 				<WJTM>$!{crmInstallBill.outerMachineCode}</WJTM>
-				<HZZT>$!{crmInstallBill.isFinish}</HZZT>
+				<HZZT>1</HZZT>
 				<BZ>$!{crmInstallBill.remark}</BZ>
 				<DJZT>$!{crmInstallBill.billStatus}</DJZT>
 			</HEADER>

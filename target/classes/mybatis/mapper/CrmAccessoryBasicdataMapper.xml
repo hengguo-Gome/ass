@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gome.ass.dao.logistics.CrmAccessoryBasicdataDao">
+  <resultMap id="BaseResultMap" type="com.gome.ass.entity.CrmAccessoryBasicdata">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="website_code" jdbcType="VARCHAR" property="websiteCode" />
+    <result column="company_code" jdbcType="VARCHAR" property="companyCode" />
+    <result column="accessory_code" jdbcType="VARCHAR" property="accessoryCode" />
+    <result column="short_text" jdbcType="VARCHAR" property="shortText" />
+    <result column="accessory_price" jdbcType="VARCHAR" property="accessoryPrice" />
+    <result column="timestamp_from" jdbcType="VARCHAR" property="timestampFrom" />
+    <result column="timestamp_to" jdbcType="VARCHAR" property="timestampTo" />
+    <result column="unit" jdbcType="VARCHAR" property="unit" />
+    <result column="update_flag" jdbcType="VARCHAR" property="updateFlag" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, website_code, company_code, accessory_code, short_text, accessory_price, timestamp_from, 
+    timestamp_to, unit, update_flag
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from crm_accessory_basicdata
+    where id = #{id,jdbcType=VARCHAR} OR accessory_code = #{accessoryCode,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByAccessoryCode" parameterType="java.util.Map" resultType="hashmap">
+    select 
+    	accessory_code,short_text
+    from crm_accessory_basicdata
+    where accessory_code LIKE CONCAT('%', #{name,jdbcType=VARCHAR}, '%')
+  </select>
+  <select id="selectHeadchar" parameterType="java.lang.String" resultType="hashmap">
+    select 
+    *
+    from crm_accessory_headchar
+    where accessory_code = #{accessoryCode,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAccessoryByNameHeadChar" parameterType="java.lang.String" resultType="hashmap">
+  	SELECT
+		crm_accessory_basicdata.accessory_code,
+		crm_accessory_basicdata.short_text
+	FROM
+		crm_accessory_headchar
+	INNER JOIN crm_accessory_basicdata ON crm_accessory_headchar.accessory_code = crm_accessory_basicdata.accessory_code
+	WHERE head_char LIKE LOWER(CONCAT('%',#{name},'%'))
+  </select>
+  
+  <select id="selectAccessoryByName" parameterType="java.lang.String" resultType="hashmap">
+  	SELECT accessory_code, short_text
+  	FROM
+  		crm_accessory_basicdata
+  	WHERE short_text LIKE CONCAT('%',#{name},'%')
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from crm_accessory_basicdata
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteBatch" parameterType="java.util.List">
+  	DELETE FROM crm_accessory_basicdata
+  	WHERE accessory_code in 
+  	<foreach collection="list" item="item" open="(" separator="," close=")">
+  		#{item}
+  	</foreach>
+  </delete>
+  <insert id="insertBatch" parameterType="java.util.List">
+  	INSERT INTO crm_accessory_basicdata(
+  		<include refid="Base_Column_List"/>
+  	)
+  	VALUES
+  	<foreach collection="list" item="item" separator=",">
+  		(#{item.id}, #{item.websiteCode}, #{item.companyCode}, #{item.accessoryCode}, #{item.shortText},
+  		 #{item.accessoryPrice}, #{item.timestampFrom}, #{item.timestampTo}, #{item.unit}, #{item.updateFlag})
+  	</foreach>
+  </insert>
+  <insert id="insertHeadchar" parameterType="java.util.Map">
+  	INSERT INTO crm_accessory_headchar(accessory_code, head_char, all_char)
+  	VALUES (#{accessoryCode}, #{head_char}, #{all_char})
+  </insert>
+  <update id="updateHeadchar" parameterType="java.util.Map">
+  	UPDATE crm_accessory_headchar
+  	SET head_char = #{head_char}, all_char = #{all_char}
+  	WHERE accessory_code = #{accessoryCode}
+  </update>
+  
+  <insert id="insert" parameterType="com.gome.ass.entity.CrmAccessoryBasicdata">
+    insert into crm_accessory_basicdata (id, website_code, company_code, 
+      accessory_code, short_text, accessory_price, 
+      timestamp_from, timestamp_to, unit, 
+      update_flag)
+    values (#{id,jdbcType=VARCHAR}, #{websiteCode,jdbcType=VARCHAR}, #{companyCode,jdbcType=VARCHAR}, 
+      #{accessoryCode,jdbcType=VARCHAR}, #{shortText,jdbcType=VARCHAR}, #{accessoryPrice,jdbcType=VARCHAR}, 
+      #{timestampFrom,jdbcType=VARCHAR}, #{timestampTo,jdbcType=VARCHAR}, #{unit,jdbcType=VARCHAR}, 
+      #{updateFlag,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gome.ass.entity.CrmAccessoryBasicdata">
+    insert into crm_accessory_basicdata
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="websiteCode != null">
+        website_code,
+      </if>
+      <if test="companyCode != null">
+        company_code,
+      </if>
+      <if test="accessoryCode != null">
+        accessory_code,
+      </if>
+      <if test="shortText != null">
+        short_text,
+      </if>
+      <if test="accessoryPrice != null">
+        accessory_price,
+      </if>
+      <if test="timestampFrom != null">
+        timestamp_from,
+      </if>
+      <if test="timestampTo != null">
+        timestamp_to,
+      </if>
+      <if test="unit != null">
+        unit,
+      </if>
+      <if test="updateFlag != null">
+        update_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="websiteCode != null">
+        #{websiteCode,jdbcType=VARCHAR},
+      </if>
+      <if test="companyCode != null">
+        #{companyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="accessoryCode != null">
+        #{accessoryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="shortText != null">
+        #{shortText,jdbcType=VARCHAR},
+      </if>
+      <if test="accessoryPrice != null">
+        #{accessoryPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="timestampFrom != null">
+        #{timestampFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="timestampTo != null">
+        #{timestampTo,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null">
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="updateFlag != null">
+        #{updateFlag,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gome.ass.entity.CrmAccessoryBasicdata">
+    update crm_accessory_basicdata
+    <set>
+      <if test="websiteCode != null">
+        website_code = #{websiteCode,jdbcType=VARCHAR},
+      </if>
+      <if test="companyCode != null">
+        company_code = #{companyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="accessoryCode != null">
+        accessory_code = #{accessoryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="shortText != null">
+        short_text = #{shortText,jdbcType=VARCHAR},
+      </if>
+      <if test="accessoryPrice != null">
+        accessory_price = #{accessoryPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="timestampFrom != null">
+        timestamp_from = #{timestampFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="timestampTo != null">
+        timestamp_to = #{timestampTo,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null">
+        unit = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="updateFlag != null">
+        update_flag = #{updateFlag,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gome.ass.entity.CrmAccessoryBasicdata">
+    update crm_accessory_basicdata
+    set website_code = #{websiteCode,jdbcType=VARCHAR},
+      company_code = #{companyCode,jdbcType=VARCHAR},
+      accessory_code = #{accessoryCode,jdbcType=VARCHAR},
+      short_text = #{shortText,jdbcType=VARCHAR},
+      accessory_price = #{accessoryPrice,jdbcType=VARCHAR},
+      timestamp_from = #{timestampFrom,jdbcType=VARCHAR},
+      timestamp_to = #{timestampTo,jdbcType=VARCHAR},
+      unit = #{unit,jdbcType=VARCHAR},
+      update_flag = #{updateFlag,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,14 +1,14 @@
 10
 
 dir
-7378
+7396
 https://10.128.11.62/svn/gome/trunk/mbl-server/ass/src/main/resources/authentication
 https://10.128.11.62/svn/gome
 
 
 
-2014-10-22T02:01:04.251112Z
-7360
+2014-10-22T07:06:51.289170Z
+7389
 chengbiao
 
 
@@ -25,6 +25,40 @@ chengbiao
 
 
 ceea3779-27bf-e045-a9e1-b02ef83dfcfa
+
+aps_development.p12
+file
+
+
+
+
+2014-10-22T09:08:40.009000Z
+c57a58dc69f5c8b5dd49f16bb4b77a5d
+2014-10-22T07:06:51.289170Z
+7389
+chengbiao
+has-props
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3205
 
 aps_development_test.p12
 file

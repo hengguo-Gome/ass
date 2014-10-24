@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:task="http://www.springframework.org/schema/task"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+    http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.2.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+                        http://www.springframework.org/schema/task 
+                        http://www.springframework.org/schema/task/spring-task-3.2.xsd">
+  <context:annotation-config />
+  <context:component-scan base-package="com.gome.ass.schedule" />
+       
+    <!-- 注解形式定时器，需要扫描包 -->
+  <task:executor id="executor" pool-size="5" />
+  <task:scheduler id="scheduler" pool-size="10" />
+  <task:annotation-driven executor="executor" scheduler="scheduler" />
+
+  <bean id="GetAccountJob" class="com.gome.ass.schedule.GetAccountJob" />
+  <bean id="GetAccountJobMethod" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+    <property name="targetObject">
+      <ref bean="GetAccountJob" />
+    </property>
+    <property name="targetMethod">  <!-- 要执行的方法名称 -->
+      <value>getAccount</value>
+    </property>
+  </bean>
+  <!-- 超时安装单消息 -->
+  <bean id="CrmInstallBillJob" class="com.gome.ass.schedule.CrmInstallBillJob" />
+  <bean id="CrmInstallBillJobMethod" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+    <property name="targetObject">
+      <ref bean="CrmInstallBillJob" />
+    </property>
+    <property name="targetMethod">  <!-- 要执行的方法名称 -->
+      <value>sendMessageToDelayWoker</value>
+    </property>
+  </bean>
+
+    <!-- ======================== 调度触发器 ======================== -->
+  <bean id="CronTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerBean">
+    <property name="jobDetail" ref="GetAccountJobMethod"></property>
+    <property name="cronExpression" value="0 59 23 * * ?"></property>
+  </bean>
+  
+    <!-- ======================== 调度触发器 ======================== -->
+  <bean id="CrmInstallBillJobCronTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerBean">
+    <property name="jobDetail" ref="CrmInstallBillJobMethod"></property>
+    <property name="cronExpression" value="0 0 6-22 * * ?"></property>
+  </bean>
+
+    <!-- ======================== 调度工厂 ======================== -->
+  <bean id="SpringJobSchedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+    <property name="autoStartup">
+      <value>true</value>
+    </property>
+    <property name="triggers">
+      <list>
+        <ref bean="CronTriggerBean" />
+        <ref bean="CrmInstallBillJobCronTriggerBean" /> 
+      </list>
+    </property>
+  </bean>
+</beans>

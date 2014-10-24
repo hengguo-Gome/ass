@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 91
-/svn/gome/!svn/ver/7368/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/system/impl
+/svn/gome/!svn/ver/7387/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/system/impl
 END
 JlAccountServiceImpl.java
 K 25
@@ -19,7 +19,7 @@ JlOrderServiceImpl.java
 K 25
 svn:wc:ra_dav:version-url
 V 115
-/svn/gome/!svn/ver/7368/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/system/impl/JlOrderServiceImpl.java
+/svn/gome/!svn/ver/7387/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/system/impl/JlOrderServiceImpl.java
 END
 ShDataRecordServiceImpl.java
 K 25

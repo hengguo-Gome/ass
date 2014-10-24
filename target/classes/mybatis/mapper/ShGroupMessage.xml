@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gome.ass.dao.message.ShGroupMessageDao" >
+  <resultMap id="BaseResultMap" type="com.gome.ass.entity.ShGroupMessage">
+		 <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="district" property="district" jdbcType="VARCHAR" />
+    <result column="worker_id" property="workerId" jdbcType="VARCHAR" />
+    <result column="msg_time" property="msgtime" jdbcType="TIMESTAMP" />
+    <result column="send_time" property="sendtime" jdbcType="TIMESTAMP" />
+    <result column="scope" property="scope" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="send_user_id" property="sendUserId" jdbcType="VARCHAR" />
+    <result column="send_user_type" property="sendUserType" jdbcType="VARCHAR" />
+	</resultMap>
+
+  <sql id="message_Column_List" >
+    id, title, content, district, worker_id, msg_time, send_time, scope, type, send_user_id, send_user_type
+  </sql>
+
+
+
+  <insert id="insert">
+    INSERT INTO sh_group_message(
+    <include refid="message_Column_List" />
+    )
+    VALUES(
+    #{id,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+    #{district,jdbcType=VARCHAR}, #{workerId,jdbcType=VARCHAR}, #{msgtime,jdbcType=TIMESTAMP}, 
+    #{sendtime,jdbcType=TIMESTAMP}, #{scope,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR},
+    #{sendUserId},
+    #{sendUserType}
+    )
+  </insert>
+  <insert id="insertShGroupMessage" parameterType="com.gome.ass.entity.ShGroupMessage">
+  	INSERT INTO sh_group_message(
+    <include refid="message_Column_List" />
+    )
+    VALUES(
+    #{id,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+    #{district,jdbcType=VARCHAR}, #{workerId,jdbcType=VARCHAR}, #{msgtime,jdbcType=TIMESTAMP}, 
+    #{sendtime,jdbcType=TIMESTAMP}, #{scope,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR},
+    #{sendUserId},
+    #{sendUserType}
+    )
+  </insert>
+  <update id="update" parameterType="com.gome.ass.entity.ShGroupMessage">
+    UPDATE sh_group_message
+    <set>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null" >
+        district = #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="workerId != null" >
+        worker_id = #{workerId,jdbcType=VARCHAR},
+      </if>
+      <if test="msgtime != null" >
+        msg_time = #{msgtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sendtime != null" >
+        send_time = #{sendtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="scope != null" >
+        scope = #{scope,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="sendUserId != null" >
+        send_user_id = #{sendUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="sendUserType != null" >
+        send_user_type = #{sendUserType,jdbcType=VARCHAR}
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <delete id="delete" parameterType="com.gome.ass.entity.ShGroupMessage">
+    delete from sh_group_message
+    where
+    id = #{ id }
+  </delete>
+
+  <select id="findById" parameterType="map" resultMap="BaseResultMap">
+    select * from sh_group_message
+    <where>
+     id = #{id}
+      <if test="title != null"> and title like "%"#{title}"%"</if>
+      <if test="type != null"> and type = #{type}</if><!-- TODO 修改类型 -->
+    </where>
+  </select>
+  
+  <select id="findGroupMessagePageList" parameterType="com.gome.common.page.Page" resultMap="BaseResultMap">
+    SELECT
+		message.content,
+		message.district,
+		message.msg_time,
+		message.send_time,
+		message.scope,
+		message.send_user_type,
+		message.title,
+		message.id,
+		sh_code_setting.code_value AS type,
+		v_user.`NAME` AS send_user_id,
+		crm_worker.worker_name AS worker_id
+	FROM
+		sh_group_message AS message
+	INNER JOIN sh_code_setting ON sh_code_setting.code_key = message.type
+	INNER JOIN sh_code ON sh_code_setting.code_id = sh_code.code_id
+	INNER JOIN v_user ON message.send_user_id = v_user.ACCOUNT
+	INNER JOIN crm_worker ON message.worker_id = crm_worker.worker_code
+	WHERE
+		sh_code_setting.code_id = 'message_type'
+      	<if test="param.content != null and param.content != '' "> and content like "%"#{param.content}"%"</if>
+      	<if test="param.title != null and param.title != '' "> and title like "%"#{param.title}"%"</if>
+      	<if test="param.type != null and param.type != '' "> and type = #{param.type}</if>
+      	<if test="param.webcode != null and param.webcode != '' ">and crm_worker.website_code = #{param.webcode}</if>
+    ORDER BY send_time DESC
+  </select>
+  
+  <!-- 
+  <select id="findByWuliuManager" parameterType="map" resultType="map">
+    select  m.id, m.title, m.content, m.district, m.worker_id as workerId, m.msg_time as msgTime, m.send_time as sendTime, 
+    m.scope, m.type, m.send_user_id as sendUserId, m.send_user_type as sendUserType, w.name as sendUser,d.name as driver
+    from sh_group_message m 
+    left join tms_manager w on m.send_user_id = w.id 
+    left join tms_driver d on d.id = m.worker_id
+    <where>
+        <if test="id != null">m.id = #{id}</if>
+        <if test="title != null and '' != title"> and m.title like "%"#{title}"%"</if>
+      	<if test="content != null and '' != content"> and m.content like "%"#{content}"%"</if>
+      	<if test="sendUserType != null"> and m.send_user_type = #{sendUserType}</if>
+      	<if test="sendUserId != null"> and m.send_user_id = #{sendUserId}</if>
+    </where>
+  </select>
+   -->
+</mapper>

@@ -1,6 +1,6 @@
-#jdbc
+'#jdbc
 jdbc.mysql.driver=com.mysql.jdbc.Driver
-jdbc.mysql.url=jdbc:mysql://10.128.11.129:3306/ass?useUnicode=true&amp;characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+jdbc.mysql.url=jdbc:mysql://10.128.11.129:3306/ass500?useUnicode=true&amp;characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
 jdbc.mysql.user=root
 jdbc.mysql.password=mysql
 
@@ -17,7 +17,8 @@ APIKEY=GENioONppNOInlFPZOcwLIHf
 SECRETKEY=DkVr0psxijL0zTWZbTqlKk0XcoYImwpQ
 
 #IOS\u63a8\u9001
-certificatePath=aps_development_test.p12
+#certificatePath=aps_development_test.p12
+certificatePath=aps_development.p12
 #certificatePath=aps_production.p12
 certificatePassword=gome123456
 

@@ -24,7 +24,7 @@ public class CrmMessageClientTest {
         Document read = null;
         try {
 
-            inputStream = new ClassPathResource("CRM263.xml").getInputStream();
+            inputStream = new ClassPathResource("CRM160.xml").getInputStream();
 
             
             SAXReader sax = new SAXReader();

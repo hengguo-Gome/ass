@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gome.ass.dao.ShMessageDao">
+
+
+  <resultMap id="BaseResultMap" type="com.gome.ass.entity.ShMessage">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="msg_time" jdbcType="TIMESTAMP" property="msgTime" />
+    <result column="send_time" jdbcType="TIMESTAMP" property="sendTime" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="rend_user_id" jdbcType="VARCHAR" property="rendUserId" />
+  </resultMap>
+
+  
+  
+  <sql id="Base_Column_List">
+    id, title, content, msg_time, send_time, type, rend_user_id
+  </sql>
+
+  
+  <select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sh_message
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  
+  <delete id="deleteByPrimaryKey" parameterType="map">
+    delete from sh_message
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+
+  
+  <insert id="insert" parameterType="com.gome.ass.entity.ShMessage">
+    insert into sh_message (id, title, content, 
+      msg_time, send_time, type, 
+      rend_user_id)
+    values (#{id,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{msgTime,jdbcType=TIMESTAMP}, #{sendTime,jdbcType=TIMESTAMP}, #{type,jdbcType=TINYINT}, 
+      #{rendUserId,jdbcType=VARCHAR})
+  </insert>
+
+  
+  <update id="update" parameterType="com.gome.ass.entity.ShMessage">
+    update sh_message
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="msgTime != null">
+        msg_time = #{msgTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sendTime != null">
+        send_time = #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="rendUserId != null">
+        rend_user_id = #{rendUserId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+ 
+</mapper>

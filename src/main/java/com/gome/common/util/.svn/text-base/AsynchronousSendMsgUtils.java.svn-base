@@ -179,7 +179,7 @@ public class AsynchronousSendMsgUtils {
 	                    msgMap.put("messageType", BusinessGlossary.MOBILE_MESSAGE_TYPE_ORDER);
 	                	shMessagePushMQSender.send(shDeviceManage.getBaiduId(), msgMap);
 	                } else if(StringUtils.isNotBlank(shDeviceManage.getAccessToken())){// 苹果设备
-	                    String message = "<系统提醒>" + content;
+	                    String message = "<安装单提醒>:" + content;
 	                    List<String> devicetokens = new ArrayList<String>();
 	                    devicetokens.add(shDeviceManage.getAccessToken());
 	                    MessagePush.sendMessageToAppleUser(devicetokens, message);
@@ -300,6 +300,8 @@ public class AsynchronousSendMsgUtils {
     			 bz = "由"+from+"取消安装单";
     		 }else if(billStatus.equals(BusinessGlossary.BILL_STATUS_COMPLETE)){
     			 bz = "由"+from+"确认完工";
+    		 }else if(billStatus.equals(BusinessGlossary.BILL_STATUS_SIGNED)){
+    			 bz = "由"+from+"确认回执";
     		 }else{
     			 return;
     		 }
@@ -319,7 +321,10 @@ public class AsynchronousSendMsgUtils {
     	    	}else if(billStatus.equals(BusinessGlossary.BILL_STATUS_COMPLETE)){
     	    		sendInstallBill.setReceiptDate(crmInstallBill.getReceiptDate());
     	    		 bz = "安装工:"+crmInstallBill.getOrderWorkerBig()+" 进行确认完工";
-    	    	}else{
+    	    	}else if(billStatus.equals(BusinessGlossary.BILL_STATUS_SIGNED)){
+    	    		sendInstallBill.setReceiptDate(crmInstallBill.getReceiptDate());
+   	    		    bz = "安装工:"+crmInstallBill.getOrderWorkerBig()+" 进行确认回执";
+       		    }else{
     	    		return;
     	    	}
     	 }
@@ -418,7 +423,7 @@ public class AsynchronousSendMsgUtils {
 				String MessageId = UUIDUtil.getUUID();
 				paramMap.put("MessageID",MessageId);
 				paramMap.put("Dtsend",new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date()));
-				String content = XmlUtil.getInstance().genXmlByTemplate("jl/JL_LEG_CONCEL.xml", paramMap);
+				String content = XmlUtil.getInstance().genXmlByTemplate("jl/JL_LEG_RECEIPT.xml", paramMap);
 				String url = (String)sysConfig.getContextProperty("sendMessageToPI");
 				
 				ShDataRecordService shDataRecordService = (ShDataRecordService)SpringUtil.getBean("shDataRecordService");
@@ -428,8 +433,8 @@ public class AsynchronousSendMsgUtils {
 		        dr.setXmlContent(content);
 		        dr.setDirection(BusinessGlossary.DATA_INTERACTION_OUT);
 		        dr.setSender("ASS");
-		        dr.setReceiver("CRM");
-		        dr.setInterfaceType("CRM271");
+		        dr.setReceiver("DIS");
+		        dr.setInterfaceType("CRM274");
 				dr.setMessageId(MessageId);
 				dr.setDateSend(new Date());
 				shDataRecordService.insertShDataRecord(dr);

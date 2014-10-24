@@ -146,6 +146,13 @@ public class CrmInstallBillServiceImpl implements CrmInstallBillService {
 			this.crmInstallBillDao.insert(crmInstallBill);
 		}else{
 			this.crmInstallBillDao.updateByPrimaryKeySelective(crmInstallBill);
+			/**
+			 * 将工人信息 公司代码 和 提货单号赋值，方便向mq推送
+			 */
+			crmInstallBill.setJlOrderNum(installBill.getJlOrderNum());
+			crmInstallBill.setSalesOrgCode(installBill.getSalesOrgCode());
+			crmInstallBill.setOrderWorkerBig(installBill.getOrderWorkerBig());
+			crmInstallBill.setOrderWorkerLitter(installBill.getOrderWorkerLitter());
 		}
 	}
 
@@ -177,11 +184,13 @@ public class CrmInstallBillServiceImpl implements CrmInstallBillService {
 	@Override
 	public void updateLatAndLon(CrmInstallBill crmInstallBill) {
 		String customerAddress = crmInstallBill.getClientAddr();
-        Map<String, Double> addressMap = BaiduUtil.convertDetailAddress2LongitudeAndLatitude(customerAddress);
-        if(addressMap != null){
-        	crmInstallBill.setLatitude(addressMap.get("latitude"));
-        	crmInstallBill.setLongitude(addressMap.get("longitude"));
-        }
+		if(StringUtils.isNotBlank(customerAddress)){
+			Map<String, Double> addressMap = BaiduUtil.convertDetailAddress2LongitudeAndLatitude(customerAddress);
+			if(addressMap != null){
+				crmInstallBill.setLatitude(addressMap.get("latitude"));
+				crmInstallBill.setLongitude(addressMap.get("longitude"));
+			}
+		}
 	}
 
 	@Override

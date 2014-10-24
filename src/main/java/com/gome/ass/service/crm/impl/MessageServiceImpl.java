@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import com.gome.ass.common.BusinessGlossary;
 import com.gome.ass.common.Constrants;
 import com.gome.ass.entity.CrmAccessories;
+import com.gome.ass.entity.CrmAccessoryBasicdata;
 import com.gome.ass.entity.CrmCompany;
 import com.gome.ass.entity.CrmInstallBill;
 import com.gome.ass.entity.CrmService;
@@ -32,6 +33,7 @@ import com.gome.ass.entity.vo.CrmInstallBillVO;
 import com.gome.ass.jms.InstallBillInfoPushMQSender;
 import com.gome.ass.service.crm.MessageService;
 import com.gome.ass.service.jms.MqMessageService;
+import com.gome.ass.service.logistics.CrmAccessoryBasicdataService;
 import com.gome.ass.service.logistics.CrmCompanyService;
 import com.gome.ass.service.logistics.CrmInstallBillService;
 import com.gome.ass.service.system.CrmWebBasicdataService;
@@ -66,6 +68,8 @@ public class MessageServiceImpl implements MessageService {
     private ShUserPwdInfoService shUserPwdInfoService;
     @Resource
     private MqMessageService mqMessageService;
+    @Resource
+    private CrmAccessoryBasicdataService crmAccessoryBasicdataService;
 
     private Map<String, List<Map<String, String>>> processAndSavePacket(Document doc,String templateName) throws Exception {
         ShDataRecord dr = new ShDataRecord();
@@ -237,6 +241,23 @@ public class MessageServiceImpl implements MessageService {
                 this.crmCompanyService.deleteBatch(codes);
                 this.crmCompanyService.insertBatch(companies);
             }
+            //crm配件主数据
+            List<Map<String, String>> crmAccessories = xmlData.get("crmAccessoryBasicdata");
+            if(crmAccessories != null && crmAccessories.size() != 0){
+            	List<CrmAccessoryBasicdata> accessories = new ArrayList<CrmAccessoryBasicdata>();
+            	List<String> codes = new ArrayList<String>();
+            	for(Map<String, String> crmAccessoryMap: crmAccessories){
+            		CrmAccessoryBasicdata data = new CrmAccessoryBasicdata();
+            		data.setId(UUIDUtil.getUUID());
+            		BeanTool.map2Bean(crmAccessoryMap, data);
+            		codes.add(data.getAccessoryCode());
+            		accessories.add(data);
+            	}
+            	this.crmAccessoryBasicdataService.deleteBatch(codes);
+            	this.crmAccessoryBasicdataService.insertBatch(accessories);
+            	this.crmAccessoryBasicdataService.updateHeadchar(accessories);
+            }
+            
         } catch (Exception e) {
             throw e;
         }

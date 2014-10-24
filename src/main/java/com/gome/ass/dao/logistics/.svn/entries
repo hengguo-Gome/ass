@@ -1,7 +1,7 @@
 10
 
 dir
-7378
+7396
 https://10.128.11.62/svn/gome/trunk/mbl-server/ass/src/main/java/com/gome/ass/dao/logistics
 https://10.128.11.62/svn/gome
 
@@ -25,6 +25,74 @@ chengbiao
 
 
 ceea3779-27bf-e045-a9e1-b02ef83dfcfa
+
+CrmInstallBillDao.java
+file
+
+
+
+
+2014-10-17T06:37:50.889000Z
+38d2874e6688f25a9baa92b9b72a5d82
+2014-10-16T09:01:08.332432Z
+7271
+chengbiao
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1051
+
+CrmServiceDao.java
+file
+
+
+
+
+2014-09-22T09:39:04.774000Z
+90d00e353bb494f7137d9ff6567b2ea7
+2014-09-22T08:28:22.818526Z
+6765
+liuchao43
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1564
 
 CrmAccessoriesDao.java
 file
@@ -94,51 +162,17 @@ chengbiao
 
 1568
 
-CrmInstallBillDao.java
+CrmAccessoryBasicdataDao.java
 file
+7411
 
 
 
-
-2014-10-17T06:37:50.889000Z
-38d2874e6688f25a9baa92b9b72a5d82
-2014-10-16T09:01:08.332432Z
-7271
-chengbiao
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1051
-
-CrmServiceDao.java
-file
-
-
-
-
-2014-09-22T09:39:04.774000Z
-90d00e353bb494f7137d9ff6567b2ea7
-2014-09-22T08:28:22.818526Z
-6765
-liuchao43
+2014-10-23T11:13:59.096365Z
+628e3564bf1ac973a7929d0b218a403c
+2014-10-24T01:19:15.231360Z
+7411
+wanghengguo
 
 
 
@@ -160,5 +194,5 @@ liuchao43
 
 
 
-1564
+1903
 

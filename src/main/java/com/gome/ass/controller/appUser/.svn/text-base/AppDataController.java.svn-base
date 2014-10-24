@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gome.ass.common.APPErrorInfo;
 import com.gome.ass.common.Constrants;
+import com.gome.ass.service.logistics.CrmAccessoryBasicdataService;
 import com.gome.ass.service.logistics.CrmInstallBillService;
 
 @Controller
@@ -24,6 +25,8 @@ public class AppDataController {
 
 	@Resource
 	private CrmInstallBillService crmInstallBillService;
+	@Resource(name="crmAccessoryBasicdataService")
+	private CrmAccessoryBasicdataService accessoryService;
 
 	@RequestMapping(value = "/queryInstallBillData", produces = "text/plain;charset=UTF-8")
 	public @ResponseBody
@@ -61,6 +64,15 @@ public class AppDataController {
 		JSONObject result = new JSONObject();
         Map<String, Object> appParam = (Map<String, Object>) request.getAttribute(Constrants.APP_MESSAGE_KEY);
 		result = crmInstallBillService.queryLegTrack(appParam);
+		return result.toString();
+	}
+	
+	@RequestMapping(value = "/queryAccessory", produces = "text/plain;charset=UTF-8")
+	public @ResponseBody
+	String queryAccessory(HttpServletRequest request) {
+		JSONObject result = new JSONObject();
+        Map<String, Object> appParam = (Map<String, Object>) request.getAttribute(Constrants.APP_MESSAGE_KEY);
+		result = accessoryService.selectAccessoryByName(appParam);
 		return result.toString();
 	}
 

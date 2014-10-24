@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 75
-/svn/gome/!svn/ver/7360/trunk/mbl-server/ass/src/main/resources/template/jl
+/svn/gome/!svn/ver/7389/trunk/mbl-server/ass/src/main/resources/template/jl
 END
 JL_TimeWindow.xml
 K 25
@@ -13,7 +13,7 @@ JL_LEG_RECEIPT.xml
 K 25
 svn:wc:ra_dav:version-url
 V 94
-/svn/gome/!svn/ver/7360/trunk/mbl-server/ass/src/main/resources/template/jl/JL_LEG_RECEIPT.xml
+/svn/gome/!svn/ver/7389/trunk/mbl-server/ass/src/main/resources/template/jl/JL_LEG_RECEIPT.xml
 END
 CRM272.xml
 K 25
@@ -43,5 +43,5 @@ JL_LEG_CONCEL.xml
 K 25
 svn:wc:ra_dav:version-url
 V 93
-/svn/gome/!svn/ver/7360/trunk/mbl-server/ass/src/main/resources/template/jl/JL_LEG_CONCEL.xml
+/svn/gome/!svn/ver/7389/trunk/mbl-server/ass/src/main/resources/template/jl/JL_LEG_CONCEL.xml
 END

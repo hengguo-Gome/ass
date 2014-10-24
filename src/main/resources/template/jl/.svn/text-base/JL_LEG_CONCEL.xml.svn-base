@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ns1:MT_CRM_Req xmlns:ns1="http://gome.com/DIS/MOBILE/Inbound">
+<ns1:MT_CRM_Req xmlns:ns1="http://gome.com/DIS/MOBILE/Outbound">
 	<HEADER>
 		<INTERFACE_ID>CRM272</INTERFACE_ID>
 		<MESSAGE_ID>$!{MessageID}</MESSAGE_ID>
