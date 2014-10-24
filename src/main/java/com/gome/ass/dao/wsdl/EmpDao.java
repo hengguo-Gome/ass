@@ -17,10 +17,6 @@ public interface EmpDao {
 
 	public void updateAccount(EmpAccount account);
 	
-//	void addAccountJobLog(EmpAccountJobLog accountJobLog);
-
-//	void deleteLogByEmpno(String empno);
-	
 	public void deleteEmpPositionById(String empNo);
 
 	public int addEmpPosition(EmpPosition emp);
@@ -33,6 +29,7 @@ public interface EmpDao {
 
 	public void addSysVar(EmpSysVar svar);
 
-//	public SysUser getAccountByApAccount(String indexLoginId);
+	public String getFlagByApAccount(String account);
 
+	public void updateModifyPwdByApAccount(String account);
 }

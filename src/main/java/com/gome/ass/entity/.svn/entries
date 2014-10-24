@@ -26,48 +26,14 @@ chengbiao
 
 ceea3779-27bf-e045-a9e1-b02ef83dfcfa
 
-ShMenu.java
+AssUser.java
 file
 
 
 
 
-2014-09-15T09:49:54.113131Z
-22a4b312b049df7a1bd7263adfad829a
-2014-09-15T10:07:45.397049Z
-6505
-wanghengguo
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1439
-
-UserRole.java
-file
-
-
-
-
-2014-09-01T08:07:35.911000Z
-55ece331707e50f9d920bb6cda95e064
+2014-09-01T08:07:35.959000Z
+57e51926803503e0a747e99251df25ae
 2014-08-27T08:28:21.973274Z
 6111
 zhangmingji
@@ -92,248 +58,7 @@ zhangmingji
 
 
 
-755
-
-ShUserPwdInfo.java
-file
-
-
-
-
-2014-10-10T09:04:16.802603Z
-1eb64ecc2309d59db705bd44a278ec86
-2014-10-13T09:40:12.597515Z
-7175
-wanghengguo
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-2982
-
-UserInfoMsg.java
-file
-
-
-
-
-2014-09-01T08:07:35.927000Z
-f7bfb07e0d6594408f520e1a3c1c9fab
-2014-08-27T08:28:21.973274Z
-6111
-zhangmingji
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1259
-
-Role.java
-file
-
-
-
-
-2014-09-01T08:07:35.919000Z
-37b606fe02f69ee7075c24203090d9a7
-2014-08-27T08:28:21.973274Z
-6111
-zhangmingji
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-985
-
-CrmService.java
-file
-
-
-
-
-2014-09-24T08:18:58.048000Z
-80c64801e1ddf03b5f026b84ecebdbd3
-2014-09-24T08:12:39.912764Z
-6866
-chengbiao
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-6858
-
-ShDeviceManage.java
-file
-
-
-
-
-2014-09-17T02:03:08.416000Z
-89c6f71d2e6cf22ecb9e84faa2b4a261
-2014-09-17T02:42:06.878181Z
-6574
-wanghengguo
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-2352
-
-ShDataRecord.java
-file
-
-
-
-
-2014-09-28T09:44:10.713000Z
-30c08d91c2b9819574a55700ef34ceed
-2014-09-28T07:48:42.702122Z
-7010
-liuchao43
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-2643
-
-vo
-dir
-
-ShCode.java
-file
-
-
-
-
-2014-09-16T02:15:10.596000Z
-ef22b7c11a0343bfe5c593308a696e48
-2014-09-16T02:51:28.875392Z
-6513
-wanghengguo
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-691
+1819
 
 CrmAccessories.java
 file
@@ -369,16 +94,16 @@ liuchao43
 
 9806
 
-EmpPosition.java
+CrmAccessoryBasicdata.java
 file
+7411
 
 
 
-
-2014-09-18T02:09:59.673000Z
-ca580ccb9d4647250547c2f3da5a6d4f
-2014-09-18T09:00:14.918822Z
-6670
+2014-10-23T11:45:08.592461Z
+36ee0a42d6bd9bf2af04c492f559107d
+2014-10-24T01:19:15.231360Z
+7411
 wanghengguo
 
 
@@ -401,41 +126,7 @@ wanghengguo
 
 
 
-27363
-
-Person.java
-file
-
-
-
-
-2014-09-04T06:10:33.622794Z
-f0ca7697c77d1f578a47ebb3d3ea9fe5
-2014-09-04T09:28:50.067715Z
-6284
-wanghengguo
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1270
+8279
 
 CrmCompany.java
 file
@@ -471,152 +162,16 @@ liuchao43
 
 8974
 
-DeviceManage.java
+CrmInstallBill.java
 file
 
 
 
 
-2014-09-01T08:07:35.983000Z
-8d914d6f702d27d7a356c06c1f79b1e5
-2014-08-27T08:28:21.973274Z
-6111
-zhangmingji
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-2493
-
-RoleResource.java
-file
-
-
-
-
-2014-09-01T08:07:35.999000Z
-e67a0d0f6d27522a6930eba94d9ac604
-2014-08-27T08:28:21.973274Z
-6111
-zhangmingji
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-791
-
-ShUser.java
-file
-
-
-
-
-2014-10-11T09:44:03.828946Z
-3d9fc25c700cc42e0a605b4f579a2880
-2014-10-13T09:40:12.597515Z
-7175
-wanghengguo
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1327
-
-UserTag.java
-file
-
-
-
-
-2014-09-01T08:07:36.007000Z
-6691de5b8a070e5b79bf27f0fec48b97
-2014-08-27T08:28:21.973274Z
-6111
-zhangmingji
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-991
-
-CrmWorker.java
-file
-
-
-
-
-2014-09-16T03:07:11.542000Z
-8c1f4c8a66b62dfa8023beaf89ddf012
-2014-09-16T03:00:45.024672Z
-6514
+2014-10-13T06:24:14.676000Z
+dd6dc85f63382c411403b2d2c99a9a43
+2014-10-11T08:21:34.647258Z
+7140
 chengbiao
 
 
@@ -639,7 +194,41 @@ chengbiao
 
 
 
-1674
+38118
+
+CrmService.java
+file
+
+
+
+
+2014-09-24T08:18:58.048000Z
+80c64801e1ddf03b5f026b84ecebdbd3
+2014-09-24T08:12:39.912764Z
+6866
+chengbiao
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+6858
 
 CrmWebBasicdata.java
 file
@@ -675,16 +264,16 @@ wanghengguo
 
 2466
 
-CrmInstallBill.java
+CrmWorker.java
 file
 
 
 
 
-2014-10-13T06:24:14.676000Z
-dd6dc85f63382c411403b2d2c99a9a43
-2014-10-11T08:21:34.647258Z
-7140
+2014-09-16T03:07:11.542000Z
+8c1f4c8a66b62dfa8023beaf89ddf012
+2014-09-16T03:00:45.024672Z
+6514
 chengbiao
 
 
@@ -707,118 +296,16 @@ chengbiao
 
 
 
-38118
+1674
 
-SysUser.java
+DeviceManage.java
 file
 
 
 
 
-2014-09-19T02:23:51.943000Z
-c052ea7d191a90a49776039064163d2b
-2014-09-19T06:44:54.315037Z
-6716
-wanghengguo
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-2344
-
-ShMessage.java
-file
-
-
-
-
-2014-09-15T09:57:42.107926Z
-364ebad70deb0580ead380ccbe6d8e7d
-2014-09-15T10:07:45.397049Z
-6505
-wanghengguo
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1732
-
-JlAccount.java
-file
-
-
-
-
-2014-09-22T02:42:14.616000Z
-a9fa3049aba57522d526ecf035bfdfbd
-2014-09-22T03:00:28.417045Z
-6753
-wanghengguo
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-12805
-
-AssUser.java
-file
-
-
-
-
-2014-09-01T08:07:35.959000Z
-57e51926803503e0a747e99251df25ae
+2014-09-01T08:07:35.983000Z
+8d914d6f702d27d7a356c06c1f79b1e5
 2014-08-27T08:28:21.973274Z
 6111
 zhangmingji
@@ -843,7 +330,75 @@ zhangmingji
 
 
 
-1819
+2493
+
+EmpAccount.java
+file
+
+
+
+
+2014-09-18T02:09:59.705000Z
+3842d30ddfeab141b6fe998e559699af
+2014-09-18T09:00:14.918822Z
+6670
+wanghengguo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+18482
+
+EmpPosition.java
+file
+
+
+
+
+2014-09-18T02:09:59.673000Z
+ca580ccb9d4647250547c2f3da5a6d4f
+2014-09-18T09:00:14.918822Z
+6670
+wanghengguo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+27363
 
 EmpSysVar.java
 file
@@ -879,16 +434,16 @@ wanghengguo
 
 5458
 
-CrmAccessoryBasicdata.java
+JlAccount.java
 file
-7411
 
 
 
-2014-10-23T11:45:08.592461Z
-36ee0a42d6bd9bf2af04c492f559107d
-2014-10-24T01:19:15.231360Z
-7411
+
+2014-09-22T02:42:14.616000Z
+a9fa3049aba57522d526ecf035bfdfbd
+2014-09-22T03:00:28.417045Z
+6753
 wanghengguo
 
 
@@ -911,7 +466,211 @@ wanghengguo
 
 
 
-8279
+12805
+
+Person.java
+file
+
+
+
+
+2014-09-04T06:10:33.622794Z
+f0ca7697c77d1f578a47ebb3d3ea9fe5
+2014-09-04T09:28:50.067715Z
+6284
+wanghengguo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1270
+
+Role.java
+file
+
+
+
+
+2014-09-01T08:07:35.919000Z
+37b606fe02f69ee7075c24203090d9a7
+2014-08-27T08:28:21.973274Z
+6111
+zhangmingji
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+985
+
+RoleResource.java
+file
+
+
+
+
+2014-09-01T08:07:35.999000Z
+e67a0d0f6d27522a6930eba94d9ac604
+2014-08-27T08:28:21.973274Z
+6111
+zhangmingji
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+791
+
+ShCode.java
+file
+
+
+
+
+2014-09-16T02:15:10.596000Z
+ef22b7c11a0343bfe5c593308a696e48
+2014-09-16T02:51:28.875392Z
+6513
+wanghengguo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+691
+
+ShDataRecord.java
+file
+
+
+
+
+2014-09-28T09:44:10.713000Z
+30c08d91c2b9819574a55700ef34ceed
+2014-09-28T07:48:42.702122Z
+7010
+liuchao43
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2643
+
+ShDeviceManage.java
+file
+
+
+
+
+2014-09-17T02:03:08.416000Z
+89c6f71d2e6cf22ecb9e84faa2b4a261
+2014-09-17T02:42:06.878181Z
+6574
+wanghengguo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2352
 
 ShGroupMessage.java
 file
@@ -947,16 +706,16 @@ wanghengguo
 
 1952
 
-EmpAccount.java
+ShMenu.java
 file
 
 
 
 
-2014-09-18T02:09:59.705000Z
-3842d30ddfeab141b6fe998e559699af
-2014-09-18T09:00:14.918822Z
-6670
+2014-09-15T09:49:54.113131Z
+22a4b312b049df7a1bd7263adfad829a
+2014-09-15T10:07:45.397049Z
+6505
 wanghengguo
 
 
@@ -979,5 +738,246 @@ wanghengguo
 
 
 
-18482
+1439
+
+ShMessage.java
+file
+
+
+
+
+2014-09-15T09:57:42.107926Z
+364ebad70deb0580ead380ccbe6d8e7d
+2014-09-15T10:07:45.397049Z
+6505
+wanghengguo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1732
+
+ShUser.java
+file
+
+
+
+
+2014-10-11T09:44:03.828946Z
+3d9fc25c700cc42e0a605b4f579a2880
+2014-10-13T09:40:12.597515Z
+7175
+wanghengguo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1327
+
+ShUserPwdInfo.java
+file
+
+
+
+
+2014-10-24T07:46:49.600000Z
+1eb64ecc2309d59db705bd44a278ec86
+2014-10-13T09:40:12.597515Z
+7175
+wanghengguo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2982
+
+SysUser.java
+file
+
+
+
+
+2014-09-19T02:23:51.943000Z
+c052ea7d191a90a49776039064163d2b
+2014-09-19T06:44:54.315037Z
+6716
+wanghengguo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2344
+
+UserInfoMsg.java
+file
+
+
+
+
+2014-09-01T08:07:35.927000Z
+f7bfb07e0d6594408f520e1a3c1c9fab
+2014-08-27T08:28:21.973274Z
+6111
+zhangmingji
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1259
+
+UserRole.java
+file
+
+
+
+
+2014-09-01T08:07:35.911000Z
+55ece331707e50f9d920bb6cda95e064
+2014-08-27T08:28:21.973274Z
+6111
+zhangmingji
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+755
+
+UserTag.java
+file
+
+
+
+
+2014-09-01T08:07:36.007000Z
+6691de5b8a070e5b79bf27f0fec48b97
+2014-08-27T08:28:21.973274Z
+6111
+zhangmingji
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+991
+
+vo
+dir
 

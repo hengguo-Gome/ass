@@ -63,8 +63,30 @@
 			国美电器股份有限公司
 		</div>
 	</div>
+	<div id="newPwdWin" class="easyui-window" title="首次登录，请修改原始密码" data-options="modal:true,closed:true,iconCls:'icon-save'" style="width:500px;height:300px;padding:10px;font-size: 16px;">
+	    	<table cellpadding="5">
+	    		<tr>
+	    			<td>用户名:</td>
+	    			<td><input class="easyui-validatebox textbox" id="modifyPwdName" type="text name" name="name"></input></td>
+	    		</tr>
+	    		<tr>
+	    			<td>新密码<span style="color:red">(*)</span>:</td>
+	    			<td><input class="easyui-validatebox textbox  text pwd" type="password" name="newPwd" ></input></td>
+	    		</tr>
+	    		<tr>
+	    			<td>新密码确认<span style="color:red">(*)</span>:</td>
+	    			<td><input class="easyui-validatebox textbox  text pwd" type="password" name="newPwd" ></input></td>
+	    		</tr>
+	    	</table>
+	    	
+	    		<div style="text-align:center;padding:5px">
+			    	<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">确认</a>
+			    	<a href="javascript:void(0)" class="easyui-linkbutton" onclick="$('#newPwdWin').window('close')">取消</a>
+	   			</div>
+	</div>
 	<script type="text/javascript">
 		function loginSubmit() {
+			
 			$.post("${ctx}/login", $('#loginForm').serialize(), function(msg) {
 				if ($.parseJSON(msg).flag == "loginIdNull") {
 					$.messager.alert('提示:', '用户名为空!');
@@ -74,10 +96,52 @@
 					$.messager.alert('提示:', '账号不存在!');
 				} else if ($.parseJSON(msg).flag == "loginPwdError") {
 					$.messager.alert('提示:', '密码输入错误!');
+				} else if($.parseJSON(msg).flag == "needModifyPass") {
+					$('#modifyPwdName').val($('#account').val());
+					$('#newPwdWin').window('open');
 				} else if ($.parseJSON(msg).flag == "success") {
 					window.location.href = "${ctx}/index";
 				}
 			});
+		}
+		function submitForm(){
+		     var flag = true;
+		      $(".easyui-validatebox").each(function(i, n) {
+		          if ("" == n.value) {
+		              flag = false;
+		          }
+		      });
+
+		      if (!flag) {
+		    	  $.messager.alert('消息提示',"表单数值不能为空",'error'); 
+		      } else {
+		  		var arr = $("input[name='newPwd']");
+				if(arr[0].value != arr[1].value){
+				 	$.messager.alert('消息提示',"两次密码输入不一致",'error');
+				}else{
+					$.ajax({
+			            type: "POST",
+			            data : {
+			            	name:$("input[name='name']").eq(0).val(),
+			            	newPwd:$("input[name='newPwd']").eq(0).val(),
+			            },
+			            url:ctx+"/alterEmpInitPwd",
+						error : function(request) {
+							$.messager.alert('消息提示',"发送请求错误!",'error');
+						},
+						success : function(msg) {
+							if ($.parseJSON(msg).flag == "newPwdNull") {
+	                            $.messager.alert('提示:', '新密码为空!');
+	                        } else if ($.parseJSON(msg).flag == "accountNull") {
+			                    $.messager.alert('提示:', '账号不存在!');
+			                } else if ($.parseJSON(msg).flag == "success") {
+			                	$('#newPwdWin').window('close');
+			                	$.messager.alert('提示:', '修改成功!');
+			                }
+						}
+					});
+				};
+		      };
 		}
 	</script>
 

@@ -13,9 +13,18 @@ public interface EmpService {
 	
 	public EmpAccount getAccountById(String accountNo);
 	
+	/**
+	 * 查找账户是否是初始化密码
+	 * @param apAccount
+	 * @return
+	 */
+	public String getFlagByApAccount(String account);
+	
 	public void addAccount(EmpAccount account);
 
 	public void updateAccount(EmpAccount account);
+	
+	public void updateModifyPwdByApAccount(String account);
 	
 //	void addAccountJobLog(EmpAccountJobLog accountJobLog);
 
