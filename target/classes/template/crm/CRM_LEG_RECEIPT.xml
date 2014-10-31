@@ -43,10 +43,11 @@
 	        <AZD01>$!{crmInstallBill.jlOrderNum}</AZD01>
 	        <WB_GSXX01>$!{crmInstallBill.salesOrgCode}</WB_GSXX01>
 	        <ZYYSJD>$!{crmInstallBill.appointDatePeriod}</ZYYSJD>
-       		<ZAZLB>$!{crmInstallBill.installationType}</ZAZLB>
 	        <AZKBM>$!{crmIntsallBill.installCardCode}</AZKBM>  
-	        <YJTM>$!{crmIntsallBill.outerMachineCode}</YJTM>   
-	        <NJTM>$!{crmIntsallBill.innerMachineCode}</NJTM>		
+	        <YJTM>$!{crmInstallBill.outerMachineCode}</YJTM>   
+	        <NJTM>$!{crmInstallBill.innerMachineCode}</NJTM>	
+	        <ZGHHXGRDM>$chargeWorkerCode</ZGHHXGRDM>	
+	        <ZAZFS>$!{crmInstallBill.installationType}</ZAZFS>	
       	</HEADER>
 			 <ITEMS>
 			  #foreach($crmService in $crmServices)
@@ -67,7 +68,7 @@
 			          <JE>$!{crmAccessories.amount}</JE>
 			          <PPB01>$!{crmAccessories.accessoriesBrand}</PPB01>
 			          <SPFL01>$!{crmAccessories.accessoriesCategory}</SPFL01>
-			          <WXD01>$!{crmAccessories.legNo}</WXD01>
+			          <AZD01>$!{crmAccessories.legNo}</AZD01>
 		        </ITEM2>
 		         #end
       </ITEMS>

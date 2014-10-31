@@ -43,7 +43,7 @@ public class MqMessageServiceImpl implements MqMessageService {
 		String thd = map.get("thd");
 		String gsdm = map.get("gsdm");
 		String needinstall = map.get("needinstall");
-		if (needinstall.equals("1")) {
+		if ("1".equals(needinstall) && StringUtils.isNotBlank(thd) && StringUtils.isNotBlank(gsdm)) {
 
 			Map<String, Object> paramMap = new HashMap<String, Object>();
 			paramMap.put("poNumberSold", thd);
@@ -90,7 +90,7 @@ public class MqMessageServiceImpl implements MqMessageService {
 										shDeviceManage.getBaiduId(), msgMap);
 							} else if (StringUtils.isNotBlank(shDeviceManage
 									.getAccessToken())) {// 苹果设备
-								String message = "<订单提醒(订单)>"
+								String message = "<安装单提醒>:"
 										+ content.toString();
 								List<String> devicetokens = new ArrayList<String>();
 								devicetokens.add(shDeviceManage
@@ -107,6 +107,15 @@ public class MqMessageServiceImpl implements MqMessageService {
 			}
 		}
 
+	}
+
+	@Override
+	public void processMqLegPlanMessage(String message) {
+		try {
+			String[] split = message.split(",");
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+		}
 	}
 
 }

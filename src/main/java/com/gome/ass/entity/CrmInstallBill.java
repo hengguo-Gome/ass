@@ -13,8 +13,34 @@ public class CrmInstallBill implements Serializable{
 	private Double longitude;
 	private Double latitude;
 	private Integer planFinishSuquence;
+	private String goodCategory;
+	private String goodBrand;
+	private String isSeedInstallSync;
 	
-	
+	public String getIsSeedInstallSync() {
+		return isSeedInstallSync;
+	}
+
+	public void setIsSeedInstallSync(String isSeedInstallSync) {
+		this.isSeedInstallSync = isSeedInstallSync;
+	}
+
+	public String getGoodBrand() {
+		return goodBrand;
+	}
+
+	public void setGoodBrand(String goodBrand) {
+		this.goodBrand = goodBrand;
+	}
+
+	public String getGoodCategory() {
+		return goodCategory;
+	}
+
+	public void setGoodCategory(String goodCategory) {
+		this.goodCategory = goodCategory;
+	}
+
 	public Integer getPlanFinishSuquence() {
 		return planFinishSuquence;
 	}

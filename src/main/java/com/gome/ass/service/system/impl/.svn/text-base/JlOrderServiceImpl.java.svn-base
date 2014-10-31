@@ -42,6 +42,7 @@ import com.gome.common.util.AsynchronousSendMsgUtils;
 public class JlOrderServiceImpl implements JlOrderService{
 	
 	private static final Logger log = LoggerFactory.getLogger(JlOrderServiceImpl.class);
+	private static final String String = null;
     @Resource
     private ShDataRecordService shDataRecordService;
     @Resource
@@ -66,10 +67,17 @@ public class JlOrderServiceImpl implements JlOrderService{
     
     @Override
     public JSONObject updateOrderAppoint(Map<String, Object> map) throws Exception {
+    	 JSONObject result = new JSONObject();
+		String jlOrderNum = (String)map.get("azd01");
+		CrmInstallBill crmInstallBill = this.crmInstallBillService.queryCrmInstallBillByJlOrderNum(jlOrderNum);
+		if(null != crmInstallBill && "0".equals(crmInstallBill.getIsSeedInstallSync())){
+			result.put(APPErrorInfo.ERRORCODE, "E");
+			result.put(APPErrorInfo.ERRORMSG, "送装同步,无法修改预约时间");
+			return result;
+		}
         String inXml = prepareOrderDelayXml(map);
         
         String jlResult = new CENJKServiceLocator().getCENJK().invokeSHService(inXml);
-        JSONObject result = null;
         try {
             result = this.parseOrderDelayXml(jlResult);
             //更新本地安装单状态
@@ -77,10 +85,8 @@ public class JlOrderServiceImpl implements JlOrderService{
                 this.crmInstallBillService.updateApointDate(map);
                 
                 //将安装单信息发送给mq
-    			String jlOrderNum = (String)map.get("azd01");
-    			CrmInstallBill crmInstallBill = this.crmInstallBillService.queryCrmInstallBillByJlOrderNum(jlOrderNum);
     			if(null != crmInstallBill ){
-    				AsynchronousSendMsgUtils.sendInstallBillToMq(crmInstallBill, BusinessGlossary.SYSTEM_NAME_APP);
+    				AsynchronousSendMsgUtils.sendInstallBillToMq(crmInstallBill.getJlOrderNum(), BusinessGlossary.SYSTEM_NAME_APP);
     			}
             }
         } catch (Exception e) {
@@ -201,6 +207,8 @@ public class JlOrderServiceImpl implements JlOrderService{
 		JSONObject result = new JSONObject();
 		try{
 			String jlOrderNum = (String)map.get("jlOrderNum");
+			String isCharge = (String)map.get("isCharge");
+			String azfs = (String)map.get("azfs");
 			if(StringUtils.isBlank(jlOrderNum)){
 				result.put(APPErrorInfo.ERRORCODE, APPErrorInfo.E00001);
 				result.put(APPErrorInfo.ERRORMSG, APPErrorInfo.M00001);
@@ -213,13 +221,14 @@ public class JlOrderServiceImpl implements JlOrderService{
 				return result;
 			}
 			String gomeOrderAddr = crmInstallBill.getGomeOrderAddr();//接单网店代码
-			if(!BusinessGlossary.BILL_STATUS_DISPATCHED.equals(crmInstallBill.getBillStatus())){
+			String billStatus = crmInstallBill.getBillStatus();
+			if(!BusinessGlossary.BILL_STATUS_DISPATCHED.equals(billStatus) && !BusinessGlossary.BILL_STATUS_REPEAT_DISPATCHED.equals(billStatus)){
 				result.put(APPErrorInfo.ERRORCODE, "E");
-				result.put(APPErrorInfo.ERRORMSG, "改单已操作");
+				result.put(APPErrorInfo.ERRORMSG, "该单已操作");
 				return result;
 			}
 			
-			List accessorieses = null;
+			List accessorieses = (List)map.get("accessorieses");
 			List<CrmAccessories> crmAccessorieses = new ArrayList<CrmAccessories>();
 			//TODO根据金力单号查询，修改状相关信息，保存
 			if(gomeOrderAddr.startsWith("S")){
@@ -229,6 +238,12 @@ public class JlOrderServiceImpl implements JlOrderService{
 						CrmAccessories crmAccessories = new CrmAccessories();
 						Map accessoriesMap = (Map)accessories;
 						accessoriesMap.put("legNo", jlOrderNum);
+						String code_price = (String)accessoriesMap.get("accessoriesProdCode");
+						String[] split = code_price.split("_");
+						if(split.length == 2){
+							accessoriesMap.put("accessoriesProdCode", split[0]);
+							accessoriesMap.put("unitPrice", split[1]);
+						}
 						BeanTool.map2Bean(accessoriesMap, crmAccessories);
 						crmAccessories.setInstallBillId(jlOrderNum);
 						crmAccessories.setId(UUIDUtil.getUUID());
@@ -240,7 +255,11 @@ public class JlOrderServiceImpl implements JlOrderService{
 			}else{
 				crmInstallBill.setBillStatus(BusinessGlossary.BILL_STATUS_SIGNED);
 			}
-			crmInstallBill.setReceiptCode( (String)map.get("receiptCode"));
+			if(StringUtils.isNotBlank(azfs)){
+				crmInstallBill.setInstallationType(azfs);
+			}
+			String receiptCode = (String)map.get("receiptCode");
+			crmInstallBill.setReceiptCode( receiptCode);
 			crmInstallBill.setReceiptName( (String)map.get("receiptName"));
 			crmInstallBill.setInnerMachineCode((String)map.get("innerMachineCode"));
 			crmInstallBill.setOuterMachineCode((String)map.get("outerMachineCode"));
@@ -252,7 +271,8 @@ public class JlOrderServiceImpl implements JlOrderService{
 			}
 			
 			this.crmInstallBillService.updateByPrimaryKeySelective(crmInstallBill);
-			List services = (List)map.get("services");
+			//服务信息暂不传
+/*			List services = (List)map.get("services");
 			List<CrmService> crmServices = new ArrayList<CrmService>();
 			if(services!=null&&services.size()!=0){
 				for(Object service : services){
@@ -266,7 +286,7 @@ public class JlOrderServiceImpl implements JlOrderService{
 				}
 				//this.crmInstallBillService.delServiceByJlorderCode(jlOrderNum);
 				//this.crmInstallBillService.insertServiceBatch(crmServices);
-			}
+			}*/
 			
 			Map param = new HashMap();
 			Map<String, Object> convertMap = BeanJsonUtils.convertMapToMap(crmInstallBill);
@@ -276,8 +296,19 @@ public class JlOrderServiceImpl implements JlOrderService{
 				String appointDatePeriod = appointStartDate.substring(8, 10)+"-"+appointEndDate.substring(8, 10);
 				convertMap.put("appointDatePeriod", appointDatePeriod);
 			}
+			if(StringUtils.isNotBlank(isCharge)){
+				if("1".equals(isCharge)){
+					param.put("chargeWorkerCode", receiptCode);
+				}else{
+					if(crmInstallBill.getOrderWorkerBig().equals(receiptCode)){
+						param.put("chargeWorkerCode", crmInstallBill.getOrderWorkerLitter());
+					}else{
+						param.put("chargeWorkerCode", crmInstallBill.getOrderWorkerBig());
+					}
+				}
+			}
 			param.put("crmInstallBill", convertMap);
-			param.put("crmServices", crmServices);
+//			param.put("crmServices", crmServices);
 //			String gomeOrderAddr = crmInstallBill.getGomeOrderAddr();//接单网店代码
 			//网点代码以S开头为第三方网点，回执到crm
 			if(gomeOrderAddr.startsWith("S")){
@@ -287,7 +318,7 @@ public class JlOrderServiceImpl implements JlOrderService{
 				AsynchronousSendMsgUtils.receiptJLCompleteLegMessage(param);
 			}
 			//将安装单信息发送到mq
-			AsynchronousSendMsgUtils.sendInstallBillToMq(crmInstallBill, BusinessGlossary.SYSTEM_NAME_APP);
+			AsynchronousSendMsgUtils.sendInstallBillToMq(crmInstallBill.getJlOrderNum(), BusinessGlossary.SYSTEM_NAME_APP);
 			
 		}catch(Exception e){
 			log.error(e.getMessage(),e);
@@ -316,14 +347,14 @@ public class JlOrderServiceImpl implements JlOrderService{
 				return result;
 			}
 			String gomeOrderAddr = crmInstallBill.getGomeOrderAddr();//接单网店代码
-			
-			if(gomeOrderAddr.startsWith("S") && !BusinessGlossary.BILL_STATUS_COMPLETE.equals(crmInstallBill.getBillStatus())){
+			String billStatus = crmInstallBill.getBillStatus();
+			if(gomeOrderAddr.startsWith("S") && !BusinessGlossary.BILL_STATUS_COMPLETE.equals(billStatus)){
 				result.put(APPErrorInfo.ERRORCODE, APPErrorInfo.E10014);
 				result.put(APPErrorInfo.ERRORMSG, APPErrorInfo.M10014);
 				return result;
-			}else if (!BusinessGlossary.BILL_STATUS_DISPATCHED.equals(crmInstallBill.getBillStatus())){
+			}else if(!BusinessGlossary.BILL_STATUS_DISPATCHED.equals(billStatus) && !BusinessGlossary.BILL_STATUS_REPEAT_DISPATCHED.equals(billStatus)){
 				result.put(APPErrorInfo.ERRORCODE, "E");
-				result.put(APPErrorInfo.ERRORMSG, "改单已操作");
+				result.put(APPErrorInfo.ERRORMSG, "该单已操作");
 				return result;
 			}
 			crmInstallBill.setBillStatus(BusinessGlossary.BILL_STATUS_CANCEL);
@@ -343,7 +374,7 @@ public class JlOrderServiceImpl implements JlOrderService{
 				AsynchronousSendMsgUtils.receiptJLCompleteLegMessage(param);
 			}
 			//将安装单信息发送到mq
-			AsynchronousSendMsgUtils.sendInstallBillToMq(crmInstallBill, BusinessGlossary.SYSTEM_NAME_APP);
+			AsynchronousSendMsgUtils.sendInstallBillToMq(crmInstallBill.getJlOrderNum(), BusinessGlossary.SYSTEM_NAME_APP);
 			
 		}catch(Exception e){
 			log.error(e.getMessage(),e);

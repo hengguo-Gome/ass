@@ -1,14 +1,14 @@
 10
 
 dir
-7396
+7643
 https://10.128.11.62/svn/gome/trunk/mbl-server/ass/src/main/java/com/gome/ass/dao/logistics
 https://10.128.11.62/svn/gome
 
 
 
-2014-10-16T09:01:08.332432Z
-7271
+2014-10-29T01:53:35.664198Z
+7547
 chengbiao
 
 
@@ -32,10 +32,10 @@ file
 
 
 
-2014-10-17T06:37:50.889000Z
-38d2874e6688f25a9baa92b9b72a5d82
-2014-10-16T09:01:08.332432Z
-7271
+2014-10-30T01:14:55.158350Z
+6c153edbf0b38ad31f17c5d87394b0ac
+2014-10-29T01:53:35.664198Z
+7547
 chengbiao
 
 
@@ -58,7 +58,7 @@ chengbiao
 
 
 
-1051
+1141
 
 CrmServiceDao.java
 file
@@ -164,14 +164,14 @@ chengbiao
 
 CrmAccessoryBasicdataDao.java
 file
-7411
 
 
 
-2014-10-23T11:13:59.096365Z
-628e3564bf1ac973a7929d0b218a403c
-2014-10-24T01:19:15.231360Z
-7411
+
+2014-10-27T02:48:12.065000Z
+c9deea3939922d160c0fa63722adc313
+2014-10-27T02:52:00.953779Z
+7468
 wanghengguo
 
 
@@ -194,5 +194,5 @@ wanghengguo
 
 
 
-1903
+2080
 

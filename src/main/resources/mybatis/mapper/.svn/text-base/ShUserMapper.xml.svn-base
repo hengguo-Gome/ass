@@ -59,49 +59,5 @@
       </if>
     </where>
   </select>
-  <!-- 
-  <insert id="insert" parameterType="com.gome.ass.entity.ShUser" >
-    insert into v_user (NAME, ACCOUNT, password, 
-      company_code, from_type)
-    values (#{name,jdbcType=VARCHAR}, #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{companyCode,jdbcType=VARCHAR}, #{fromType,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.gome.ass.entity.ShUser" >
-    insert into v_user
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="name != null" >
-        NAME,
-      </if>
-      <if test="account != null" >
-        ACCOUNT,
-      </if>
-      <if test="password != null" >
-        password,
-      </if>
-      <if test="companyCode != null" >
-        company_code,
-      </if>
-      <if test="fromType != null" >
-        from_type,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="name != null" >
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="account != null" >
-        #{account,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null" >
-        #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="companyCode != null" >
-        #{companyCode,jdbcType=VARCHAR},
-      </if>
-      <if test="fromType != null" >
-        #{fromType,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-   -->
+  
 </mapper>

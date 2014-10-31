@@ -1,15 +1,15 @@
 10
 
 dir
-7411
+7642
 https://10.128.11.62/svn/gome/trunk/mbl-server/ass
 https://10.128.11.62/svn/gome
 
 
 
-2014-10-24T01:19:15.231360Z
-7411
-wanghengguo
+2014-10-31T06:05:36.800275Z
+7642
+chengbiao
 has-props
 
 
@@ -99,6 +99,10 @@ wanghengguo
 
 target
 dir
+
+
+
+delete
 
 src
 dir
@@ -109,10 +113,10 @@ file
 
 
 
-2014-10-23T11:56:02.951726Z
-5ceaf9786958f33d8a100cfd0f5823eb
-2014-10-24T01:19:15.231360Z
-7411
+2014-10-29T06:43:34.767710Z
+124ed7b689e42507547ca56f26516cd1
+2014-10-30T01:31:29.057156Z
+7581
 wanghengguo
 
 
@@ -135,7 +139,7 @@ wanghengguo
 
 
 
-12541
+12948
 
 .settings
 dir

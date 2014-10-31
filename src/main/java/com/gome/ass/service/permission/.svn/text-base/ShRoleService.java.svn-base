@@ -1,0 +1,38 @@
+package com.gome.ass.service.permission;
+
+import java.util.List;
+import java.util.Map;
+
+import com.gome.ass.entity.ShMenu;
+import com.gome.ass.entity.ShPosition;
+import com.gome.common.page.Page;
+
+public interface ShRoleService {
+
+	/**
+	 * 根据roleId更新sh_role_resources {resource_id}信息
+	 * @param inMap
+	 */
+	void updateShRoleResources(Map<String, Object> inMap);
+
+	/**
+	 * 根据roleIds批量删除sh_role, sh_role_resource表数据
+	 * @param inMap
+	 */
+	void deleteShRole(Map<String, Object> inMap);
+
+	List<Map<String, Object>> getRolePageList(Page page);
+
+	/**
+	 * 根据roleId查询v_role_menu表数据
+	 * @param inMap
+	 * @return
+	 */
+	List<Map<String, Object>> getRoleResource(Map<String, Object> inMap);
+	
+	public void insertRoleResource(Map<String, Object> inMap);
+
+	Map<String, String> insertShPosition(List<ShPosition> positions);
+
+	List<ShMenu> getRoleResourceByRoleName(Map<String, Object> map);
+}

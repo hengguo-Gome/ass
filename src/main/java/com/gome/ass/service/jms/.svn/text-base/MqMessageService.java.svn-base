@@ -11,4 +11,10 @@ public interface MqMessageService {
 	 */
 	void processMqLegMessage(String message);
 	
+	/**
+	 * 处理物流的排成信息
+	 * @param message
+	 */
+	void processMqLegPlanMessage(String message);
+	
 }

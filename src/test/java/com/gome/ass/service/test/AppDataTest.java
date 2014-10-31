@@ -31,7 +31,7 @@ public class AppDataTest {
         jo.put("jkId", "ass002");
         jo.put("mkId", "1004");
         jo.put("phone", "13263180885");
-        jo.put("name", "a");
+        jo.put("name", "ab");
         try {
             HttpPost httppost = new HttpPost(url);
             List<NameValuePair> params = new ArrayList<NameValuePair>();

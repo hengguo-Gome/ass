@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 90
-/svn/gome/!svn/ver/7175/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/users/impl
+/svn/gome/!svn/ver/7540/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/users/impl
 END
 ShUserPwdInfoServiceImpl.java
 K 25
@@ -19,5 +19,5 @@ ShUserServiceImpl.java
 K 25
 svn:wc:ra_dav:version-url
 V 113
-/svn/gome/!svn/ver/7015/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/users/impl/ShUserServiceImpl.java
+/svn/gome/!svn/ver/7540/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/users/impl/ShUserServiceImpl.java
 END

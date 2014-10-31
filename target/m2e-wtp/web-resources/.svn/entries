@@ -1,7 +1,7 @@
 10
 
 dir
-7396
+7642
 https://10.128.11.62/svn/gome/trunk/mbl-server/ass/target/m2e-wtp/web-resources
 https://10.128.11.62/svn/gome
 delete
@@ -12,7 +12,7 @@ delete
 zhangmingji
 
 
-svn:special svn:externals svn:needs-lock
+
 
 
 
@@ -25,4 +25,10 @@ svn:special svn:externals svn:needs-lock
 
 
 ceea3779-27bf-e045-a9e1-b02ef83dfcfa
+
+
+
+
+
+keep-local
 

@@ -67,5 +67,19 @@
 		<property name="destination" ref="wlLegInfoTopic" />
 		<property name="messageListener" ref="wlLegInfoListener" />
 	</bean>
+	
+	<!-- 接受物流发货状态给售后安装工人发消息(即司机排成后触发) -->
+	<bean id="wlPlanSuquenceQueue" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="wl.leg.plan.suquence" />
+	</bean>
+	
+	<bean id="wlPlanSuquenceListener" class="com.gome.ass.jms.WlPlanSuquenceListener" />
 
+	<bean id="wlPlanSuquenceConsumer"
+		class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="pooledJmsConnectionFactory" />
+		<property name="destination" ref="wlPlanSuquenceQueue" />
+		<property name="messageListener" ref="wlPlanSuquenceListener" />
+	</bean>
+	
 </beans>

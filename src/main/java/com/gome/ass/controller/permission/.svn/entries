@@ -1,14 +1,14 @@
 10
 
 dir
-7396
+7643
 https://10.128.11.62/svn/gome/trunk/mbl-server/ass/src/main/java/com/gome/ass/controller/permission
 https://10.128.11.62/svn/gome
 
 
 
-2014-09-25T09:20:25.930980Z
-6919
+2014-10-30T06:37:22.253715Z
+7601
 wanghengguo
 
 
@@ -32,6 +32,40 @@ ceea3779-27bf-e045-a9e1-b02ef83dfcfa
 
 
 0
+
+ShRoleController.java
+file
+
+
+
+
+2014-10-30T03:52:10.740226Z
+d8eb82e09df7842fdba9ff92abd50c95
+2014-10-30T06:37:22.253715Z
+7601
+wanghengguo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5510
 
 ShDeviceManageController.java
 file
@@ -66,4 +100,38 @@ wanghengguo
 
 
 3329
+
+ShUserController.java
+file
+
+
+
+
+2014-10-28T08:40:07.606593Z
+a3d53e0c97e09695a71935009805d503
+2014-10-28T09:44:38.376271Z
+7540
+wanghengguo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3103
 

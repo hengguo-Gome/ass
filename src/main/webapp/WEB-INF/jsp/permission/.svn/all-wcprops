@@ -1,5 +1,29 @@
 K 25
 svn:wc:ra_dav:version-url
 V 83
-/svn/gome/!svn/ver/7175/trunk/mbl-server/ass/src/main/webapp/WEB-INF/jsp/permission
+/svn/gome/!svn/ver/7601/trunk/mbl-server/ass/src/main/webapp/WEB-INF/jsp/permission
+END
+userList.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/gome/!svn/ver/7540/trunk/mbl-server/ass/src/main/webapp/WEB-INF/jsp/permission/userList.jsp
+END
+roleImport.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/gome/!svn/ver/7580/trunk/mbl-server/ass/src/main/webapp/WEB-INF/jsp/permission/roleImport.jsp
+END
+menuList.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/gome/!svn/ver/7540/trunk/mbl-server/ass/src/main/webapp/WEB-INF/jsp/permission/menuList.jsp
+END
+roleList.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/gome/!svn/ver/7601/trunk/mbl-server/ass/src/main/webapp/WEB-INF/jsp/permission/roleList.jsp
 END

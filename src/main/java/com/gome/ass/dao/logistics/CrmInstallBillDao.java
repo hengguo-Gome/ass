@@ -6,7 +6,8 @@ import java.util.Map;
 import com.gome.ass.entity.CrmInstallBill;
 
 public interface CrmInstallBillDao {
-    int deleteByPrimaryKey(String billId);
+
+	int deleteByPrimaryKey(String billId);
 
     int insert(CrmInstallBill record);
 
@@ -23,6 +24,8 @@ public interface CrmInstallBillDao {
     public Integer getTodayOrderSuquence(String workerId);
     
     public List<Map<String,Object>> queryInstallBill(Map<String,Object> param);
+    
+    public List<Map<String,Object>> findNeedPlanInstalls(Map<String,Object> param);
 
     /**
      * 修改预约时间，预约开始，结束时间

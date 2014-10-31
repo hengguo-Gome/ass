@@ -1,5 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <mapper>
+	<installInfo id="install">
+		<result jsonKey="appointDate" mapKey="yysj" />
+		<result jsonKey="appointStartDate" mapKey="yykssj" />
+		<result jsonKey="appointEndDate" mapKey="yyjssj" />
+		<result jsonKey="billStatus" mapKey="azzt" />
+		<result jsonKey="clientAddr" mapKey="gkdz" />
+		<result jsonKey="clientName" mapKey="gkxm" />
+		<result jsonKey="clientPhone" mapKey="gksj" />
+		<result jsonKey="longitude" mapKey="jd" />
+		<result jsonKey="latitude" mapKey="wd" />
+		<result jsonKey="gomeOrderAddr" mapKey="wddm" />
+		<result jsonKey="goodCode" mapKey="spbm" />
+		<result jsonKey="goodName" mapKey="spmc" />
+		<result jsonKey="goodCategory" mapKey="sppl" />
+		<result jsonKey="jlOrderNum" mapKey="azdh" />
+		<result jsonKey="orderWorkerBig" mapKey="grbm1" />
+		<result jsonKey="orderWorkerLitter" mapKey="grbm2" />
+		<result jsonKey="poNumberSold" mapKey="thd" />
+		<result jsonKey="receiptCode" mapKey="hzgr" />
+		<result jsonKey="receiptDate" mapKey="hzsj" />
+		<result jsonKey="salesOrgCode" mapKey="gsdm" />
+		<result jsonKey="planFinishSequence" mapKey="order" />
+	</installInfo>
 	<legInfo id="leg">
 		<result jsonKey="carriername" mapKey="cys" />
 		<result jsonKey="platformname" mapKey="pszx" />
@@ -26,8 +49,9 @@
 		<result jsonKey="companyCode" mapKey="gsdm" />
 		<result jsonKey="signedTime" mapKey="hzsj" />
 		<result jsonKey="handleTime" mapKey="czsj" />
-		<result jsonKey="bz" mapKey="bz" />
-		<result jsonKey="from" mapKey="from" />
 		<result jsonKey="driverphone" mapKey="sjdh" />
+		<result jsonKey="driverId" mapKey="sjbm" />
+		<result jsonKey="needinstall" mapKey="needinstall" />
+		<result jsonKey="planFinishSequence" mapKey="order" />
 	</legInfo>
 </mapper>

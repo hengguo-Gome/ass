@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 85
-/svn/gome/!svn/ver/7175/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/users
+/svn/gome/!svn/ver/7580/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/users
 END
 ShAppUserInfoDao.java
 K 25
@@ -19,11 +19,11 @@ CrmWorkerService.java
 K 25
 svn:wc:ra_dav:version-url
 V 107
-/svn/gome/!svn/ver/7175/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/users/CrmWorkerService.java
+/svn/gome/!svn/ver/7580/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/users/CrmWorkerService.java
 END
 ShUserService.java
 K 25
 svn:wc:ra_dav:version-url
 V 104
-/svn/gome/!svn/ver/7015/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/users/ShUserService.java
+/svn/gome/!svn/ver/7540/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/users/ShUserService.java
 END

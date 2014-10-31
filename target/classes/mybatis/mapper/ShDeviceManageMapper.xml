@@ -50,36 +50,56 @@
 
 	</select>
 
+	<select id="findNeedSendLegPlanDevice" parameterType="list"
+		resultType="map">
+		SELECT a.jl_order_num,b.`baidu_id`,b.`access_token`
+		,c.`baidu_id`,c.`access_token` FROM
+		(SELECT jl_order_num,order_worker_big,order_worker_litter FROM
+		crm_install_bill WHERE CONCAT(po_number_sold,'_',sales_org_code) IN
+		<foreach collection="array" item="item" open="(" separator=","
+			close=")">
+			#{item}
+		</foreach>
+		) a
+		LEFT JOIN sh_device_manage b
+		ON a.order_worker_big = b.`user_id`
+		LEFT JOIN sh_device_manage c
+
+	</select>
+
 	<select id="getShDevicePageList" parameterType="com.gome.common.page.Page"
 		resultType="hashmap">
 		SELECT
-			sh_device_manage.user_id,
-			sh_device_manage.user_type,
-			sh_device_manage.phone,
-			sh_device_manage.sn_no,
-			sh_device_manage.client_version,
-			sh_device_manage.os_info,
-			sh_device_manage.device_info,
-			sh_device_manage.baidu_id,
-			sh_device_manage.access_token,
-			c3.code_value AS status,
-			c2.code_value AS
-			is_root,
-			c1.code_value AS is_double
+		sh_device_manage.user_id,
+		sh_device_manage.user_type,
+		sh_device_manage.phone,
+		sh_device_manage.sn_no,
+		sh_device_manage.client_version,
+		sh_device_manage.os_info,
+		sh_device_manage.device_info,
+		sh_device_manage.baidu_id,
+		sh_device_manage.access_token,
+		c3.code_value AS status,
+		c2.code_value AS
+		is_root,
+		c1.code_value AS is_double
 		FROM
-			sh_device_manage
-		INNER JOIN sh_code_setting c1 ON c1.code_key = sh_device_manage.is_double
-		INNER JOIN sh_code_setting c2 ON c2.code_key = sh_device_manage.is_root
-		INNER JOIN sh_code_setting c3 ON c3.code_key = sh_device_manage.status
-<!-- 		INNER JOIN crm_worker ON sh_device_manage.user_id = crm_worker.worker_code -->
-		
+		sh_device_manage
+		INNER JOIN sh_code_setting c1 ON c1.code_key =
+		sh_device_manage.is_double
+		INNER JOIN sh_code_setting c2 ON c2.code_key
+		= sh_device_manage.is_root
+		INNER JOIN sh_code_setting c3 ON c3.code_key
+		= sh_device_manage.status
+		<!-- INNER JOIN crm_worker ON sh_device_manage.user_id = crm_worker.worker_code -->
+
 		WHERE
-			c1.code_id = 'boolean'
+		c1.code_id = 'boolean'
 		AND c2.code_id = 'boolean'
 		AND c3.code_id = 'device_status'
-<!-- 		<if test="param.webcode != null and param.webcode !='' "> -->
-<!-- 			AND crm_worker.website_code = param.webcode -->
-<!-- 		</if> -->
+		<!-- <if test="param.webcode != null and param.webcode !='' "> -->
+		<!-- AND crm_worker.website_code = param.webcode -->
+		<!-- </if> -->
 		<if test="param.phone != null and param.phone != '' ">
 			and sh_device_manage.phone = #{param.phone}
 		</if>
@@ -141,7 +161,7 @@
 		#{status,jdbcType=TINYINT}
 		)
 	</insert>
-	
+
 	<insert id="insertShDeviceManageByMap" parameterType="map">
 		INSERT INTO sh_device_manage(
 		<include refid="deviceManage_Column_List" />
@@ -181,6 +201,7 @@
 			<if test="accessToken != null ">access_token =
 				#{accessToken,jdbcType=VARCHAR},
 			</if>
+			<if test="phone != null">phone = #{phone,jdbcType=VARCHAR},</if>
 			<if test="isRoot != null">is_root = #{isRoot,jdbcType=TINYINT},</if>
 			<if test="isDouble != null">is_double = #{isDouble,jdbcType=TINYINT}</if>
 

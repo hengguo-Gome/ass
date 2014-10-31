@@ -8,13 +8,13 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.velocity.exception.ParseErrorException;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.jdom.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.framework.AopContext;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.gome.ass.common.BusinessGlossary;
@@ -30,7 +30,6 @@ import com.gome.ass.entity.JlAccount;
 import com.gome.ass.entity.ShDataRecord;
 import com.gome.ass.entity.ShUserPwdInfo;
 import com.gome.ass.entity.vo.CrmInstallBillVO;
-import com.gome.ass.jms.InstallBillInfoPushMQSender;
 import com.gome.ass.service.crm.MessageService;
 import com.gome.ass.service.jms.MqMessageService;
 import com.gome.ass.service.logistics.CrmAccessoryBasicdataService;
@@ -41,12 +40,10 @@ import com.gome.ass.service.system.JlAccountService;
 import com.gome.ass.service.system.ShDataRecordService;
 import com.gome.ass.service.users.CrmWorkerService;
 import com.gome.ass.service.users.ShUserPwdInfoService;
-import com.gome.ass.util.BaiduUtil;
 import com.gome.ass.util.BeanTool;
 import com.gome.ass.util.UUIDUtil;
 import com.gome.ass.util.XmlUtil;
 import com.gome.common.util.AsynchronousSendMsgUtils;
-import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 @Service("messageService")
 public class MessageServiceImpl implements MessageService {
 
@@ -144,13 +141,16 @@ public class MessageServiceImpl implements MessageService {
 
                   //更新安装单经纬度
                   crmInstallBillService.updateLatAndLon(installBill);
+                  
+                  installResetWorker(installBill);
+                  
                   crmInstallBillService.insertOrUpdate(installBill);
                   
                   //将安装单信息发送到MQ
-                  AsynchronousSendMsgUtils.sendInstallBillToMq(installBill, BusinessGlossary.SYSTEM_NAME_CRM);
+                  AsynchronousSendMsgUtils.sendInstallBillToMq(installBill.getJlOrderNum(), BusinessGlossary.SYSTEM_NAME_CRM);
                   
                   //将安装单信息发送给手机端
-                  AsynchronousSendMsgUtils.sendMessageToMobile(installBill,null);
+                  AsynchronousSendMsgUtils.sendMessageToMobile(installBill.getJlOrderNum(),null);
                   //保存服务
                   List<Map<String, String>> crmServiceMaps = xmlData.get("crmService");
                   if(crmServiceMaps!=null&&!crmServiceMaps.isEmpty()){
@@ -349,14 +349,17 @@ public class MessageServiceImpl implements MessageService {
                  CrmInstallBill crmInstallBill = CrmInstallBillVO.voToPoMapping(crmInstallBillVO);
                  //更新安装单经纬度
                crmInstallBillService.updateLatAndLon(crmInstallBill);
-                 crmInstallBillService.updateByPrimaryKeySelective(crmInstallBill);
+               
+//               installResetWorker(crmInstallBill);
+               
+               crmInstallBillService.updateByPrimaryKeySelective(crmInstallBill);
                  
                  
                //将安装单信息发送到MQ
-                 AsynchronousSendMsgUtils.sendInstallBillToMq(crmInstallBill, BusinessGlossary.SYSTEM_NAME_JL);
+                 AsynchronousSendMsgUtils.sendInstallBillToMq(crmInstallBill.getJlOrderNum(), BusinessGlossary.SYSTEM_NAME_JL);
                  
                  //将安装单信息发送给手机端
-                 AsynchronousSendMsgUtils.sendMessageToMobile(crmInstallBill,"CRM197");
+                 AsynchronousSendMsgUtils.sendMessageToMobile(crmInstallBill.getJlOrderNum(),"CRM197");
              }
          }
          //订单回执失败，设置报文状态
@@ -393,13 +396,15 @@ public class MessageServiceImpl implements MessageService {
 	                }
 	                  //更新安装单经纬度
 	                crmInstallBillService.updateLatAndLon(crmInstallBill);
+	                installResetWorker(crmInstallBill);
+	                
 	                crmInstallBillService.insertOrUpdate(crmInstallBill);
 	                
 	                  //将安装单信息发送给手机端
-	                  AsynchronousSendMsgUtils.sendMessageToMobile(crmInstallBill,null);
+	                  AsynchronousSendMsgUtils.sendMessageToMobile(crmInstallBill.getJlOrderNum(),null);
 	                  
 	                //将安装单信息发送到MQ
-	                  AsynchronousSendMsgUtils.sendInstallBillToMq(crmInstallBill, BusinessGlossary.SYSTEM_NAME_JL);
+	                  AsynchronousSendMsgUtils.sendInstallBillToMq(crmInstallBill.getJlOrderNum(), BusinessGlossary.SYSTEM_NAME_JL);
   	        }
   	}
  
@@ -424,14 +429,17 @@ public class MessageServiceImpl implements MessageService {
 					 
 	                  //更新安装单经纬度
 	                crmInstallBillService.updateLatAndLon(crmInstallBill);
+	                
+	                installResetWorker(crmInstallBill);
+	                
 					 crmInstallBillService.insertOrUpdate(crmInstallBill);
 					 
 	                  //将安装单信息发送给手机端
-	                 AsynchronousSendMsgUtils.sendMessageToMobile(crmInstallBill,null);
+	                 AsynchronousSendMsgUtils.sendMessageToMobile(crmInstallBill.getJlOrderNum(),null);
 					 
 	                  
 	                //将安装单信息发送到MQ
-	                 AsynchronousSendMsgUtils.sendInstallBillToMq(crmInstallBill, BusinessGlossary.SYSTEM_NAME_JL);
+	                 AsynchronousSendMsgUtils.sendInstallBillToMq(crmInstallBill.getJlOrderNum(), BusinessGlossary.SYSTEM_NAME_JL);
 	                  
 	                  
 					  //保存服务
@@ -473,5 +481,22 @@ public class MessageServiceImpl implements MessageService {
 	 if("F".equals(receiptMap.get("result"))){
 		 this.shDataRecordService.updateShDataRecordFail(receiptMap.get("messageId"));
 	 }
+ }
+ 
+	private void installResetWorker(CrmInstallBill installBill){
+     //
+     String billStatus = installBill.getBillStatus();
+		if (billStatus.equals(BusinessGlossary.BILL_STATUS_DISPATCHED)
+				|| billStatus
+						.equals(BusinessGlossary.BILL_STATUS_REPEAT_DISPATCHED)) {
+			String orderWorkerBig = installBill.getOrderWorkerBig();
+			String orderWorkerLitter = installBill.getOrderWorkerLitter();
+			if (StringUtils.isBlank(orderWorkerBig)) {
+				installBill.setOrderWorkerBig("");
+			}
+			if (StringUtils.isBlank(orderWorkerLitter)) {
+				installBill.setOrderWorkerLitter("");
+			}
+		}
  }
 }

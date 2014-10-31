@@ -18,6 +18,7 @@ import com.gome.ass.entity.ShUser;
 import com.gome.ass.entity.ShUserPwdInfo;
 import com.gome.ass.service.users.ShUserPwdInfoService;
 import com.gome.ass.service.users.ShUserService;
+import com.gome.ass.service.wsdl.service.EmpService;
 import com.gome.common.page.Page;
 
 
@@ -28,6 +29,8 @@ public class ShUserLoginController {
     private ShUserService shUserService;
     @Resource
     private ShUserPwdInfoService shUserPwdInfoService;
+    @Resource
+    private EmpService empService;
     
 	@RequestMapping(value="/toLogin")
 	public String toLogin(){
@@ -53,6 +56,11 @@ public class ShUserLoginController {
 		if(shUser == null){
 		    return "{\"flag\" : \"accountNull\"}";
 		}else {
+			//是否EMP账号首次登录
+			if(String.valueOf(Constrants.GOME_USER).endsWith(fromType)
+						&& "Y".equals(empService.getFlagByApAccount(account))){
+				return "{\"flag\" : \"needModifyPass\"}";
+			}
 		    ShUserPwdInfo shUserPwdInfo = shUserPwdInfoService.findUserByUserId(map);
 		    if(!password.equals(shUserPwdInfo.getPassword())){
 		        return "{\"flag\" : \"loginPwdError\"}";
@@ -62,6 +70,30 @@ public class ShUserLoginController {
 		    }
 		}
 	}
+	
+	@RequestMapping(value="/alterEmpInitPwd",method=RequestMethod.POST,produces="text/plain;charset=utf-8")
+    @ResponseBody
+    public String alterEmpInitPwd(Page page, HttpServletRequest request){
+        Map<String, Object> map = new HashMap<String, Object>();
+        String newPwd = request.getParameter("newPwd");
+        if(StringUtils.isBlank(newPwd)) return "{\"flag\" : \"newPwdNull\"}";
+        String account = request.getParameter("name");
+        map.put("account", account);
+        map.put("fromType", Constrants.GOME_USER);
+        
+        page.setParam(map);
+        ShUserPwdInfo shUserPwdInfo = shUserPwdInfoService.findUserByUserId(map);
+        if(shUserPwdInfo == null){
+            return "{\"flag\" : \"accountNull\"}";
+        }else {
+            map.put("userId", account);
+            map.put("password", newPwd);
+            map.put("userType", Constrants.GOME_USER);
+        	shUserPwdInfoService.updateByPrimaryKey(map);
+        	empService.updateModifyPwdByApAccount(account);
+        	return "{\"flag\" : \"success\"}";
+        }
+    }
 	
 	@RequestMapping(value="/alterPwd",method=RequestMethod.POST,produces="text/plain;charset=utf-8")
     @ResponseBody

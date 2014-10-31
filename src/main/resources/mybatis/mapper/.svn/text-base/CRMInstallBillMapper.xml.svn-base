@@ -34,6 +34,8 @@
 			jdbcType="VARCHAR" />
 		<result column="good_code" property="goodCode" jdbcType="VARCHAR" />
 		<result column="good_name" property="goodName" jdbcType="VARCHAR" />
+		<result column="good_category" property="goodCategory" jdbcType="VARCHAR" />
+		<result column="good_brand" property="goodBrand" jdbcType="VARCHAR" />
 		<result column="receipt_code" property="receiptCode" jdbcType="VARCHAR" />
 		<result column="receipt_name" property="receiptName" jdbcType="VARCHAR" />
 		<result column="receipt_date" property="receiptDate" jdbcType="TIMESTAMP" />
@@ -65,6 +67,7 @@
 		<result column="longitude" property="longitude" />
 		<result column="latitude" property="latitude" />
 		<result column="plan_finish_suquence" property="planFinishSuquence" />
+		<result column="is_seed_install_sync" property="isSeedInstallSync" />
 	</resultMap>
 	<sql id="Base_Column_List">
 		bill_id, sales_org_short, business_type, po_number_sold,
@@ -76,7 +79,7 @@
 		gome_order_addr,
 		gome_exec_website, order_worker_big,
 		order_worker_litter, good_code,
-		good_name, receipt_code, receipt_name,
+		good_name,good_category,good_brand, receipt_code, receipt_name,
 		receipt_date, sender_name,
 		sender_date,
 		remark,
@@ -88,7 +91,7 @@
 		jl_order_num, sales_org_code,
 		install_card_code,
 		outer_machine_code,
-		inner_machine_code,bill_type,installation_type,longitude,latitude
+		inner_machine_code,bill_type,installation_type,longitude,latitude,is_seed_install_sync
 	</sql>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
 		parameterType="map">
@@ -104,11 +107,27 @@
 			</if>
 		</where>
 	</select>
+
+	<select id="findNeedPlanInstalls" parameterType="map"
+		resultType="map">
+
+		SELECT jl_order_num 'azdh',plan_finish_suquence 'order' FROM crm_install_bill
+		WHERE (order_worker_big =#{workerId} or order_worker_litter = #{workerId}) and plan_finish_suquence IS NOT NULL AND jl_order_num IN
+		<foreach collection="azdhs" item="item" open="(" close=")"
+			separator=",">
+			#{item}
+		</foreach>
+		and DATE_FORMAT(
+		NOW( ) , '%Y%m%d' ) = DATE_FORMAT( appoint_date,
+		'%Y%m%d' )
+	</select>
+
 	<select id="getTodayOrderSuquence" resultType="Integer"
 		parameterType="String">
 		SELECT MAX(plan_finish_suquence) FROM crm_install_bill
 		WHERE DATE_FORMAT( NOW( ) , '%Y%m%d' ) = DATE_FORMAT( appoint_date,
-		'%Y%m%d' ) AND (order_worker_big = #{workerId} OR order_worker_litter =#{workerId})
+		'%Y%m%d' ) AND (order_worker_big = #{workerId} OR order_worker_litter
+		=#{workerId})
 	</select>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
 		delete from
@@ -128,7 +147,7 @@
 		gome_exec_website, order_worker_big,
 		order_worker_litter,
 		good_code,
-		good_name, receipt_code,
+		good_name,good_category,good_brand, receipt_code,
 		receipt_name,
 		receipt_date, sender_name,
 		sender_date, remark, install_type,
@@ -139,7 +158,7 @@
 		sap_order_num,
 		jl_order_num, sales_org_code,
 		install_card_code, outer_machine_code,
-		inner_machine_code,bill_type,installation_type,longitude,latitude
+		inner_machine_code,bill_type,installation_type,longitude,latitude,is_seed_install_sync
 		)
 		values
 		(#{billId,jdbcType=VARCHAR},
@@ -159,7 +178,9 @@
 		#{orderWorkerBig,jdbcType=VARCHAR},
 		#{orderWorkerLitter,jdbcType=VARCHAR},
 		#{goodCode,jdbcType=VARCHAR},
-		#{goodName,jdbcType=VARCHAR}, #{receiptCode,jdbcType=VARCHAR},
+		#{goodName,jdbcType=VARCHAR}, 
+		#{goodCategory,jdbcType=VARCHAR}, 
+		#{goodBrand,jdbcType=VARCHAR}, #{receiptCode,jdbcType=VARCHAR},
 		#{receiptName,jdbcType=VARCHAR}, #{receiptDate,jdbcType=TIMESTAMP},
 		#{senderName,jdbcType=VARCHAR},
 		#{senderDate,jdbcType=TIMESTAMP},
@@ -176,7 +197,8 @@
 		#{billType,jdbcType=VARCHAR},
 		#{installationType,jdbcType=VARCHAR},
 		#{longitude},
-		#{latitude}
+		#{latitude},
+		#{isSeedInstallSync}
 		)
 	</insert>
 	<insert id="insertBatch" parameterType="java.util.List">
@@ -190,8 +212,10 @@
 		order_worker_big, order_worker_litter,
 		good_code,
 		good_name,
+		good_category,
+		good_brand,
 		receipt_code,
-		receipt_name, receipt_date, sender_name,
+		receipt_name,good_category, receipt_date, sender_name,
 		sender_date,
 		remark, install_type,
 		attachment, purchase_date,
@@ -201,7 +225,7 @@
 		jl_order_num,
 		sales_org_code,
 		install_card_code, outer_machine_code,
-		inner_machine_code,bill_type,installation_type,longitude,latitude
+		inner_machine_code,bill_type,installation_type,longitude,latitude,is_seed_install_sync
 		)
 		VALUES
 		<foreach collection="list" item="item" separator=",">
@@ -223,6 +247,8 @@
 			#{item.orderWorkerBig,jdbcType=VARCHAR},
 			#{item.orderWorkerLitter,jdbcType=VARCHAR},
 			#{item.goodCode,jdbcType=VARCHAR}, #{item.goodName,jdbcType=VARCHAR},
+			#{item.goodCategory,jdbcType=VARCHAR},
+			#{item.goodBrand,jdbcType=VARCHAR},
 			#{item.receiptCode,jdbcType=VARCHAR},
 			#{item.receiptName,jdbcType=VARCHAR},
 			#{item.receiptDate,jdbcType=TIMESTAMP},
@@ -245,7 +271,8 @@
 			#{item.billType,jdbcType=VARCHAR},
 			#{item.installationType,jdbcType=VARCHAR},
 			#{item.longitude},
-			#{item.latitude}
+			#{item.latitude},
+			#{item.isSeedInstallSync}
 			)
 		</foreach>
 	</insert>
@@ -309,6 +336,12 @@
 			</if>
 			<if test="goodName != null">
 				good_name = #{goodName,jdbcType=VARCHAR},
+			</if>
+			<if test="goodCategory != null">
+				good_category = #{goodCategory,jdbcType=VARCHAR},
+			</if>
+			<if test="goodBrand != null">
+				good_brand = #{goodBrand,jdbcType=VARCHAR},
 			</if>
 			<if test="receiptCode != null">
 				receipt_code = #{receiptCode,jdbcType=VARCHAR},
@@ -380,11 +413,15 @@
 			</if>
 			<if test="latitude != null">
 				latitude =
-				#{latitude}
+				#{latitude},
 			</if>
 			<if test="planFinishSuquence != null">
 				plan_finish_suquence =
-				#{planFinishSuquence}
+				#{planFinishSuquence},
+			</if>
+			<if test="isSeedInstallSync != null">
+				is_seed_install_sync =
+				#{isSeedInstallSync}
 			</if>
 		</set>
 		where jl_order_num = #{jlOrderNum,jdbcType=VARCHAR}
@@ -427,6 +464,8 @@
 		good_code =
 		#{goodCode,jdbcType=VARCHAR},
 		good_name = #{goodName,jdbcType=VARCHAR},
+		good_category = #{goodCategory,jdbcType=VARCHAR},
+		good_brand = #{goodBrand,jdbcType=VARCHAR},
 		receipt_code = #{receiptCode,jdbcType=VARCHAR},
 		receipt_name =
 		#{receiptName,jdbcType=VARCHAR},
@@ -469,7 +508,9 @@
 		latitude =
 		#{latitude},
 		longitude =
-		#{longitude}
+		#{longitude},
+		is_seed_install_sync =
+		#{isSeedInstallSync}
 		where bill_id =
 		#{billId,jdbcType=VARCHAR}
 	</update>
@@ -522,7 +563,8 @@
 		WHERE
 		DATE_FORMAT( appoint_start_date, '%Y-%m-%d
 		%H')>=#{qyeryTime} AND
-		bill_status = 'E0010')
+		bill_status = 'E0010' AND appoint_start_date
+		&lt; NOW())
 
 	</select>
 	<update id="updateApointDate" parameterType="hashmap">

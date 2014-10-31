@@ -1,7 +1,31 @@
 K 25
 svn:wc:ra_dav:version-url
 V 84
-/svn/gome/!svn/ver/7267/trunk/mbl-server/ass/src/test/java/com/gome/ass/service/test
+/svn/gome/!svn/ver/7468/trunk/mbl-server/ass/src/test/java/com/gome/ass/service/test
+END
+AppOrderTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/gome/!svn/ver/7267/trunk/mbl-server/ass/src/test/java/com/gome/ass/service/test/AppOrderTest.java
+END
+PIHttpClientTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/gome/!svn/ver/7265/trunk/mbl-server/ass/src/test/java/com/gome/ass/service/test/PIHttpClientTest.java
+END
+AppDataTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/gome/!svn/ver/7468/trunk/mbl-server/ass/src/test/java/com/gome/ass/service/test/AppDataTest.java
+END
+AppUserClientTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/gome/!svn/ver/7113/trunk/mbl-server/ass/src/test/java/com/gome/ass/service/test/AppUserClientTest.java
 END
 CrmMessageClientTest.java
 K 25
@@ -9,17 +33,17 @@ svn:wc:ra_dav:version-url
 V 110
 /svn/gome/!svn/ver/7411/trunk/mbl-server/ass/src/test/java/com/gome/ass/service/test/CrmMessageClientTest.java
 END
+HttpClientTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/gome/!svn/ver/7265/trunk/mbl-server/ass/src/test/java/com/gome/ass/service/test/HttpClientTest.java
+END
 CopyOfCrmMessageClientTest.java
 K 25
 svn:wc:ra_dav:version-url
 V 116
 /svn/gome/!svn/ver/7265/trunk/mbl-server/ass/src/test/java/com/gome/ass/service/test/CopyOfCrmMessageClientTest.java
-END
-PIHttpClientTest.java
-K 25
-svn:wc:ra_dav:version-url
-V 106
-/svn/gome/!svn/ver/7265/trunk/mbl-server/ass/src/test/java/com/gome/ass/service/test/PIHttpClientTest.java
 END
 PersonServiceTest.java
 K 25
@@ -32,22 +56,4 @@ K 25
 svn:wc:ra_dav:version-url
 V 109
 /svn/gome/!svn/ver/7265/trunk/mbl-server/ass/src/test/java/com/gome/ass/service/test/JLMessageClientTest.java
-END
-AppOrderTest.java
-K 25
-svn:wc:ra_dav:version-url
-V 102
-/svn/gome/!svn/ver/7267/trunk/mbl-server/ass/src/test/java/com/gome/ass/service/test/AppOrderTest.java
-END
-AppUserClientTest.java
-K 25
-svn:wc:ra_dav:version-url
-V 107
-/svn/gome/!svn/ver/7113/trunk/mbl-server/ass/src/test/java/com/gome/ass/service/test/AppUserClientTest.java
-END
-HttpClientTest.java
-K 25
-svn:wc:ra_dav:version-url
-V 104
-/svn/gome/!svn/ver/7265/trunk/mbl-server/ass/src/test/java/com/gome/ass/service/test/HttpClientTest.java
 END

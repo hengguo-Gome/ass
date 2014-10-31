@@ -1,13 +1,13 @@
 K 25
 svn:wc:ra_dav:version-url
 V 70
-/svn/gome/!svn/ver/7368/trunk/mbl-server/ass/src/main/resources/spring
+/svn/gome/!svn/ver/7642/trunk/mbl-server/ass/src/main/resources/spring
 END
 schedule.xml
 K 25
 svn:wc:ra_dav:version-url
 V 83
-/svn/gome/!svn/ver/7131/trunk/mbl-server/ass/src/main/resources/spring/schedule.xml
+/svn/gome/!svn/ver/7461/trunk/mbl-server/ass/src/main/resources/spring/schedule.xml
 END
 spring-appContext.xml
 K 25
@@ -19,11 +19,11 @@ mq-message.xml
 K 25
 svn:wc:ra_dav:version-url
 V 85
-/svn/gome/!svn/ver/7175/trunk/mbl-server/ass/src/main/resources/spring/mq-message.xml
+/svn/gome/!svn/ver/7642/trunk/mbl-server/ass/src/main/resources/spring/mq-message.xml
 END
 spring-servlet.xml
 K 25
 svn:wc:ra_dav:version-url
 V 89
-/svn/gome/!svn/ver/7368/trunk/mbl-server/ass/src/main/resources/spring/spring-servlet.xml
+/svn/gome/!svn/ver/7580/trunk/mbl-server/ass/src/main/resources/spring/spring-servlet.xml
 END

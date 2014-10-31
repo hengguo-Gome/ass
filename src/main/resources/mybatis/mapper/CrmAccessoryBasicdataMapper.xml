@@ -8,8 +8,8 @@
     <result column="accessory_code" jdbcType="VARCHAR" property="accessoryCode" />
     <result column="short_text" jdbcType="VARCHAR" property="shortText" />
     <result column="accessory_price" jdbcType="VARCHAR" property="accessoryPrice" />
-    <result column="timestamp_from" jdbcType="VARCHAR" property="timestampFrom" />
-    <result column="timestamp_to" jdbcType="VARCHAR" property="timestampTo" />
+    <result column="timestamp_from" jdbcType="TIMESTAMP" property="timestampFrom" />
+    <result column="timestamp_to" jdbcType="TIMESTAMP" property="timestampTo" />
     <result column="unit" jdbcType="VARCHAR" property="unit" />
     <result column="update_flag" jdbcType="VARCHAR" property="updateFlag" />
   </resultMap>
@@ -26,9 +26,11 @@
   
   <select id="selectByAccessoryCode" parameterType="java.util.Map" resultType="hashmap">
     select 
-    	accessory_code,short_text
+    	CONCAT(accessory_code, '_', unit) AS accessory_code,
+    	short_text
     from crm_accessory_basicdata
     where accessory_code LIKE CONCAT('%', #{name,jdbcType=VARCHAR}, '%')
+    AND CURRENT_DATE() BETWEEN timestamp_from AND timestamp_to
   </select>
   <select id="selectHeadchar" parameterType="java.lang.String" resultType="hashmap">
     select 
@@ -38,19 +40,23 @@
   </select>
   <select id="selectAccessoryByNameHeadChar" parameterType="java.lang.String" resultType="hashmap">
   	SELECT
-		crm_accessory_basicdata.accessory_code,
+		CONCAT(crm_accessory_basicdata.accessory_code, '_', crm_accessory_basicdata.unit)  AS accessory_code,
 		crm_accessory_basicdata.short_text
 	FROM
 		crm_accessory_headchar
 	INNER JOIN crm_accessory_basicdata ON crm_accessory_headchar.accessory_code = crm_accessory_basicdata.accessory_code
 	WHERE head_char LIKE LOWER(CONCAT('%',#{name},'%'))
+	AND CURRENT_DATE() BETWEEN timestamp_from AND timestamp_to
   </select>
   
   <select id="selectAccessoryByName" parameterType="java.lang.String" resultType="hashmap">
-  	SELECT accessory_code, short_text
+  	SELECT 
+  	CONCAT(accessory_code, '_', unit)  AS accessory_code,
+  	 short_text
   	FROM
   		crm_accessory_basicdata
   	WHERE short_text LIKE CONCAT('%',#{name},'%')
+  	AND CURRENT_DATE() BETWEEN timestamp_from AND timestamp_to
   </select>
   
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
@@ -91,7 +97,7 @@
       update_flag)
     values (#{id,jdbcType=VARCHAR}, #{websiteCode,jdbcType=VARCHAR}, #{companyCode,jdbcType=VARCHAR}, 
       #{accessoryCode,jdbcType=VARCHAR}, #{shortText,jdbcType=VARCHAR}, #{accessoryPrice,jdbcType=VARCHAR}, 
-      #{timestampFrom,jdbcType=VARCHAR}, #{timestampTo,jdbcType=VARCHAR}, #{unit,jdbcType=VARCHAR}, 
+      #{timestampFrom,jdbcType=TIMESTAMP}, #{timestampTo,jdbcType=TIMESTAMP}, #{unit,jdbcType=VARCHAR}, 
       #{updateFlag,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.gome.ass.entity.CrmAccessoryBasicdata">
@@ -148,10 +154,10 @@
         #{accessoryPrice,jdbcType=VARCHAR},
       </if>
       <if test="timestampFrom != null">
-        #{timestampFrom,jdbcType=VARCHAR},
+        #{timestampFrom,jdbcType=TIMESTAMP},
       </if>
       <if test="timestampTo != null">
-        #{timestampTo,jdbcType=VARCHAR},
+        #{timestampTo,jdbcType=TIMESTAMP},
       </if>
       <if test="unit != null">
         #{unit,jdbcType=VARCHAR},
@@ -180,10 +186,10 @@
         accessory_price = #{accessoryPrice,jdbcType=VARCHAR},
       </if>
       <if test="timestampFrom != null">
-        timestamp_from = #{timestampFrom,jdbcType=VARCHAR},
+        timestamp_from = #{timestampFrom,jdbcType=TIMESTAMP},
       </if>
       <if test="timestampTo != null">
-        timestamp_to = #{timestampTo,jdbcType=VARCHAR},
+        timestamp_to = #{timestampTo,jdbcType=TIMESTAMP},
       </if>
       <if test="unit != null">
         unit = #{unit,jdbcType=VARCHAR},
@@ -201,8 +207,8 @@
       accessory_code = #{accessoryCode,jdbcType=VARCHAR},
       short_text = #{shortText,jdbcType=VARCHAR},
       accessory_price = #{accessoryPrice,jdbcType=VARCHAR},
-      timestamp_from = #{timestampFrom,jdbcType=VARCHAR},
-      timestamp_to = #{timestampTo,jdbcType=VARCHAR},
+      timestamp_from = #{timestampFrom,jdbcType=TIMESTAMP},
+      timestamp_to = #{timestampTo,jdbcType=TIMESTAMP},
       unit = #{unit,jdbcType=VARCHAR},
       update_flag = #{updateFlag,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}

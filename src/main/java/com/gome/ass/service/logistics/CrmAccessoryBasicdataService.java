@@ -14,7 +14,7 @@ public interface CrmAccessoryBasicdataService {
 	public void insertBatch(List<CrmAccessoryBasicdata> accessories);
 
 	/**
-	 * 根据配件名称,名称首字母模糊查找配件名称，编码
+	 * 根据配件名称,名称首字母模糊查找配件名称，编码, 并且查询的当前时间处于有有效日期内
 	 * @param appParam
 	 * @return
 	 */

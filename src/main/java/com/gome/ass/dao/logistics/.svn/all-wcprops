@@ -1,13 +1,13 @@
 K 25
 svn:wc:ra_dav:version-url
 V 85
-/svn/gome/!svn/ver/7271/trunk/mbl-server/ass/src/main/java/com/gome/ass/dao/logistics
+/svn/gome/!svn/ver/7547/trunk/mbl-server/ass/src/main/java/com/gome/ass/dao/logistics
 END
 CrmInstallBillDao.java
 K 25
 svn:wc:ra_dav:version-url
 V 108
-/svn/gome/!svn/ver/7271/trunk/mbl-server/ass/src/main/java/com/gome/ass/dao/logistics/CrmInstallBillDao.java
+/svn/gome/!svn/ver/7547/trunk/mbl-server/ass/src/main/java/com/gome/ass/dao/logistics/CrmInstallBillDao.java
 END
 CrmServiceDao.java
 K 25
@@ -31,5 +31,5 @@ CrmAccessoryBasicdataDao.java
 K 25
 svn:wc:ra_dav:version-url
 V 115
-/svn/gome/!svn/ver/7411/trunk/mbl-server/ass/src/main/java/com/gome/ass/dao/logistics/CrmAccessoryBasicdataDao.java
+/svn/gome/!svn/ver/7468/trunk/mbl-server/ass/src/main/java/com/gome/ass/dao/logistics/CrmAccessoryBasicdataDao.java
 END

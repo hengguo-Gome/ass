@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 86
-/svn/gome/!svn/ver/7387/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/system
+/svn/gome/!svn/ver/7642/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/system
 END
 JlAccountService.java
 K 25
@@ -37,5 +37,5 @@ ShMenuService.java
 K 25
 svn:wc:ra_dav:version-url
 V 105
-/svn/gome/!svn/ver/6505/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/system/ShMenuService.java
+/svn/gome/!svn/ver/7580/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/system/ShMenuService.java
 END

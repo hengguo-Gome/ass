@@ -1,14 +1,14 @@
 10
 
 dir
-7396
+7644
 https://10.128.11.62/svn/gome/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/logistics
 https://10.128.11.62/svn/gome
 
 
 
-2014-10-22T07:06:57.164396Z
-7390
+2014-10-31T06:05:36.800275Z
+7642
 chengbiao
 
 
@@ -65,14 +65,14 @@ chengbiao
 
 CrmAccessoryBasicdataService.java
 file
-7411
 
 
 
-2014-10-23T08:17:12.237863Z
-78f805a92f83804569ecc0cd439738a3
-2014-10-24T01:19:15.231360Z
-7411
+
+2014-10-27T02:45:34.899000Z
+adccc13aa3501c783c562dea60ebc04d
+2014-10-27T02:52:00.953779Z
+7468
 wanghengguo
 
 
@@ -95,7 +95,7 @@ wanghengguo
 
 
 
-594
+647
 
 CrmInstallBillService.java
 file

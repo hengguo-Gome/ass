@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 75
-/svn/gome/!svn/ver/7360/trunk/mbl-server/ass/src/main/java/com/gome/ass/jms
+/svn/gome/!svn/ver/7642/trunk/mbl-server/ass/src/main/java/com/gome/ass/jms
 END
 ShPasswordNoteMQSender.java
 K 25
@@ -26,6 +26,12 @@ K 25
 svn:wc:ra_dav:version-url
 V 108
 /svn/gome/!svn/ver/7111/trunk/mbl-server/ass/src/main/java/com/gome/ass/jms/InstallBillInfoPushMQSender.java
+END
+WlPlanSuquenceListener.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/gome/!svn/ver/7642/trunk/mbl-server/ass/src/main/java/com/gome/ass/jms/WlPlanSuquenceListener.java
 END
 MessagePush.java
 K 25

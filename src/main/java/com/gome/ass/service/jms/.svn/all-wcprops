@@ -1,11 +1,11 @@
 K 25
 svn:wc:ra_dav:version-url
 V 83
-/svn/gome/!svn/ver/7360/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/jms
+/svn/gome/!svn/ver/7642/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/jms
 END
 MqMessageService.java
 K 25
 svn:wc:ra_dav:version-url
 V 105
-/svn/gome/!svn/ver/7130/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/jms/MqMessageService.java
+/svn/gome/!svn/ver/7642/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/jms/MqMessageService.java
 END

@@ -1,15 +1,15 @@
 10
 
 dir
-7396
+7653
 https://10.128.11.62/svn/gome/trunk/mbl-server/ass/src/main/java/com/gome/ass/dao/permission
 https://10.128.11.62/svn/gome
 
 
 
-2014-10-14T08:28:57.706268Z
-7204
-wanghengguo
+2014-10-31T06:04:18.625888Z
+7641
+chengbiao
 
 
 
@@ -26,16 +26,16 @@ wanghengguo
 
 ceea3779-27bf-e045-a9e1-b02ef83dfcfa
 
-ShDeviceManageDao.java
+ShRoleDao.java
 file
 
 
 
 
-2014-10-14T05:50:37.568000Z
-f0aec7c110e1f5f9be85627931d43d2a
-2014-10-14T08:28:57.706268Z
-7204
+2014-10-30T03:10:29.002650Z
+3c3790eb12e2595eeee9f8db28d5b613
+2014-10-30T06:37:22.253715Z
+7601
 wanghengguo
 
 
@@ -58,5 +58,73 @@ wanghengguo
 
 
 
-903
+1226
+
+ShRoleMenuDao.java
+file
+
+
+
+
+2014-10-30T02:27:14.823833Z
+65d30b3c0f5c758736604a556766cb98
+2014-10-30T06:37:22.253715Z
+7601
+wanghengguo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+658
+
+ShDeviceManageDao.java
+file
+
+
+
+
+2014-10-31T08:59:36.837484Z
+1fe1542e2a21bfe96e4a7feffd0b6e35
+2014-10-31T06:04:18.625888Z
+7641
+chengbiao
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+988
 

@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 92
-/svn/gome/!svn/ver/7360/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/wsdl/service
+/svn/gome/!svn/ver/7540/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/wsdl/service
 END
 CENJKServiceLocator.java
 K 25
@@ -13,7 +13,7 @@ EmpService.java
 K 25
 svn:wc:ra_dav:version-url
 V 108
-/svn/gome/!svn/ver/6670/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/wsdl/service/EmpService.java
+/svn/gome/!svn/ver/7540/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/wsdl/service/EmpService.java
 END
 CENJK.java
 K 25

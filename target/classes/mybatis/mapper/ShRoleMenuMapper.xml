@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gome.ass.dao.permission.ShRoleMenuDao">
+
+	<resultMap id="BaseResultMap" type="com.gome.ass.entity.ShRoleMenu">
+		<result column="role_id" property="roleId" jdbcType="VARCHAR" />
+		<result column="role_name" property="roleName" jdbcType="VARCHAR" />
+		<result column="resource_id" property="resourceId" jdbcType="VARCHAR" />
+		<result column="role_type" property="roleType" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		role_id, role_name, resource_id, role_type
+	</sql>
+
+	<select id="getRolePageList" parameterType="com.gome.common.page.Page" resultMap="BaseResultMap">
+		SELECT
+		DISTINCT
+			v_role_menu.role_id,
+			v_role_menu.role_name,
+			sh_code_setting.code_value AS role_type
+		FROM
+			sh_code
+		INNER JOIN sh_code_setting ON sh_code.code_id = sh_code_setting.code_id
+		INNER JOIN v_role_menu ON v_role_menu.role_type = sh_code_setting.code_key
+		<where>
+			AND sh_code_setting.code_id = 'role_type'
+			<if test="param.roleId != null and param.roleId != '' ">
+				AND role_id = #{param.roleId}
+			</if>
+			<if test="param.roleName != null and param.roleName != '' ">
+				AND role_name = #{param.roleName}
+			</if>
+			<if test="param.roleType != null and param.roleType != ''">
+				AND role_type = #{param.roleType}
+			</if>
+		</where>
+	</select>
+
+	<select id="getRoleResource" parameterType="java.util.Map"
+		resultType="hashmap">
+		SELECT * FROM v_role_menu
+		<where>
+			<if test="roleId != null and roleId != ''">
+				role_id = #{roleId}
+			</if>
+		</where>
+	</select>
+	
+	<select id="getByRoleId" parameterType="java.lang.String" resultType="java.lang.String">
+		select DISTINCT role_type from v_role_menu where role_id = #{roleId} 
+	</select>
+</mapper>

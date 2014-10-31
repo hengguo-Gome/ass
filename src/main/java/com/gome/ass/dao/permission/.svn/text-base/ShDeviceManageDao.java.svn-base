@@ -29,5 +29,7 @@ public interface ShDeviceManageDao {
     public void deleteDeviceManageSn(Map<String, Object> inMap);
 
     public void updateDeviceManageStatus(Map<String, Object> inMap);
+    
+    public List<Map<String, Object>> findNeedSendLegPlanDevice(String[] param);
 	
 }

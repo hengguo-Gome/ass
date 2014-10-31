@@ -9,11 +9,13 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
+import com.gome.ass.common.APPErrorInfo;
 import com.gome.ass.dao.logistics.CrmAccessoryBasicdataDao;
 import com.gome.ass.entity.CrmAccessoryBasicdata;
 import com.gome.ass.service.logistics.CrmAccessoryBasicdataService;
@@ -50,8 +52,18 @@ public class CrmAccessoryBasicdataServiceImpl implements CrmAccessoryBasicdataSe
 		}
 		lists.addAll(this.crmAccessoryBasicdataDao.selectByAccessoryCode(appParam));
 		Set<CrmAccessoryBasicdata> set = this.removeSamekey(lists);
-		for(CrmAccessoryBasicdata data : set){
-			result.accumulate(data.getAccessoryCode(), data.getShortText());
+		JSONArray array= new JSONArray();
+		if(set.size()>0){
+			for(CrmAccessoryBasicdata data: set){
+				JSONObject temp = new JSONObject();
+				temp.accumulate("code", data.getAccessoryCode());
+				temp.accumulate("name", data.getShortText());
+				array.add(temp);
+			}
+			result.accumulate("accessories", array);
+		}else{
+			result.put(APPErrorInfo.ERRORCODE, "E");
+			result.put(APPErrorInfo.ERRORMSG, "无此配件信息");
 		}
 		return result;
 	}

@@ -1,5 +1,7 @@
 package com.gome.ass.entity;
 
+import java.util.Date;
+
 public class CrmAccessoryBasicdata {
 	private String id;
 
@@ -12,9 +14,9 @@ public class CrmAccessoryBasicdata {
 	private String shortText;
 	private String accessoryPrice;
 
-	private String timestampFrom;
+	private Date timestampFrom;
 
-	private String timestampTo;
+	private Date timestampTo;
 	private String unit;
 
 	private String updateFlag;
@@ -177,7 +179,7 @@ public class CrmAccessoryBasicdata {
 	 * 
 	 * @mbggenerated Thu Oct 23 09:42:33 CST 2014
 	 */
-	public String getTimestampFrom() {
+	public Date getTimestampFrom() {
 		return timestampFrom;
 	}
 
@@ -190,7 +192,7 @@ public class CrmAccessoryBasicdata {
 	 * 
 	 * @mbggenerated Thu Oct 23 09:42:33 CST 2014
 	 */
-	public void setTimestampFrom(String timestampFrom) {
+	public void setTimestampFrom(Date timestampFrom) {
 		this.timestampFrom = timestampFrom;
 	}
 
@@ -202,7 +204,7 @@ public class CrmAccessoryBasicdata {
 	 * 
 	 * @mbggenerated Thu Oct 23 09:42:33 CST 2014
 	 */
-	public String getTimestampTo() {
+	public Date getTimestampTo() {
 		return timestampTo;
 	}
 
@@ -215,7 +217,7 @@ public class CrmAccessoryBasicdata {
 	 * 
 	 * @mbggenerated Thu Oct 23 09:42:33 CST 2014
 	 */
-	public void setTimestampTo(String timestampTo) {
+	public void setTimestampTo(Date timestampTo) {
 		this.timestampTo = timestampTo;
 	}
 

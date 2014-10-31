@@ -1,14 +1,14 @@
 10
 
 dir
-7396
+7644
 https://10.128.11.62/svn/gome/trunk/mbl-server/ass/src/main/java/com/gome/ass/service/users
 https://10.128.11.62/svn/gome
 
 
 
-2014-10-13T09:40:12.597515Z
-7175
+2014-10-30T01:16:20.698646Z
+7580
 wanghengguo
 
 
@@ -25,74 +25,6 @@ wanghengguo
 
 
 ceea3779-27bf-e045-a9e1-b02ef83dfcfa
-
-CrmWorkerService.java
-file
-
-
-
-
-2014-10-13T07:51:02.287090Z
-e468598d3d742503c08386242b95c703
-2014-10-13T09:40:12.597515Z
-7175
-wanghengguo
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-966
-
-ShAppUserInfoDao.java
-file
-
-
-
-
-2014-09-28T08:43:38.536000Z
-6b5e29b70a32b4c4a4f515d81b06716f
-2014-09-28T09:58:12.604927Z
-7015
-wanghengguo
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-272
 
 ShUserPwdInfoService.java
 file
@@ -128,14 +60,17 @@ wanghengguo
 
 760
 
-ShUserService.java
+impl
+dir
+
+ShAppUserInfoDao.java
 file
 
 
 
 
-2014-09-28T09:09:54.515000Z
-0a8e537d15e7bdbd49c0735ca8d69e7a
+2014-09-28T08:43:38.536000Z
+6b5e29b70a32b4c4a4f515d81b06716f
 2014-09-28T09:58:12.604927Z
 7015
 wanghengguo
@@ -160,8 +95,73 @@ wanghengguo
 
 
 
-301
+272
 
-impl
-dir
+ShUserService.java
+file
+
+
+
+
+2014-10-28T08:27:37.675607Z
+76f57f9ffe01f259d47ff7d75f25fc00
+2014-10-28T09:44:38.376271Z
+7540
+wanghengguo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+542
+
+CrmWorkerService.java
+file
+
+
+
+
+2014-10-29T10:12:38.657903Z
+a5b1efaceb431fa5c4c6076b2cc9bf78
+2014-10-30T01:16:20.698646Z
+7580
+wanghengguo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1014
 

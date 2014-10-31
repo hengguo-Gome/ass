@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gome.ass.dao.permission.ShRoleDao">
+	<resultMap id="BaseResultMap" type="com.gome.ass.entity.ShRole">
+		<id column="role_id" property="roleId" jdbcType="VARCHAR" />
+		<result column="role_name" property="roleName" jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="PositionResultMap" type="com.gome.ass.entity.ShPosition">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+	    <result column="code" property="code" jdbcType="VARCHAR" />
+	    <result column="name" property="name" jdbcType="VARCHAR" />
+	    <result column="menu_id" property="menuId" jdbcType="VARCHAR" />
+	    <result column="menu_name" property="menuName" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="position_Column_List" >
+	    id, code, name, menu_id, menu_name
+	</sql>
+	<sql id="role_Column_List">
+		role_id, role_name
+	</sql>
+	
+	<select id="getShPositions" parameterType="java.lang.String" resultMap="PositionResultMap">
+		select
+			<include refid="position_Column_List"/> 
+		from
+			sh_position
+		where code = #{code};
+	</select>
+	<delete id="deleShPositions" parameterType="java.util.List">
+		delete from sh_position
+		where code in 
+		<foreach collection="list" item="item" close=")" open="(">
+			#{item}
+		</foreach>
+	</delete>
+	<insert id="insertShPosition" parameterType="ShPosition">
+		insert into sh_position
+		values (#{id}, #{code}, #{name}, #{menuId}, #{menuName})
+	</insert>
+	<delete id="delRoleResourceBatch" parameterType="java.util.Map">
+		DELETE FROM sh_role_resource
+		WHERE role_id
+		in
+		<foreach collection="roleIds" close=")" open="(" item="item" separator=",">
+			#{item}
+		</foreach>
+	</delete>
+
+	<delete id="deleteShRoleBatch" parameterType="java.util.Map">
+		DELETE FROM sh_role
+		WHERE role_id
+		in
+		<foreach collection="roleIds" close=")" open="(" item="item"
+			separator=",">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<delete id="deleteShRoleResource" parameterType="java.lang.String">
+		DELETE FROM sh_role_resource
+		WHERE role_id = #{roleId}
+	</delete>
+	
+	<insert id="insertRoleResourceBatch" parameterType="java.util.Map">
+		INSERT INTO sh_role_resource(role_id, resource_id)
+		VALUES
+		<foreach collection="menuIds" item="item" separator=",">
+			(#{roleId,jdbcType=VARCHAR},#{item,jdbcType=VARCHAR})
+		</foreach>
+	</insert>
+
+	<insert id="insertShRole" parameterType="map">
+		INSERT INTO sh_role(
+		<include refid="role_Column_List" />)
+		VALUES(
+		#{roleId,jdbcType=VARCHAR},
+		#{roleName,jdbcType=VARCHAR})
+
+	</insert>
+
+	<update id="updateShRoleResources" parameterType="com.gome.ass.entity.ShDeviceManage">
+		UPDATE sh_device_manage
+		<set>
+			<if test="snNo != null">
+				sn_no = #{snNo,jdbcType=VARCHAR},
+			</if>
+			<if test="clientVersion != null">
+				client_version = #{clientVersion,jdbcType=VARCHAR},
+			</if>
+			<if test="osInfo != null">
+				os_info = #{osInfo,jdbcType=VARCHAR},
+			</if>
+			<if test="deviceInfo != null and '' != deviceInfo">
+				device_info = #{deviceInfo,jdbcType=VARCHAR},
+			</if>
+			<if test="baiduId != null">baidu_id = #{baiduId,jdbcType=VARCHAR},</if>
+			<if test="accessToken != null ">access_token =
+				#{accessToken,jdbcType=VARCHAR},
+			</if>
+			<if test="isRoot != null">is_root = #{isRoot,jdbcType=TINYINT},</if>
+			<if test="isDouble != null">is_double = #{isDouble,jdbcType=TINYINT}</if>
+
+		</set>
+		where user_id = #{userId,jdbcType=VARCHAR}
+		<if test="userType != null ">and
+			user_type =
+			#{userType,jdbcType=VARCHAR}
+		</if>
+	</update>
+</mapper>

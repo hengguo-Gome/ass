@@ -50,7 +50,7 @@ public class CrmInstallBillJob {
             		msgMap.put("messageType", 0);
             		shMessagePushMQSender.send(baiduId, msgMap);
             	} else if(StringUtils.isNotBlank(accessToken)){// 苹果设备
-            		String message = "<订单提醒(订单)>" + content;
+            		String message = "<安单提醒>:" + content;
             		List<String> devicetokens = new ArrayList<String>();
             		devicetokens.add(accessToken);
             		MessagePush.sendMessageToAppleUser(devicetokens, message);

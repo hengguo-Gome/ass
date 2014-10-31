@@ -43,8 +43,7 @@ public class AppDataController {
 		JSONObject result = new JSONObject();
         Map<String, Object> appParam = (Map<String, Object>) request.getAttribute(Constrants.APP_MESSAGE_KEY);
 		crmInstallBillService.updateInstallSuquence(appParam);
-        result.put(APPErrorInfo.ERRORCODE, APPErrorInfo.E00000);
-        result.put(APPErrorInfo.ERRORMSG, APPErrorInfo.M00000);
+        result.put("result", "0");
 		return result.toString();
 	}
 	

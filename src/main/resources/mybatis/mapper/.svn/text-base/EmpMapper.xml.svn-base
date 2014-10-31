@@ -46,16 +46,12 @@
     where EmpNo = #{empno,jdbcType=VARCHAR}
   </select>
   
-<!--   <select id="getAccountByApAccount" resultType="com.gome.ass.entity.SysUser" parameterType="java.lang.String" > -->
-<!--     select t.ap_account userAccount,t.empname userName,t.ap_accountpwd userPassword,1 fromType,left(t1.positioncode,length(t1.positioncode)-10) companyId, -->
-<!-- 			(select name from v_organization where id=left(t1.positioncode,length(t1.positioncode)-10)) companyName, -->
-<!-- 			t1.id sysPositionId,t1.positionname sysPositionName -->
-<!--     from emp_account t left join emp_empposition t1 -->
-<!--     ON t.empno=t1.empno -->
-<!--     where t.ap_account = #{indexLoginId,jdbcType=VARCHAR} and t1.dutyflag=1 -->
-<!--   </select> -->
- 
-  
+  <select id="getFlagByApAccount" resultType="java.lang.String" parameterType="java.lang.String" >
+    select 
+    	needmodify
+    from emp_account
+    where ap_account = #{account,jdbcType=VARCHAR}
+  </select>
   <insert id="addAccount" parameterType="com.gome.ass.entity.EmpAccount" >
     insert into emp_account (empno, empname, ad_account, 
       ad_accountpwd, ap_account, ap_accountpwd, 
@@ -155,7 +151,10 @@
     values (#{varcode,jdbcType=VARCHAR}, #{varname,jdbcType=VARCHAR}, #{varvalue,jdbcType=VARCHAR}, 
       #{vardesc,jdbcType=VARCHAR}, #{varremark,jdbcType=VARCHAR})
   </insert>
-  
+  <update id="updateModifyPwdByApAccount" parameterType="java.lang.String">
+  	UPDATE emp_account
+  		SET needmodify='N' WHERE ap_account = #{account};
+  </update>
   <update id="updateSysVar" parameterType="com.gome.ass.entity.EmpSysVar" >
     update emp_sysvar
     set varname = #{varname,jdbcType=VARCHAR},

@@ -13,15 +13,39 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
 
-  
-  
   <sql id="Base_Column_List">
     menu_id, menu_name, parent_id, menu_url, create_time
   </sql>
-
+  <select id="getEmpMenuTree" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	SELECT
+	DISTINCT
+	  sh_menu.*
+	FROM
+		emp_account,
+			emp_empposition,
+		sh_position, sh_menu
+	WHERE
+		emp_account.empno = emp_empposition.empno
+	AND RIGHT (
+		emp_empposition.positioncode,
+		10
+	) = sh_position.`code`
+	AND sh_menu.menu_id = sh_position.menu_id
+	AND emp_account.ap_account = #{account}
+	ORDER BY ap_account;
+  </select>
   
-  
-
+  <select id="getMenusByRoleName" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT DISTINCT
+			sh_menu.*
+		FROM
+			sh_role_resource
+		INNER JOIN sh_menu ON sh_menu.menu_id = sh_role_resource.resource_id
+		INNER JOIN sh_role ON sh_role.role_id = sh_role_resource.role_id
+		WHERE
+			role_name LIKE CONCAT('%',#{roleName},'%');
+	</select>
+	
   <select id="getMenuTree" parameterType="map" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -35,14 +59,11 @@
     where menu_id = #{menuId,jdbcType=VARCHAR}
   </select>
 
-  
   <delete id="deleteByPrimaryKey" parameterType="map">
     delete from sh_menu
     where menu_id = #{menuId,jdbcType=VARCHAR}
   </delete>
 
-  
-  
   <insert id="insert" parameterType="com.gome.ass.entity.ShMenu">
     insert into sh_menu (menu_id, menu_name, parent_id, 
       menu_url, create_time)
@@ -50,5 +71,24 @@
       #{menuUrl,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
   </insert>
 
+  <select id="selectMenuPageList" parameterType="java.util.Map" resultType="hashmap">
+  	SELECT
+		m1.menu_id AS menuId,
+		m1.menu_name AS  menuName,
+		m1.menu_url AS  menuUrl,
+		m2.menu_id  AS parentId,
+		m2.menu_name AS  parentName
+	FROM
+		sh_menu m1
+	INNER JOIN sh_menu m2 ON m1.parent_id = m2.menu_id
+	<where>
+		<if test="param.menuName != null and param.menuName != ''">
+			AND m1.menu_name = #{param.menuName}
+		</if>
+		<if test="param.menuId != null and param.menuId != ''">
+			AND m1.menu_id = #{param.menuId}
+		</if>
+	</where>
+  </select>
   
 </mapper>

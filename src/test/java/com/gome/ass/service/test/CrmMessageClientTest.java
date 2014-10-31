@@ -18,13 +18,13 @@ public class CrmMessageClientTest {
 
     public static void main(String[] args) throws ClientProtocolException, IOException {
         
-        HttpPost httppost = new HttpPost("http://localhost:8080/ass/message/processCrmMessage");
+        HttpPost httppost = new HttpPost("http://localhost:8080/ass/role/importExcel");
 
         InputStream inputStream = null;
         Document read = null;
         try {
 
-            inputStream = new ClassPathResource("CRM160.xml").getInputStream();
+            inputStream = new ClassPathResource("Positions.xlsx").getInputStream();
 
             
             SAXReader sax = new SAXReader();

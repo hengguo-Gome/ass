@@ -176,7 +176,7 @@ public class ShGroupMessageController {
 	@RequestMapping(value="/findGroupMessagePageList", produces="text/plain;charset=UTF-8")
 	@ResponseBody
 	public String  findGroupMessagePageList(HttpServletRequest request,  Page page,  HttpServletResponse response, String mtms) throws Exception{
-        System.out.println(1/0);
+        System.out.println(1/0);//TODO 
 
 		ShUser user = (ShUser)request.getSession().getAttribute(Constrants.USER_INFO);
 		Map<String, Object> inMap = new HashMap<String, Object>();

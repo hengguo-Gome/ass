@@ -1,14 +1,14 @@
 10
 
 dir
-7396
+7643
 https://10.128.11.62/svn/gome/trunk/mbl-server/ass/src/main/java/com/gome/ass/dao
 https://10.128.11.62/svn/gome
 
 
 
-2014-10-16T09:01:08.332432Z
-7271
+2014-10-31T06:04:18.625888Z
+7641
 chengbiao
 
 
@@ -25,6 +25,24 @@ chengbiao
 
 
 ceea3779-27bf-e045-a9e1-b02ef83dfcfa
+
+logistics
+dir
+
+users
+dir
+
+message
+dir
+
+system
+dir
+
+permission
+dir
+
+wsdl
+dir
 
 PersonDao.java
 file
@@ -59,22 +77,4 @@ chengbiao
 
 
 989
-
-logistics
-dir
-
-message
-dir
-
-permission
-dir
-
-system
-dir
-
-users
-dir
-
-wsdl
-dir
 

@@ -64,7 +64,7 @@
     		crm_worker.logout_flag
   		WHERE
             sh_code_setting.code_id='worker_logout'
-
+	  
        <if test="param.websiteCode != null and param.websiteCode != '' ">
         and crm_worker.website_code = #{param.websiteCode}</if>
        <if test="param.workerCode != null and param.workerCode != '' ">
@@ -77,6 +77,9 @@
         and crm_worker.logout_flag = #{param.logoutFlag}</if>
        <if test="param.workerType != null and param.workerType != '' ">
         and crm_worker.worker_type = #{param.workerType}</if>
+       <if test="param.webCode != null and param.webCode != ''">
+       	and crm_worker.website_code = #{param.webCode}
+       </if>
 
 	</select>
 

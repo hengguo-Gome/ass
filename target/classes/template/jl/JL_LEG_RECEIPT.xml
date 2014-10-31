@@ -20,6 +20,7 @@
 				<HZZT>1</HZZT>
 				<BZ>$!{crmInstallBill.remark}</BZ>
 				<DJZT>$!{crmInstallBill.billStatus}</DJZT>
+				<AZFS>$!{crmIntsallBill.installationType}</AZFS>	
 			</HEADER>
 			<ITEMS>
 				#foreach($crmService in $crmServices)

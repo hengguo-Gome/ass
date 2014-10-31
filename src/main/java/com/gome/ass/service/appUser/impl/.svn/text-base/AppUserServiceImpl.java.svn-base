@@ -123,6 +123,10 @@ public class AppUserServiceImpl implements AppUserService {
 									result.put("userId", crmWorker.getWorkerCode());
 									result.put("userName", crmWorker.getWorkerName());
 									result.put("phone", crmWorker.getPhone());
+									if(!shDeviceManage.getPhone().equals(phone)){
+										shDeviceManage.setPhone(phone);
+										shDeviceManageDao.updateShDeviceManage(shDeviceManage);
+									}
 								}else{
 									result.put(APPErrorInfo.ERRORCODE, APPErrorInfo.E10006);
 									result.put(APPErrorInfo.ERRORMSG, APPErrorInfo.M10006);

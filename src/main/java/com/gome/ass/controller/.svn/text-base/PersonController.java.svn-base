@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gome.ass.entity.Person;
+import com.gome.ass.redis.dao.RedisCommonDao;
 import com.gome.ass.service.PersonService;
 import com.gome.ass.util.BeanMapUtils;
 import com.gome.ass.util.JsonUtil;
@@ -33,8 +34,13 @@ public class PersonController {
 	@Resource
 	private PersonService personService;
 
+	
+	
+	
+	
 	@RequestMapping(value="/findPerson", produces="text/plain;charset=UTF-8")
 	public @ResponseBody String findPersonById(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		System.out.println(1/0);
 		Map<String, Object> result = new HashMap<String, Object>();
 		Map<String, Object> inMap = new HashMap<String, Object>();
 		inMap.put("id", request.getParameter("pId"));
@@ -42,6 +48,23 @@ public class PersonController {
 		Person p = this.personService.findPersonById(inMap);
 		result.put("data", p);
 		return JsonUtil.javaObjectToJsonString(result);
+	}
+	
+	@Resource
+	private RedisCommonDao redisCommonDao;
+	
+	@RequestMapping(value="/test", produces="text/plain;charset=UTF-8")
+	public void test(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		redisCommonDao.multi();
+		String key = "142724199001304114";
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("name", "cb");
+		redisCommonDao.keyMapAdd(key, map , null);
+		Map<String, String> keyMapGet = redisCommonDao.keyMapGet(key);
+		System.out.println(keyMapGet);
+		redisCommonDao.exec();
+		keyMapGet = redisCommonDao.keyMapGet(key);
+		System.out.println(keyMapGet);
 	}
 	
 

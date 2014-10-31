@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gome.ass.dao.permission.ShDeviceManageDao">
+	<resultMap id="BaseResultMap" type="com.gome.ass.entity.ShDeviceManage">
+		<id column="user_id" property="userId" jdbcType="VARCHAR" />
+		<id column="user_type" property="userType" jdbcType="VARCHAR" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="sn_no" property="snNo" jdbcType="VARCHAR" />
+		<result column="client_version" property="clientVersion"
+			jdbcType="VARCHAR" />
+		<result column="os_info" property="osInfo" jdbcType="VARCHAR" />
+		<result column="device_info" property="deviceInfo" jdbcType="VARCHAR" />
+		<result column="baidu_id" property="baiduId" jdbcType="VARCHAR" />
+		<result column="access_token" property="accessToken" jdbcType="VARCHAR" />
+		<result column="is_root" property="isRoot" jdbcType="TINYINT" />
+		<result column="is_double" property="isDouble" jdbcType="TINYINT" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="deviceManage_Column_List">
+		user_id,user_type,phone, sn_no, client_version, os_info,
+		device_info,baidu_id,
+		access_token, is_root,is_double,status
+	</sql>
+
+	<select id="findShDeviceManageById" parameterType="map"
+		resultMap="BaseResultMap">
+		select
+		<include refid="deviceManage_Column_List" />
+		from sh_device_manage
+		where
+		user_id = #{userId,jdbcType=VARCHAR}
+		<if test="userType != null">and
+			user_type = #{userType,jdbcType=VARCHAR}
+		</if>
+
+	</select>
+
+	<select id="findShDeviceManageList" parameterType="java.util.List"
+		resultMap="BaseResultMap">
+		select
+		<include refid="deviceManage_Column_List" />
+		from sh_device_manage
+		where
+		user_id in
+		<foreach collection="list" item="item" open="(" separator=","
+			close=")">
+			#{item}
+		</foreach>
+
+	</select>
+
+	<select id="getShDevicePageList" parameterType="com.gome.common.page.Page"
+		resultType="hashmap">
+		SELECT
+			sh_device_manage.user_id,
+			sh_device_manage.user_type,
+			sh_device_manage.phone,
+			sh_device_manage.sn_no,
+			sh_device_manage.client_version,
+			sh_device_manage.os_info,
+			sh_device_manage.device_info,
+			sh_device_manage.baidu_id,
+			sh_device_manage.access_token,
+			c3.code_value AS status,
+			c2.code_value AS
+			is_root,
+			c1.code_value AS is_double
+		FROM
+			sh_device_manage
+		INNER JOIN sh_code_setting c1 ON c1.code_key = sh_device_manage.is_double
+		INNER JOIN sh_code_setting c2 ON c2.code_key = sh_device_manage.is_root
+		INNER JOIN sh_code_setting c3 ON c3.code_key = sh_device_manage.status
+<!-- 		INNER JOIN crm_worker ON sh_device_manage.user_id = crm_worker.worker_code -->
+		
+		WHERE
+			c1.code_id = 'boolean'
+		AND c2.code_id = 'boolean'
+		AND c3.code_id = 'device_status'
+<!-- 		<if test="param.webcode != null and param.webcode !='' "> -->
+<!-- 			AND crm_worker.website_code = param.webcode -->
+<!-- 		</if> -->
+		<if test="param.phone != null and param.phone != '' ">
+			and sh_device_manage.phone = #{param.phone}
+		</if>
+		<if test="param.clientVersion != null and param.clientVersion != '' ">
+			and sh_device_manage.client_version like CONCAT('%',
+			#{param.clientVersion}, '%')
+		</if>
+		<if test="param.osInfo != null and param.osInfo != '' ">
+			and sh_device_manage.os_info like CONCAT('%',
+			#{param.osInfo}, '%')</if>
+		<if test="param.deviceInfo != null and param.deviceInfo != '' ">
+			and sh_device_manage.device_info like CONCAT('%',
+			#{param.deviceInfo},
+			'%')
+		</if>
+		<if test="param.status != null and param.status != '' ">
+			and sh_device_manage.status = #{param.status}
+		</if>
+	</select>
+
+	<update id="updateDeviceManageStatus" parameterType="map">
+		UPDATE sh_device_manage
+		SET status = #{status,jdbcType=TINYINT}
+		where
+		phone
+		in
+		<foreach collection="phones" close=")" open="(" item="item"
+			separator=",">
+			#{item}
+		</foreach>
+	</update>
+
+	<delete id="deleteDeviceManageSn" parameterType="map">
+		DELETE FROM sh_device_manage
+		WHERE phone
+		in
+		<foreach collection="phones" close=")" open="(" item="item"
+			separator=",">
+			#{item}
+		</foreach>
+	</delete>
+
+	<insert id="insertShDeviceManage" parameterType="com.gome.ass.entity.ShDeviceManage">
+		INSERT INTO sh_device_manage(
+		<include refid="deviceManage_Column_List" />
+		)
+		VALUES(
+		#{userId,jdbcType=VARCHAR},
+		#{userType,jdbcType=VARCHAR},
+		#{phone,jdbcType=VARCHAR},
+		#{snNo,jdbcType=VARCHAR},
+		#{clientVersion,jdbcType=VARCHAR},
+		#{osInfo,jdbcType=VARCHAR},
+		#{deviceInfo,jdbcType=VARCHAR},
+		#{baiduId,jdbcType=VARCHAR},
+		#{accessToken,jdbcType=VARCHAR},
+		#{isRoot,jdbcType=TINYINT},
+		#{isDouble,jdbcType=TINYINT},
+		#{status,jdbcType=TINYINT}
+		)
+	</insert>
+	
+	<insert id="insertShDeviceManageByMap" parameterType="map">
+		INSERT INTO sh_device_manage(
+		<include refid="deviceManage_Column_List" />
+		)
+		VALUES(
+		#{userId,jdbcType=VARCHAR},
+		#{userType,jdbcType=VARCHAR},
+		#{phone,jdbcType=VARCHAR},
+		#{snNo,jdbcType=VARCHAR},
+		#{clientVersion,jdbcType=VARCHAR},
+		#{osInfo,jdbcType=VARCHAR},
+		#{deviceInfo,jdbcType=VARCHAR},
+		#{baiduId,jdbcType=VARCHAR},
+		#{accessToken,jdbcType=VARCHAR},
+		#{isRoot,jdbcType=TINYINT},
+		#{isDouble,jdbcType=TINYINT},
+		#{status,jdbcType=TINYINT}
+		)
+	</insert>
+
+	<update id="updateShDeviceManage" parameterType="com.gome.ass.entity.ShDeviceManage">
+		UPDATE sh_device_manage
+		<set>
+			<if test="snNo != null">
+				sn_no = #{snNo,jdbcType=VARCHAR},
+			</if>
+			<if test="clientVersion != null">
+				client_version = #{clientVersion,jdbcType=VARCHAR},
+			</if>
+			<if test="osInfo != null">
+				os_info = #{osInfo,jdbcType=VARCHAR},
+			</if>
+			<if test="deviceInfo != null and '' != deviceInfo">
+				device_info = #{deviceInfo,jdbcType=VARCHAR},
+			</if>
+			<if test="baiduId != null">baidu_id = #{baiduId,jdbcType=VARCHAR},</if>
+			<if test="accessToken != null ">access_token =
+				#{accessToken,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">phone = #{phone,jdbcType=VARCHAR},</if>
+			<if test="isRoot != null">is_root = #{isRoot,jdbcType=TINYINT},</if>
+			<if test="isDouble != null">is_double = #{isDouble,jdbcType=TINYINT}</if>
+
+		</set>
+		where user_id = #{userId,jdbcType=VARCHAR}
+		<if test="userType != null ">and
+			user_type =
+			#{userType,jdbcType=VARCHAR}
+		</if>
+	</update>
+
+	<delete id="deleteShDeviceManage" parameterType="map">
+		delete from
+		sh_device_manage
+		where
+		user_id = #{userId,jdbcType=VARCHAR}
+		<if test="userType != null">and
+			user_type = #{userType,jdbcType=VARCHAR}
+		</if>
+	</delete>
+
+</mapper>

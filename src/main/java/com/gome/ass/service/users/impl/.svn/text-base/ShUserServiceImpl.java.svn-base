@@ -26,4 +26,28 @@ public class ShUserServiceImpl implements ShUserService {
         return this.shUserDao.getUserSelective(page);
     }
 
+	@Override
+	public void deleteShUser(Map<String, Object> inMap) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateShUserRoles(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void insertUserRole(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<Map<String, Object>> getUserRole(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

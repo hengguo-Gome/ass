@@ -14,6 +14,11 @@ public interface CrmWorkerService {
 	
 	public CrmWorker findWorkerByPhone(Map<String,Object> map);
 
+	/**
+	 * 
+	 * @param page
+	 * @return
+	 */
     public List<Map<String, Object>> getWorkerPageList(Page page);
 
     void updatePasswordByCode(Map<String, Object> userInfoMap);

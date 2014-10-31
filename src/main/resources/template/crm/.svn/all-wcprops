@@ -1,19 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 76
-/svn/gome/!svn/ver/7360/trunk/mbl-server/ass/src/main/resources/template/crm
-END
-CRM_RECEIVE.xml
-K 25
-svn:wc:ra_dav:version-url
-V 92
-/svn/gome/!svn/ver/7411/trunk/mbl-server/ass/src/main/resources/template/crm/CRM_RECEIVE.xml
-END
-CRM_LEG_RECEIPT.xml
-K 25
-svn:wc:ra_dav:version-url
-V 96
-/svn/gome/!svn/ver/7360/trunk/mbl-server/ass/src/main/resources/template/crm/CRM_LEG_RECEIPT.xml
+/svn/gome/!svn/ver/7642/trunk/mbl-server/ass/src/main/resources/template/crm
 END
 CRM_SEND.xml
 K 25
@@ -25,5 +13,17 @@ CRM270.xml
 K 25
 svn:wc:ra_dav:version-url
 V 87
-/svn/gome/!svn/ver/7094/trunk/mbl-server/ass/src/main/resources/template/crm/CRM270.xml
+/svn/gome/!svn/ver/7642/trunk/mbl-server/ass/src/main/resources/template/crm/CRM270.xml
+END
+CRM_RECEIVE.xml
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/gome/!svn/ver/7411/trunk/mbl-server/ass/src/main/resources/template/crm/CRM_RECEIVE.xml
+END
+CRM_LEG_RECEIPT.xml
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/gome/!svn/ver/7547/trunk/mbl-server/ass/src/main/resources/template/crm/CRM_LEG_RECEIPT.xml
 END

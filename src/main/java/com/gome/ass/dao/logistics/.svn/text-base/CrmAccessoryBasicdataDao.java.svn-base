@@ -24,8 +24,9 @@ public interface CrmAccessoryBasicdataDao {
 	public CrmAccessoryBasicdata selectByPrimaryKey(Map<String, Object> map);
 	
 	/**
-	 * 根据name{accessory_code}模糊查询记录
-	 *  @return accessory_code<p>
+	 * 根据{accessory_code}模糊查询记录， 并且查询的当前时间处于有有效日期内
+	 * @param name
+	 * @return accessory_code<p>
 	 *  short_text
 	 */
 	public List<Map<String, Object>> selectByAccessoryCode(Map<String, Object> map);
@@ -56,14 +57,14 @@ public interface CrmAccessoryBasicdataDao {
 	public void insertHeadchar(Map<String, Object> map);
 
 	/**
-	 * 据short_text模糊查询记录
+	 * 据short_text模糊查询记录， 并且查询的当前时间处于有有效日期内
 	 * @param appParam
 	 * @return
 	 */
 	public List<Map<String, Object>> selectAccessoryByName(Map<String, Object> appParam);
 
 	/**
-	 * 根据首字母返回accessory_code和short_text
+	 * 根据首字母返回accessory_code和short_text， 并且查询的当前时间处于有有效日期内
 	 * @param appParam
 	 * @return accessory_code<p>
 	 *  	short_text

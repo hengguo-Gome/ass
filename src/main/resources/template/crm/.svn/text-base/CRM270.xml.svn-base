@@ -35,9 +35,12 @@
         <WB_GSXX01>$crmInstallBill.salesOrgCode</WB_GSXX01>
         <ZYYSJD>$crmInstallBill.appointDatePeriod</ZYYSJD>
         <ZAZLB>$crmInstallBill.installationType</ZAZLB>
-        <AZKBM></AZKBM>  
-         <YJTM></YJTM>   
-         <NJTM></NJTM>
+        <ZSPPL1>$crmInstallBill.goodCategory</ZSPPL1>
+        <ZSPPP1>$crmInstallBill.goodBrand</ZSPPP1>
+        <AZKBM>$crmInstallBill.installCardCode</AZKBM>  
+         <YJTM>$crmInstallBill.outerMachineCode</YJTM>   
+         <NJTM>$crmInstallBill.innerMachineCode</NJTM>
+         <ZSZTBBS>$crmInstallBill.isSeedInstallSync</ZSZTBBS>
       </HEADER>
       <ITEMS>
         <ITEM1>

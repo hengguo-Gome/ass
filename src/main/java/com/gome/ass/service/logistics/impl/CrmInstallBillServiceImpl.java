@@ -3,7 +3,9 @@ package com.gome.ass.service.logistics.impl;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -25,9 +27,11 @@ import com.gome.ass.common.BusinessGlossary;
 import com.gome.ass.dao.logistics.CrmAccessoriesDao;
 import com.gome.ass.dao.logistics.CrmInstallBillDao;
 import com.gome.ass.dao.logistics.CrmServiceDao;
+import com.gome.ass.dao.system.ShWorkerLocationDao;
 import com.gome.ass.entity.CrmAccessories;
 import com.gome.ass.entity.CrmInstallBill;
 import com.gome.ass.entity.CrmService;
+import com.gome.ass.entity.ShWorkerLocation;
 import com.gome.ass.redis.dao.RedisCommonDao;
 import com.gome.ass.service.logistics.CrmInstallBillService;
 import com.gome.ass.util.BaiduUtil;
@@ -46,6 +50,8 @@ public class CrmInstallBillServiceImpl implements CrmInstallBillService {
 	private CrmServiceDao crmServiceDao;
 	@Resource
 	private RedisCommonDao redisCommonDao;
+	@Resource
+	private ShWorkerLocationDao shWorkerLocationDao;
 	@Override
 	public void insertBatch(List<CrmInstallBill> installBills) {
 		this.crmInstallBillDao.insertBatch(installBills);
@@ -74,14 +80,23 @@ public class CrmInstallBillServiceImpl implements CrmInstallBillService {
 		boolean flag = true;
 		while(iterator.hasNext()){
 			String next = (String)iterator.next();
-			Map<String, String> keyZMapGet = redisCommonDao.keyZMapGet(BusinessGlossary.SH_INSTALL_INFO+next);
+			Map<String, String> keyZMapGet = redisCommonDao.keyMapGet(BusinessGlossary.SH_INSTALL_INFO+next);
 			
 			String status = keyZMapGet.get("azzt");
 			String yysj = keyZMapGet.get("yysj");
-			if(!status.equals(BusinessGlossary.BILL_STATUS_DISPATCHED)){
+			String grbm1 = keyZMapGet.get("grbm1");
+			String grbm2 = keyZMapGet.get("grbm2");
+			if(!userId.equals(grbm1) && !userId.equals(grbm2)){
+				removeBillIs.add(next);
+				continue;
+			}
+			if(!status.equals(BusinessGlossary.BILL_STATUS_DISPATCHED) && !status.equals(BusinessGlossary.BILL_STATUS_REPEAT_DISPATCHED)){
 				if(StringUtils.isNotBlank(yysj)){
-					String handle_date = sdf.format(new Date(Long.parseLong(yysj)));
-					if(!handle_date.equals(sdf.format(new Date()))){
+					Calendar curDate = Calendar.getInstance();
+					Calendar curDateZero = new GregorianCalendar(curDate
+							.get(Calendar.YEAR), curDate.get(Calendar.MONTH),
+							curDate.get(Calendar.DATE), 0, 0, 0);
+					if(Long.parseLong(yysj)<curDateZero.getTimeInMillis()){
 						removeBillIs.add(next);
 						continue;
 					}else{
@@ -146,13 +161,6 @@ public class CrmInstallBillServiceImpl implements CrmInstallBillService {
 			this.crmInstallBillDao.insert(crmInstallBill);
 		}else{
 			this.crmInstallBillDao.updateByPrimaryKeySelective(crmInstallBill);
-			/**
-			 * 将工人信息 公司代码 和 提货单号赋值，方便向mq推送
-			 */
-			crmInstallBill.setJlOrderNum(installBill.getJlOrderNum());
-			crmInstallBill.setSalesOrgCode(installBill.getSalesOrgCode());
-			crmInstallBill.setOrderWorkerBig(installBill.getOrderWorkerBig());
-			crmInstallBill.setOrderWorkerLitter(installBill.getOrderWorkerLitter());
 		}
 	}
 
@@ -209,6 +217,15 @@ public class CrmInstallBillServiceImpl implements CrmInstallBillService {
 		 String[] gsdmsArray = gsdms.split(",");
 		 String[] thdsArray = thds.split(",");
 		 Integer order = crmInstallBillDao.getTodayOrderSuquence(workerId);
+		Map<String, Object> inMap = new HashMap<String, Object>();
+		inMap.put("azdhs", azdhsArray);
+		inMap.put("workerId", workerId);
+		List<Map<String, Object>> needPlanInstalls = crmInstallBillDao.findNeedPlanInstalls(inMap);
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		for(Map<String, Object> map :needPlanInstalls){
+			paramMap.put((String)map.get("azdh"), map.get("order"));
+		}
+		 
 		 if(order == null){
 			 order = 0;
 		 }
@@ -216,15 +233,23 @@ public class CrmInstallBillServiceImpl implements CrmInstallBillService {
 			 String azdh = azdhsArray[i-1];
 			 String gsdm = gsdmsArray[i-1];
 			 String thd = thdsArray[i-1];
-			 order = order + 1;
-			 CrmInstallBill crmInstallBill = new CrmInstallBill();
-			 crmInstallBill.setJlOrderNum(azdh);
-			 crmInstallBill.setPlanFinishSuquence(order);
-			 this.crmInstallBillDao.updateByPrimaryKeySelective(crmInstallBill);
-			 if(StringUtils.isNotBlank(gsdm) && StringUtils.isNotBlank(thd) ){
-				 Map<String,String> orderMap = new HashMap<String, String>();
-				 orderMap.put("order", String.valueOf(order));
-				 redisCommonDao.keyMapAdd(BusinessGlossary.SH_INSTALL_INFO+thd+gsdm, orderMap, null);
+			 if(paramMap.containsKey(azdh) && StringUtils.isBlank((String)paramMap.get(azdh))){
+				 order = order + 1;
+				 CrmInstallBill crmInstallBill = new CrmInstallBill();
+				 crmInstallBill.setJlOrderNum(azdh);
+				 crmInstallBill.setPlanFinishSuquence(order);
+				 this.crmInstallBillDao.updateByPrimaryKeySelective(crmInstallBill);
+				 if(StringUtils.isNotBlank(gsdm) && StringUtils.isNotBlank(thd) ){
+					 Map<String,String> orderMap = new HashMap<String, String>();
+					 orderMap.put("order", String.valueOf(order));
+					 String baseKey = null;
+					 if(StringUtils.isNotBlank(thd) && StringUtils.isNotBlank(gsdm)){
+						 baseKey = thd+"_"+gsdm;
+					 }else{
+						 baseKey = azdh;
+					 }
+					 redisCommonDao.keyMapAdd(BusinessGlossary.SH_INSTALL_INFO+baseKey, orderMap, null);
+				 }
 			 }
 		}
 	}
@@ -234,13 +259,26 @@ public class CrmInstallBillServiceImpl implements CrmInstallBillService {
 		String workerId = (String) param.get("userId");
 		String jd = (String) param.get("jd");
 		String wd = (String) param.get("wd");
+		Date date = new Date();
 		String time = String.valueOf(new Date().getTime());
 		JSONObject json = new JSONObject();
 		json.put("workerId", workerId);
 		json.put("jd", jd);
 		json.put("wd", wd);
 		json.put("time", time);
-		redisCommonDao.keyZSetAdd(BusinessGlossary.SH_WORKERS_LOCATION+workerId, Double.valueOf(time), json.toString(), null);
+		
+		ShWorkerLocation shWorkerLocation = new ShWorkerLocation();
+		shWorkerLocation.setWd(wd);
+		shWorkerLocation.setTime(date);
+		shWorkerLocation.setJd(jd);
+		shWorkerLocation.setWorkerId(workerId);
+		shWorkerLocationDao.insert(shWorkerLocation);
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.HOUR_OF_DAY, 24);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+		redisCommonDao.keyZSetAdd(BusinessGlossary.SH_WORKERS_LOCATION+workerId, Double.valueOf(time), json.toString(), cal.getTime());
 	}
 
 	@Override
@@ -248,7 +286,7 @@ public class CrmInstallBillServiceImpl implements CrmInstallBillService {
 		JSONObject json = new JSONObject();
 		String thd = (String) param.get("thd");
 		String gsdm = (String) param.get("gsdm");
-		Map<String, String> keyZMapGet = redisCommonDao.keyZMapGet(BusinessGlossary.WL_LEG_INFO+thd+"_"+gsdm);
+		Map<String, String> keyZMapGet = redisCommonDao.keyMapGet(BusinessGlossary.WL_LEG_INFO+thd+"_"+gsdm);
 		if(keyZMapGet != null){
 			String yjddkssj = keyZMapGet.get("yjddkssj");
 			String ydzt = keyZMapGet.get("ydzt");

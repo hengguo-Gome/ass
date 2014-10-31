@@ -1,14 +1,14 @@
 10
 
 dir
-7396
+7643
 https://10.128.11.62/svn/gome/trunk/mbl-server/ass/src/main/webapp/WEB-INF/jsp/permission
 https://10.128.11.62/svn/gome
 
 
 
-2014-10-13T09:40:12.597515Z
-7175
+2014-10-30T06:37:22.253715Z
+7601
 wanghengguo
 
 
@@ -33,6 +33,142 @@ ceea3779-27bf-e045-a9e1-b02ef83dfcfa
 
 0
 
+userList.jsp
+file
+
+
+
+
+2014-10-28T08:47:59.249752Z
+1ced875a90afcde72120b9e06af14180
+2014-10-28T09:44:38.376271Z
+7540
+wanghengguo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+12806
+
+roleImport.jsp
+file
+
+
+
+
+2014-10-29T07:16:34.318245Z
+63251e260b354e6865ba2a68ea9eb355
+2014-10-30T01:16:20.698646Z
+7580
+wanghengguo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2152
+
 deviceManage
 dir
+
+roleList.jsp
+file
+
+
+
+
+2014-10-30T03:50:37.001889Z
+0e0221c6387f2dcb8fba0f771ccacd7b
+2014-10-30T06:37:22.253715Z
+7601
+wanghengguo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+12056
+
+menuList.jsp
+file
+
+
+
+
+2014-10-27T02:08:36.892712Z
+589cce20ff401036b862c0e4f50b272f
+2014-10-28T09:44:38.376271Z
+7540
+wanghengguo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3142
 

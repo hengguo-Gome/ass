@@ -1,103 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 78
-/svn/gome/!svn/ver/7360/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity
-END
-ShMenu.java
-K 25
-svn:wc:ra_dav:version-url
-V 90
-/svn/gome/!svn/ver/6505/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/ShMenu.java
-END
-UserRole.java
-K 25
-svn:wc:ra_dav:version-url
-V 92
-/svn/gome/!svn/ver/6111/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/UserRole.java
-END
-ShUserPwdInfo.java
-K 25
-svn:wc:ra_dav:version-url
-V 97
-/svn/gome/!svn/ver/7175/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/ShUserPwdInfo.java
-END
-UserInfoMsg.java
-K 25
-svn:wc:ra_dav:version-url
-V 95
-/svn/gome/!svn/ver/6111/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/UserInfoMsg.java
-END
-Role.java
-K 25
-svn:wc:ra_dav:version-url
-V 88
-/svn/gome/!svn/ver/6111/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/Role.java
-END
-CrmService.java
-K 25
-svn:wc:ra_dav:version-url
-V 94
-/svn/gome/!svn/ver/6866/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/CrmService.java
-END
-ShDeviceManage.java
-K 25
-svn:wc:ra_dav:version-url
-V 98
-/svn/gome/!svn/ver/6574/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/ShDeviceManage.java
-END
-ShDataRecord.java
-K 25
-svn:wc:ra_dav:version-url
-V 96
-/svn/gome/!svn/ver/7010/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/ShDataRecord.java
-END
-ShCode.java
-K 25
-svn:wc:ra_dav:version-url
-V 90
-/svn/gome/!svn/ver/6513/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/ShCode.java
-END
-CrmAccessories.java
-K 25
-svn:wc:ra_dav:version-url
-V 98
-/svn/gome/!svn/ver/6748/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/CrmAccessories.java
-END
-Person.java
-K 25
-svn:wc:ra_dav:version-url
-V 90
-/svn/gome/!svn/ver/6284/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/Person.java
-END
-EmpPosition.java
-K 25
-svn:wc:ra_dav:version-url
-V 95
-/svn/gome/!svn/ver/6670/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/EmpPosition.java
-END
-CrmCompany.java
-K 25
-svn:wc:ra_dav:version-url
-V 94
-/svn/gome/!svn/ver/6677/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/CrmCompany.java
-END
-DeviceManage.java
-K 25
-svn:wc:ra_dav:version-url
-V 96
-/svn/gome/!svn/ver/6111/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/DeviceManage.java
-END
-ShUser.java
-K 25
-svn:wc:ra_dav:version-url
-V 90
-/svn/gome/!svn/ver/7175/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/ShUser.java
-END
-RoleResource.java
-K 25
-svn:wc:ra_dav:version-url
-V 96
-/svn/gome/!svn/ver/6111/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/RoleResource.java
+/svn/gome/!svn/ver/7642/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity
 END
 UserTag.java
 K 25
@@ -105,35 +9,11 @@ svn:wc:ra_dav:version-url
 V 91
 /svn/gome/!svn/ver/6111/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/UserTag.java
 END
-CrmWebBasicdata.java
-K 25
-svn:wc:ra_dav:version-url
-V 99
-/svn/gome/!svn/ver/6505/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/CrmWebBasicdata.java
-END
-CrmInstallBill.java
-K 25
-svn:wc:ra_dav:version-url
-V 98
-/svn/gome/!svn/ver/7140/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/CrmInstallBill.java
-END
-CrmWorker.java
-K 25
-svn:wc:ra_dav:version-url
-V 93
-/svn/gome/!svn/ver/6514/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/CrmWorker.java
-END
-SysUser.java
+AssUser.java
 K 25
 svn:wc:ra_dav:version-url
 V 91
-/svn/gome/!svn/ver/6716/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/SysUser.java
-END
-ShMessage.java
-K 25
-svn:wc:ra_dav:version-url
-V 93
-/svn/gome/!svn/ver/6505/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/ShMessage.java
+/svn/gome/!svn/ver/6111/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/AssUser.java
 END
 JlAccount.java
 K 25
@@ -141,23 +21,59 @@ svn:wc:ra_dav:version-url
 V 93
 /svn/gome/!svn/ver/6753/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/JlAccount.java
 END
-AssUser.java
+ShRoleMenu.java
 K 25
 svn:wc:ra_dav:version-url
-V 91
-/svn/gome/!svn/ver/6111/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/AssUser.java
+V 94
+/svn/gome/!svn/ver/7601/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/ShRoleMenu.java
 END
-EmpSysVar.java
+UserInfoMsg.java
 K 25
 svn:wc:ra_dav:version-url
-V 93
-/svn/gome/!svn/ver/6670/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/EmpSysVar.java
+V 95
+/svn/gome/!svn/ver/6111/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/UserInfoMsg.java
+END
+EmpAccount.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/gome/!svn/ver/6670/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/EmpAccount.java
+END
+RoleResource.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/gome/!svn/ver/6111/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/RoleResource.java
 END
 CrmAccessoryBasicdata.java
 K 25
 svn:wc:ra_dav:version-url
 V 105
-/svn/gome/!svn/ver/7411/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/CrmAccessoryBasicdata.java
+/svn/gome/!svn/ver/7468/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/CrmAccessoryBasicdata.java
+END
+ShCode.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/gome/!svn/ver/6513/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/ShCode.java
+END
+CrmWebBasicdata.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/gome/!svn/ver/6505/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/CrmWebBasicdata.java
+END
+CrmCompany.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/gome/!svn/ver/6677/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/CrmCompany.java
+END
+ShPosition.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/gome/!svn/ver/7580/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/ShPosition.java
 END
 ShGroupMessage.java
 K 25
@@ -165,9 +81,117 @@ svn:wc:ra_dav:version-url
 V 98
 /svn/gome/!svn/ver/7175/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/ShGroupMessage.java
 END
-EmpAccount.java
+CrmService.java
 K 25
 svn:wc:ra_dav:version-url
 V 94
-/svn/gome/!svn/ver/6670/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/EmpAccount.java
+/svn/gome/!svn/ver/6866/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/CrmService.java
+END
+ShMenu.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/gome/!svn/ver/6505/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/ShMenu.java
+END
+ShDataRecord.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/gome/!svn/ver/7010/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/ShDataRecord.java
+END
+ShDeviceManage.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/gome/!svn/ver/6574/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/ShDeviceManage.java
+END
+ShRole.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/gome/!svn/ver/7540/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/ShRole.java
+END
+ShUserPwdInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/gome/!svn/ver/7175/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/ShUserPwdInfo.java
+END
+ShWorkerLocation.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/gome/!svn/ver/7547/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/ShWorkerLocation.java
+END
+CrmInstallBill.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/gome/!svn/ver/7642/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/CrmInstallBill.java
+END
+EmpSysVar.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/gome/!svn/ver/6670/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/EmpSysVar.java
+END
+UserRole.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/gome/!svn/ver/6111/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/UserRole.java
+END
+ShUser.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/gome/!svn/ver/7175/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/ShUser.java
+END
+CrmWorker.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/gome/!svn/ver/6514/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/CrmWorker.java
+END
+DeviceManage.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/gome/!svn/ver/6111/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/DeviceManage.java
+END
+SysUser.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/gome/!svn/ver/6716/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/SysUser.java
+END
+Role.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/gome/!svn/ver/6111/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/Role.java
+END
+Person.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/gome/!svn/ver/6284/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/Person.java
+END
+CrmAccessories.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/gome/!svn/ver/6748/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/CrmAccessories.java
+END
+ShMessage.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/gome/!svn/ver/6505/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/ShMessage.java
+END
+EmpPosition.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/gome/!svn/ver/6670/trunk/mbl-server/ass/src/main/java/com/gome/ass/entity/EmpPosition.java
 END

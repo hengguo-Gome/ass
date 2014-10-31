@@ -1,0 +1,99 @@
+package com.gome.ass.service.permission.impl;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.gome.ass.dao.permission.ShRoleDao;
+import com.gome.ass.dao.permission.ShRoleMenuDao;
+import com.gome.ass.entity.ShMenu;
+import com.gome.ass.entity.ShPosition;
+import com.gome.ass.service.permission.ShRoleService;
+import com.gome.ass.util.UUIDUtil;
+import com.gome.common.page.Page;
+
+@Service("shRoleService")
+public class ShRoleServiceImpl implements ShRoleService {
+
+	@Resource
+	private ShRoleDao shRoleDao;
+	@Resource
+	private ShRoleMenuDao shRoleMenuDao;
+	
+	@Override
+	public void updateShRoleResources(Map<String, Object> inMap) {
+		String[] lists = ((String)inMap.get("menuIds")).split(",");
+		if(lists != null && lists.length > 0){
+			inMap.put("menuIds", lists);
+			this.shRoleDao.deleteShRoleResource((String) inMap.get("roleId"));
+			this.shRoleDao.insertRoleResourceBatch(inMap);
+		}
+	}
+
+	@Override
+	public void deleteShRole(Map<String, Object> inMap) {
+		this.shRoleDao.delRoleResourceBatch(inMap);
+		this.shRoleDao.deleteShRoleBatch(inMap);
+		
+	}
+	
+	@Override
+	public List<Map<String, Object>> getRolePageList(Page page) {
+		return this.shRoleMenuDao.getRolePageList(page);
+	}
+
+	@Override
+	public List<Map<String, Object>> getRoleResource(Map<String, Object> inMap) {
+		return this.shRoleMenuDao.getRoleResource(inMap);
+	}
+
+	@Override
+	public void insertRoleResource(Map<String, Object> inMap) {
+		String[] lists = ((String)inMap.get("menuIds")).split(",");
+		inMap.put("roleId", UUIDUtil.getUUID());
+		this.shRoleDao.insertShRole(inMap);
+		if(lists != null && lists.length > 0){
+			inMap.put("menuIds", lists);
+			this.shRoleDao.insertRoleResourceBatch(inMap);
+		}
+	}
+	
+	@Override
+	public Map<String, String> insertShPosition(List<ShPosition> positions) {
+		Set<String> set = new HashSet<String>();
+		for(ShPosition p: positions){
+			set.add(p.getCode());
+		}
+		this.shRoleDao.deleShPositions(new ArrayList<String>(set));
+		Map<String, String> resultMap = new HashMap<String, String>();
+		String success = "{";
+		String failure = "{";
+		
+		for(int i=0 ; i< positions.size() ; i++){
+			ShPosition position = positions.get(i);
+			position.setId(UUIDUtil.getUUID());
+			try{
+				this.shRoleDao.insertShPosition(position);
+				success +=(i+2)+",";
+			}catch(Exception e){
+				failure +=(i+2)+",";
+			}
+		}
+		resultMap.put("success", success.length()==1 ? success+"}":success.subSequence(0, success.length()-1)+"}");
+		resultMap.put("failure", failure.length()==1 ? failure+"}":failure.subSequence(0, failure.length()-1)+"}");
+		return resultMap;
+	
+	}
+
+	@Override
+	public List<ShMenu> getRoleResourceByRoleName(Map<String, Object> map) {
+		return this.shRoleMenuDao.getRoleResourceByName(map);
+	}
+}

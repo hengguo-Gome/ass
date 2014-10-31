@@ -49,7 +49,7 @@
 							</tr>
 							<tr>
 								<td colspan="2"><input type="button" class="submit"
-									tabindex="3" value="登录" onclick="loginSubmit();"></td>
+									tabindex="3" value="登录" onclick="javascript:loginSubmit();"></td>
 							</tr>
 						</table>
 

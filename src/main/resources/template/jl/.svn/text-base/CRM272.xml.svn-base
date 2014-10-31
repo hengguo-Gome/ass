@@ -20,6 +20,9 @@
     <BZ>$crmInstallBillVO.remark</BZ>
     <ZFBJ>$crmInstallBillVO.billStatus</ZFBJ>
     <AZLX>$crmInstallBill.installationType</AZLX>
+    <ZSPPL1>$crmInstallBill.goodCategory</ZSPPL1>
+    <ZSPPP1>$crmInstallBill.goodBrand</ZSPPP1>
+    <ZSZTBBS>$crmInstallBill.isSeedInstallSync</ZSZTBBS>
   </HEADER>
   <ITEMS>
     <ITEM>

@@ -1,11 +1,23 @@
 K 25
 svn:wc:ra_dav:version-url
 V 86
-/svn/gome/!svn/ver/7204/trunk/mbl-server/ass/src/main/java/com/gome/ass/dao/permission
+/svn/gome/!svn/ver/7641/trunk/mbl-server/ass/src/main/java/com/gome/ass/dao/permission
+END
+ShRoleMenuDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/gome/!svn/ver/7601/trunk/mbl-server/ass/src/main/java/com/gome/ass/dao/permission/ShRoleMenuDao.java
+END
+ShRoleDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/gome/!svn/ver/7601/trunk/mbl-server/ass/src/main/java/com/gome/ass/dao/permission/ShRoleDao.java
 END
 ShDeviceManageDao.java
 K 25
 svn:wc:ra_dav:version-url
 V 109
-/svn/gome/!svn/ver/7204/trunk/mbl-server/ass/src/main/java/com/gome/ass/dao/permission/ShDeviceManageDao.java
+/svn/gome/!svn/ver/7641/trunk/mbl-server/ass/src/main/java/com/gome/ass/dao/permission/ShDeviceManageDao.java
 END

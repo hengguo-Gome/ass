@@ -7,7 +7,6 @@ import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.gome.ass.common.Constrants;
@@ -20,7 +19,6 @@ import com.gome.ass.schedule.GetAccountJob;
 import com.gome.ass.service.users.ShUserPwdInfoService;
 import com.gome.ass.service.wsdl.service.EmpService;
 import com.gome.ass.util.UUIDUtil;
-import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 
 
 @Service("empService")
@@ -45,16 +43,6 @@ public class EmpServiceImpl implements EmpService {
 	public void updateAccount(EmpAccount account) {
 		empDao.updateAccount(account);
 	}
-
-//	@Override
-//	public void addAccountJobLog(EmpAccountJobLog accountJobLog) {
-//		empDao.addAccountJobLog(accountJobLog);
-//	}
-
-//	@Override
-//	public void deleteLogByEmpno(String empno) {
-//		empDao.deleteLogByEmpno(empno);
-//	}
 
 	@Override
 	public void deleteEmpPositionById(String empNo) {
@@ -125,7 +113,7 @@ public class EmpServiceImpl implements EmpService {
 
                     ShUserPwdInfo shUserPwdInfo = new ShUserPwdInfo();
                     shUserPwdInfo.setUserId(account.getApAccount());
-                    shUserPwdInfo.setPassword(account.getAdAccountpwd());
+                    shUserPwdInfo.setPassword(account.getApAccountpwd());
                     shUserPwdInfo.setUserType(Constrants.GOME_USER);
                     shUserPwdInfoService.insert(shUserPwdInfo);
                     
@@ -135,38 +123,13 @@ public class EmpServiceImpl implements EmpService {
 					account.setAdAccountpwd(tempAcc.getAdAccountpwd());
 					empDao.updateAccount(account);
 				}
-				/*
+				
 				empDao.deleteEmpPositionById(account.getEmpno());
-				empDao.deleteLogByEmpno(account.getEmpno());
 				if(emps.size()==0){
-					accountJobLog =  new EmpAccountJobLog();
-					accountJobLog.setBatchno(getAccountJob.getBatchNo());
-					accountJobLog.setEmpno(account.getEmpno());
-					accountJobLog.setEmpname(account.getEmpname());
-					accountJobLog.setAdAccount(account.getAdAccount());
-					accountJobLog.setApAccount(account.getApAccount());
-					accountJobLog.setCompname(account.getCompname());
-//					accountJobLog.setDeptcode(emp.getDeptcode());
-//					accountJobLog.setDeptname(emp.getDeptname());
-//					accountJobLog.setPositioncode(emp.getPositioncode());
-//					accountJobLog.setPositionname(emp.getPositionname());
-//					accountJobLog.setDutyflag(emp.getDutyflag());
-					accountJobLog.setCreatedate(SysUtils.getCurrentDate());
-					accountJobLog.setCreatetime(SysUtils.getCurrentTime());
-					accountJobLog.setModifydate(SysUtils.getCurrentDate());
-					accountJobLog.setModifytime(SysUtils.getCurrentTime());
-					accountJobLog.setOperatortype(operatorType);
-//					account.setState("3");
-//					getAccountJob.getAccountService().updateAccount(account);
-					
-					
-					accountJobLog.setState("成功");
-					accountJobLog.setLoginfo("用户"+account.getApAccount()+"更新成功,权限分配失败.因为该账户是空岗！");	
-					String logid = UUIDUtil.getUUID();
-					accountJobLog.setLogid(logid);
-					empDao.addAccountJobLog(accountJobLog);
+					account.setState("3");
+					empDao.updateAccount(account);
 				}
-				*/
+				
 				int fitNum = 0;
 				for(int i=0;i<emps.size();i++){
 					try {
@@ -245,9 +208,13 @@ public class EmpServiceImpl implements EmpService {
 		return true;
 	}
 
-//	@Override
-//	public SysUser getAccountByApAccount(String indexLoginId) {
-//		return empDao.getAccountByApAccount(indexLoginId);
-//	}
+	@Override
+	public String getFlagByApAccount(String account) {
+		return this.empDao.getFlagByApAccount(account);
+	}
 
+	@Override
+	public void updateModifyPwdByApAccount(String account) {
+		this.empDao.updateModifyPwdByApAccount(account);
+	}
 }
